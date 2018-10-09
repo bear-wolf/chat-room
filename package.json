@@ -1,0 +1,22 @@
+{
+  "name": "chat-room",
+  "version": "1.0.0",
+  "description": "Node js, Angular v6+, webSocket",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bear-wolf/chat-room.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bear-wolf/chat-room/issues"
+  },
+  "homepage": "https://github.com/bear-wolf/chat-room#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
