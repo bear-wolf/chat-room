@@ -9,6 +9,8 @@ var app,
 app = express();
 app.set('port', 3001);
 
+require('./dependencies');
+
 
 http.createServer(app).listen(app.get('port'), function () {
     var routes = require('./routes/index').createInstance();
@@ -19,6 +21,7 @@ http.createServer(app).listen(app.get('port'), function () {
     //     extended: true
     // }))
     // app.use(bodyParser.json()) // parse application/json
+    //console.log('modules', dependencies);
 
     routes.assignRoutes(app);
 })
