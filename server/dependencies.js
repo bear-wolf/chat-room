@@ -1,5 +1,9 @@
 global.config = require('./config/index');
-global.controlles = require('./controllers/');
+
+global.getControllers = function () {
+    //return require('./controllers/');
+    return require('./controllers/');
+}
 
 // // так выглядит подключение других стандартных модулей, например:
 // demandLoad(global, 'fs', 'fs');
