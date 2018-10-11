@@ -27,10 +27,12 @@ var _public = {
 
         // GET method routes
         app.get('/', function (req, res) {
-            var controller = global.controlles.MainController.createInstance();
+            var controller = global.getControllers().MainController.createInstance()
+                .setRequest(req)
+                .setResponce(res);
 
             controller.actionPage();
-            res.set('server start app /');
+
             res.end('');
         });
 

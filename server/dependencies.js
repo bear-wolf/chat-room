@@ -1,4 +1,5 @@
 global.config = require('./config/index');
+global.mysql = require('mysql');
 
 global.getControllers = function () {
     //return require('./controllers/');
