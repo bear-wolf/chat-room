@@ -22,6 +22,9 @@ var _public = {
 
         return this;
     },
+    getDataBaseName: function () {
+        return this.database_name;
+    },
     setCallBackAfterQuery: function (callback_after_query) {
         this.callback_after_query = callback_after_query;
 
