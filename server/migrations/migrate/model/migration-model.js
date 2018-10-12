@@ -4,7 +4,7 @@ var _public = {
     database_name: null,
     connection: null, // connection to database
     query: null,
-    callback_after_query: null,
+    callback_successfully: null,
     callback_error: null,
 
     constructor: function () {
@@ -25,8 +25,8 @@ var _public = {
     getDataBaseName: function () {
         return this.database_name;
     },
-    setCallBackAfterQuery: function (callback_after_query) {
-        this.callback_after_query = callback_after_query;
+    setCallBackSuccessfully: function (callback_successfully) {
+        this.callback_successfully = callback_successfully;
 
         return this;
     },
@@ -41,46 +41,19 @@ var _public = {
             db = global.getControllers().DataBase.createInstance();
 
         db.setCallBackConnection(function () {
-            this.getConnection().query(_this.query, function (err, data) {
-                if (err) {
-                    if (typeof _this.callback_error == "function")
-                        _this.callback_error();
-                    return;
-                }
-                _this.callback_after_query(data);
+            db.getConnection().query(_this.query, function (err, data) {
+                    if (err) {
+                        if (typeof _this.callback_error == "function")
+                            _this.callback_error(err);
+                        return;
+                    }
+                    _this.callback_successfully(data);
 
-                db.connectionClose();
-            });
-        })
+                    db.connectionClose();
+                });
+            })
             .connect();
     },
-    runCreateDataBase: function () {
-        var _this = this, db,
-            con, //global.mysql.createConnection(global.config.database);
-            //db = global.getControllers().DataBase.createInstance();
-
-            db = global.mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "root"
-            });
-
-
-        con = db;
-        con.connect(function(err) {
-            if (err) throw err;
-            con.query(_this.query, function (err, result) {
-                if (err) {
-                    if (typeof _this.callback_error == "function")
-                        _this.callback_error();
-                    return;
-                }
-                _this.callback_after_query(data);
-
-                con.end();
-            });
-        });
-    }
 }
 var ModelMigration = {
     createInstance : function(){

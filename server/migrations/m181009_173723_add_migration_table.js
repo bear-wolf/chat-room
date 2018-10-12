@@ -7,26 +7,9 @@ var _public = {
         return this;
     },
     up: function () {
-        var _this = this,
-            nameDb = config.database.database;
-        delete config.database.database;
-
-        this.setQuery('CREATE DATABASE `'+ this.getDataBaseName()+'`')
-            .setCallBackSuccessfully( function (data) {
-                //config.database.database = nameDb;
-                console.log('Migration is successful.');
-            })
-            .setCallBackError(function (error) {
-                console.log('Error:', error);
-            })
-            .runQuery();
-    },
-
-    addMigrateTable: function () {
         this.setQuery('CREATE TABLE `'+this.getDataBaseName()+'`.`migration` ('+
-                    '`version` VARCHAR(100) NULL,' +
-                    '`timestamp` INT NULL,' +
-                    'PRIMARY KEY (`version`))')
+            '`version` VARCHAR(100) NOT NULL, ' +
+            '`timestamp` INT NULL)')
             .setCallBackSuccessfully( function (data) {
                 debugger;
                 console.log('Migration is successful.');
@@ -35,8 +18,6 @@ var _public = {
                 console.log('Error:', error);
             })
             .runQuery();
-
-      return this;
     },
     down: function () {
 

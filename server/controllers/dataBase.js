@@ -4,9 +4,10 @@ var _private = {
 
 var _public = {
     callback_connection: null,
+    connection: null,
 
     constructor: function () {
-        this.connection = global.mysql.createConnection(config.getDataBase());
+        this.connection = global.mysql.createConnection(global.config.getDataBase());
 
         return this;
     },
@@ -25,7 +26,7 @@ var _public = {
             if (err) throw err;
             console.log("Connected!");
             if (typeof _this.callback_connection == "function") {
-                _this.callback_connection.call(_this);
+                _this.callback_connection.call(this);
             }
         });
     },
