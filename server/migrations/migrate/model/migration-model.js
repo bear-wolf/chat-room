@@ -41,19 +41,46 @@ var _public = {
             db = global.getControllers().DataBase.createInstance();
 
         db.setCallBackConnection(function () {
-                this.getConnection().query(_this.query, function (err, data) {
-                    if (err) {
-                        if (typeof _this.callback_error == "function")
+            this.getConnection().query(_this.query, function (err, data) {
+                if (err) {
+                    if (typeof _this.callback_error == "function")
                         _this.callback_error();
-                        return;
-                    }
-                    _this.callback_after_query(data);
+                    return;
+                }
+                _this.callback_after_query(data);
 
-                    db.connectionClose();
-                });
-            })
+                db.connectionClose();
+            });
+        })
             .connect();
     },
+    runCreateDataBase: function () {
+        var _this = this, db,
+            con, //global.mysql.createConnection(global.config.database);
+            //db = global.getControllers().DataBase.createInstance();
+
+            db = global.mysql.createConnection({
+                host: "localhost",
+                user: "root",
+                password: "root"
+            });
+
+
+        con = db;
+        con.connect(function(err) {
+            if (err) throw err;
+            con.query(_this.query, function (err, result) {
+                if (err) {
+                    if (typeof _this.callback_error == "function")
+                        _this.callback_error();
+                    return;
+                }
+                _this.callback_after_query(data);
+
+                con.end();
+            });
+        });
+    }
 }
 var ModelMigration = {
     createInstance : function(){

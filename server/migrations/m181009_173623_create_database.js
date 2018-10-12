@@ -1,5 +1,5 @@
 var modelMigration = require('./migrate/model/migration-model');
-var config = require('./../config');
+require('./../dependencies');
 
 var _public = {
     constructor: function () {
@@ -10,13 +10,31 @@ var _public = {
         var nameDb = config.database.database;
         delete config.database.database;
 
-        this.database_name = 'chat-room';
-        this.setQuery('CREATE SCHEMA '+ this.getDataBaseName()+'')
-            .setCallBackAfterQuery( function (data) {
-                config.database.database = nameDb;
-                console.log('Migration is successful.');
-            })
-            .runQuery();
+        // this.setQuery('CREATE DATABASE '+ this.getDataBaseName())
+        // //     .setCallBackAfterQuery( function (data) {
+        // //         debugger;
+        // //         config.database.database = nameDb;
+        // //         console.log('Migration is successful.');
+        // //     })
+        // //     .setCallBackError(function (error) {
+        // //         console.log('Error:', error);
+        // //     })
+        // .runCreateDataBase();
+
+        var con = global.mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "root",
+        });
+
+        con.connect(function(err) {
+            if (err) throw err;
+            this.database_name = 'chat-room';
+            con.query("CREATE DATABASE chat-room", function (err, result) {
+                if (err) throw err;
+                console.log("Database created");
+            });
+        });
     },
     down: function () {
 

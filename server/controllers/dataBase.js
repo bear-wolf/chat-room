@@ -41,7 +41,10 @@ var DataBase = {
             }
         }
 
-        return new Obj().constructor();
+        return DataBase.instance = new Obj().constructor();
+    },
+    getInstance: function () {
+        return DataBase.instance;
     }
 }
 
