@@ -1,5 +1,5 @@
 module.exports = {
-    BaseController: require('./baseController'),
-    DataBase: require('./dataBase'),
-    MainController: require('./mainController'),
+    BaseController: require('./base-controller'),
+    DataBase: require('./data-base'),
+    MainController: require('./main-controller'),
 }
