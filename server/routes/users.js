@@ -1,9 +1,17 @@
 var RouteUser = {
     assignRoutes: function (app) {
-        var _this = this;
+        var _this = this,
+            auth = global.getControllers().AuthController,
+            controller = global.getControllers().UserController;
 
         // GET method routes
-        app.get('/users', function (req, res) {
+        app.get('/users', auth.isGuard, function (req, res) {
+            controller
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionPage();
+
             res.end('');
         });
     }
