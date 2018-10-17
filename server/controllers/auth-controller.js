@@ -15,15 +15,39 @@ AuthController = {
                 this[key] = _public[key];
             }
         }
+
         Obj.prototype = Object.create(global.getControllers().BaseController.createInstance());
 
         return new Obj().constructor();
     },
-    signIn: function () {
-        return this;
+    isGuard: function (req, res, next) {
+        //global.client.set('myKey', JSON.stringify({user: 'user', password: '1'}));
+        if (!req.headers.authorization) return;
+
+        global.client.get(req.headers.authorization, function (err, repl) {
+            global.client.quit();
+            if (err) {
+                return false;
+            } else if (repl) {
+                return next(JSON.parse(repl));
+            }
+        });
     },
-    signOut: function () {
-        return this;
+    //log in
+    actionSignIn: function () {
+
+        const id = global.crypto.randomBytes(16).toString("hex");
+
+        global.client.set(id, JSON.stringify({}));
+        return
+    },
+    //log out
+    actionSignOut: function () {
+        return;
+    },
+    //Registry
+    actionSignOut: function () {
+        return;
     }
 }
 

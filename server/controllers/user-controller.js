@@ -6,6 +6,18 @@ _public = {
 
         return this;
     },
+    actionPage: function () {
+      this.responce.end(JSON.stringify({user: true}));
+    },    
+    createUser: function () {
+        this.request
+
+
+        // var db = global.getControllers().DataBase;
+        //
+        // db.createInstance();
+
+    }
 }
 
 UserController = {

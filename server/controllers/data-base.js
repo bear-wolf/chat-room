@@ -32,6 +32,11 @@ var _public = {
     },
     connectionClose: function () {
         this.connection.end();
+    },
+    insert: function (json) {
+        this
+            .setCallBackConnection()
+            .connection()
     }
 }
 var DataBase = {
