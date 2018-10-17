@@ -8,7 +8,15 @@ var _public = {
 
     constructor: function () {
         return this;
-    }
+    },
+
+    save: function () {
+        var db = global.getControllers().DataBase.createInstance();
+
+        db.insert(this);
+
+        return this;
+    },
 }
 
 var User = {
@@ -21,9 +29,7 @@ var User = {
 
         return User.instance = new Obj().constructor();
     },
-    save: function (user) {
-        return this;
-    },
+
     remove: function (user) {
         return this;
     },
