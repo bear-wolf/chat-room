@@ -1,3 +1,5 @@
+var mysqlModel = require('./../models/mysql-model');
+
 var _private = {
 
 }
@@ -33,11 +35,13 @@ var _public = {
     connectionClose: function () {
         this.connection.end();
     },
-    insert: function (json) {
-        this
-            .setCallBackConnection()
-            .connection()
-    }
+    getModel: function () {
+        var instance = mysqlModel.createInstance();
+
+        instance.setDataBase();
+
+        return instance;
+    },
 }
 var DataBase = {
     createInstance : function(){

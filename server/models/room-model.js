@@ -31,4 +31,5 @@ var Room = {
         return Room.instance;
     }
 }
-model.exports
+
+module.exports = Room;

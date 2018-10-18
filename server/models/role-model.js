@@ -30,4 +30,5 @@ var Role = {
         return Role.instance;
     }
 }
-model.exports
+
+module.exports = Role;

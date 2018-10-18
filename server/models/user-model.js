@@ -1,3 +1,29 @@
+var _private = {
+    insert: function (callback) {
+        var db = global.getControllers().DataBase.createInstance();
+
+        var template = 'INSERT INTO `'+ db.getDataBaseName() +'`.`User` (`email`, `password`, `role_id`, `profile_id`, ' +
+            '`date_create`, `date_update`) VALUES ("{0}", "{1}", "{2}", "{3}", "{4}", "{5}"';
+debugger;
+        template =
+            template.replace('{0}', this.email)
+            template.replace('{1}', this.password)
+            template.replace('{2}', this.role_id)
+            template.replace('{3}', this.profile_id)
+            template.replace('{4}', this.date_create)
+            template.replace('{5}', this.date_update)
+
+        db
+            .getModel()
+            .setQuery(template)
+            .setCallBackSuccessfully(callback)
+            .runQuery()
+    },
+    update: function () {
+        
+    }
+};
+
 var _public = {
     id: null,
     role_id: null,
@@ -10,11 +36,53 @@ var _public = {
         return this;
     },
 
+    setId: function (id) {
+        this.id = id || null;
+
+        return this;
+    },
+    setRoleId: function (role_id) {
+        this.role_id = role_id || null;
+
+        return this;
+    },
+    setProfileId: function (profile_id) {
+        this.profile_id = profile_id || null;
+
+        return this;
+    },
+
+    setEmail: function (email) {
+        this.email = email || null;
+
+        return this;
+    },
+
+    setPassword: function (password) {
+        this.password = password || null;
+
+        return this;
+    },
+
+    isValidate: function () {
+
+        return true;
+    },
+
     save: function () {
-        var db = global.getControllers().DataBase.createInstance();
-
-        db.insert(this);
-
+        var _this = this;
+         debugger;
+        if (this.id) {
+            _private.update.call(this, function (data) {
+                debugger;
+                _this.responce.end(JSON.stringify({
+                    status : true,
+                }));
+            });
+        } else {
+            _private.insert.call(this)
+        }
+        
         return this;
     },
 }
@@ -43,4 +111,5 @@ var User = {
         return User.instance;
     }
 }
-model.exports
+
+module.exports = User;

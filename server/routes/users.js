@@ -12,9 +12,10 @@ var RouteUser = {
         //         res.redirect('/')
         //     }
         // };
+        //global.passport.authenticate('local'),
 
         // GET method routes
-        app.get('/users', global.passport.authenticate('local'), function (req, res) {
+        app.get('/users', function (req, res) {
             controller
                 .createInstance()
                 .setRequest(req)
@@ -22,6 +23,14 @@ var RouteUser = {
                 .actionPage();
 
             res.end('');
+        });
+
+        app.post('/users', function (req, res) {
+            controller
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .save();
         });
     }
 }

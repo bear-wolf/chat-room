@@ -31,4 +31,5 @@ var Profile = {
         return Profile.instance;
     }
 }
-model.exports
+
+module.exports = Profile;

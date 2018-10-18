@@ -9,14 +9,14 @@ _public = {
     actionPage: function () {
       this.responce.end(JSON.stringify({user: true}));
     },    
-    createUser: function () {
-        this.request
+    save: function () {
+        var modelUser = global.models.user;
 
-
-        // var db = global.getControllers().DataBase;
-        //
-        // db.createInstance();
-
+        if (modelUser.isValidate()) {
+            modelUser.save()
+        } else {
+            this.responce.end('Not Valide');
+        }
     }
 }
 

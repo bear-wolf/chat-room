@@ -29,4 +29,5 @@ var Participant = {
         return Participant.instance;
     }
 }
-model.exports
+
+module.exports = Participant;
