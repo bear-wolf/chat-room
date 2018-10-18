@@ -3,6 +3,7 @@ global.mysql = require('mysql');
 global.redis = require("redis");
 global.client = global.redis.createClient();
 global.crypto = require("crypto");
+global.passport = require('passport');
 
 global.getControllers = function () {
     //return require('./controllers/');

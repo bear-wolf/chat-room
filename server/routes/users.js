@@ -4,8 +4,17 @@ var RouteUser = {
             auth = global.getControllers().AuthController,
             controller = global.getControllers().UserController;
 
+        // global.passport.authenticationMiddleware = function authenticationMiddleware () { debugger;
+        //     return function (req, res, next) {
+        //         if (req.isAuthenticated()) {
+        //             return next()
+        //         }
+        //         res.redirect('/')
+        //     }
+        // };
+
         // GET method routes
-        app.get('/users', auth.isGuard, function (req, res) {
+        app.get('/users', global.passport.authenticate('local'), function (req, res) {
             controller
                 .createInstance()
                 .setRequest(req)
