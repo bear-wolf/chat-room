@@ -5,4 +5,5 @@ module.exports = {
     role: require('./role-model'),
     room: require('./room-model'),
     user: require('./user-model'),
+    auth: require('./auth-model'),
 }

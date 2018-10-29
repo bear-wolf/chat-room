@@ -1,30 +1,64 @@
-var _private = {
-    insert: function (callback) {
-        var db = global.getControllers().DataBase.createInstance();
+var commonModel = require('./common-model');
+var _public, self;
 
-        var template = 'INSERT INTO `'+ db.getDataBaseName() +'`.`User` (`email`, `password`, `role_id`, `profile_id`, ' +
-            '`date_create`, `date_update`) VALUES ("{0}", "{1}", "{2}", "{3}", "{4}", "{5}"';
-debugger;
-        template =
-            template.replace('{0}', this.email)
-            template.replace('{1}', this.password)
-            template.replace('{2}', this.role_id)
-            template.replace('{3}', this.profile_id)
-            template.replace('{4}', this.date_create)
-            template.replace('{5}', this.date_update)
+self = {
+
+    setCallBackSuccessfully: function (callback_successfully) {
+        this.callback_successfully = callback_successfully;
+
+        return this;
+    },
+    setCallBackError: function (callback_error) {
+        this.callback_error = callback_error;
+
+        return this;
+    },
+
+
+
+    insert: function () {
+        var template,
+            db = global.getControllers().DataBase.createInstance();
+
+        template = 'INSERT INTO `'+ db.getDataBaseName() +'`.`User` (`email`, `password`, `date_create`) VALUES ("{0}", "{1}", "{2}")'
+
+        template = template.replace('{0}', this.email)
+            .replace('{1}', this.password)
+            .replace('{2}', this.date_create)
 
         db
             .getModel()
             .setQuery(template)
-            .setCallBackSuccessfully(callback)
+            .setCallBackSuccessfully(this.callback_successfully)
+            .setCallBackError(this.callback_error)
             .runQuery()
     },
     update: function () {
-        
-    }
+
+    },
+    _getByPermission: function () {
+        var template,
+            db = global.getControllers().DataBase.createInstance();
+
+        template = 'SELECT User.* FROM `'+ db.getDataBaseName() +'`.`User` WHERE `User`.`email` = "{0}" && `User`.`password` = "{1}"';
+
+        template =
+            template.replace('{0}', this.email)
+            .replace('{1}', this.password)
+
+        db
+            .getModel()
+            .setQuery(template)
+            .setCallBackSuccessfully(this.callback_successfully)
+            .setCallBackError(this.callback_error)
+            .runQuery()
+
+        return this;
+    },
 };
 
-var _public = {
+
+_public = {
     id: null,
     role_id: null,
     profile_id: null,
@@ -68,19 +102,22 @@ var _public = {
 
         return true;
     },
+    getByPermission: function () {
+        self.setCallBackSuccessfully(this.callback_successfully)
+        self._getByPermission.call(this);
+
+        return this;
+    },
 
     save: function () {
         var _this = this;
-         debugger;
+
         if (this.id) {
-            _private.update.call(this, function (data) {
-                debugger;
-                _this.responce.end(JSON.stringify({
-                    status : true,
-                }));
-            });
+            this.date_update = global.moment().format(this.getConfig().getDateFormat());
+            self.update.call(this);
         } else {
-            _private.insert.call(this)
+            this.date_create = global.moment().format(this.getConfig().getDateFormat());
+            self.insert.call(this)
         }
         
         return this;
@@ -93,7 +130,13 @@ var User = {
             for(var key in _public){
                 this[key] = _public[key];
             }
+
+            for(var key in _public){
+                self[key] = _public[key];
+            }
         }
+
+        Obj.prototype = Object.create(commonModel.getInstance());
 
         return User.instance = new Obj().constructor();
     },

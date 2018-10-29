@@ -28,7 +28,10 @@ BaseController = {
             }
         }
 
-        return new Obj().constructor();
+        return this.instance = new Obj().constructor();
+    },
+    getInstance : function() {
+        return this.instance || this.createInstance();
     },
 }
 

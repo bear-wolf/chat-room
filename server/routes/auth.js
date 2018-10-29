@@ -1,14 +1,27 @@
 var RouteUser = {
     assignRoutes: function (app) {
-        var _this = this;
+        var _this = this,
+            authController = global.getControllers().AuthController;
 
         // GET method routes
-        app.get('/sign-in', function (req, res) {
-            res.end('');
+        app.post('/sign-in', function (req, res) {
+            authController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionSignIn();
         });
         app.get('/sign-out', function (req, res) {
             res.end('');
         });
+        app.post('/check-in', function (req, res) {
+            authController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionCheckIn();
+        });
+
     }
 }
 

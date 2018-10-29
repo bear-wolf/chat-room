@@ -5,6 +5,7 @@ global.client = global.redis.createClient();
 global.crypto = require("crypto");
 global.passport = require('passport');
 global.models = require('./models');
+global.moment = require('moment');
 
 global.getControllers = function () {
     //return require('./controllers/');

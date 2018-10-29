@@ -9,9 +9,14 @@ var _public = {
     connection: null,
 
     constructor: function () {
+        this.database_name = global.config.getDataBaseName();
+
         this.connection = global.mysql.createConnection(global.config.getDataBase());
 
         return this;
+    },
+    getDataBaseName: function () {
+        return this.database_name;
     },
     setCallBackConnection: function (callback_connection) {
         this.callback_connection = callback_connection;
@@ -38,7 +43,7 @@ var _public = {
     getModel: function () {
         var instance = mysqlModel.createInstance();
 
-        instance.setDataBase();
+        instance.setDataBase(this);
 
         return instance;
     },

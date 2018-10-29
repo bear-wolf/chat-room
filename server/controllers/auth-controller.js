@@ -1,11 +1,39 @@
-var AuthController, _public, _private;
+var AuthController, _public, self;
+
+self = {
+}
 
 _public = {
     constructor: function () {
         this.super();
 
         return this;
-    }
+    },
+    //Registry user
+    actionCheckIn: function () {
+        var _this = this,
+            authModel = global.models.auth.createInstance(),
+            bodyRequest = this.request.body;
+
+        authModel
+            .setReplyHandler(function (data) {
+                _this.responce.end(JSON.stringify(data));
+            })
+            .actionCheckIn(bodyRequest);
+    },
+    //Sign in
+    actionSignIn: function () {
+        var _this = this,
+            authModel = global.models.auth.createInstance(),
+            bodyRequest = this.request.body;
+
+        authModel
+            .setReplyHandler(function (data) {
+                _this.responce.end(JSON.stringify(data));
+            })
+            .actionSignIn(bodyRequest);
+        return
+    },
 }
 
 AuthController = {
@@ -14,9 +42,12 @@ AuthController = {
             for(var key in _public){
                 this[key] = _public[key];
             }
+            for(var key in _public){
+                self[key] = _public[key];
+            }
         }
 
-        Obj.prototype = Object.create(global.getControllers().BaseController.createInstance());
+        Obj.prototype = Object.create(global.getControllers().BaseController.getInstance());
 
         return new Obj().constructor();
     },
@@ -33,22 +64,10 @@ AuthController = {
             }
         });
     },
-    //log in
-    actionSignIn: function () {
-
-        const id = global.crypto.randomBytes(16).toString("hex");
-
-        global.client.set(id, JSON.stringify({}));
-        return
-    },
     //log out
     actionSignOut: function () {
         return;
     },
-    //Registry
-    actionSignOut: function () {
-        return;
-    }
 }
 
 

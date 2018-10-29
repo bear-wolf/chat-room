@@ -66,7 +66,7 @@ var Mysql = {
             }
         }
 
-        return Role.instance = new Obj().constructor();
+        return Mysql.instance = new Obj().constructor();
     },
     save: function (user) {
         return this;
