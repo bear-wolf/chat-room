@@ -6,6 +6,7 @@ global.crypto = require("crypto");
 global.passport = require('passport');
 global.models = require('./models');
 global.moment = require('moment');
+global.token = require('./helpers/token-helper');
 
 global.getControllers = function () {
     //return require('./controllers/');
