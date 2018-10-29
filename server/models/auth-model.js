@@ -1,6 +1,6 @@
 var commonModel = require('./common-model');
-
-var self, _public,
+var self, _public;
+var TOKEN_LENGTH = 32;
 
 self = {
     validation: function (json) {
@@ -9,6 +9,14 @@ self = {
         }
 
         return true;
+    },
+    createToken: function (callback) {
+        global.crypto.randomBytes(TOKEN_LENGTH, function(ex, token) {
+            if (ex) callback(ex);
+
+            if (token) callback(null, token.toString('hex'));
+            else callback(new Error('Problem when generating token'));
+        });
     }
 }
 
@@ -67,10 +75,15 @@ _public = {
             .setEmail(json.email)
             .setPassword(json.password)
             .setCallBackSuccessfully(function (data) {
-                _this.callReplyHandler({
+                var _data = {
                     status: true,
                     body: data
-                })
+                };
+
+                self.createToken(function (err, token) {
+                    _data['token'] = token;
+                    _this.callReplyHandler(_data);
+                });
             })
             .setCallBackError(function (data) {
                 _this.callReplyHandler({
