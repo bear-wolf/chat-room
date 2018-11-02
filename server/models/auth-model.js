@@ -49,6 +49,7 @@ _public = {
         //     _this.callReplyHandler(data)
         // })
     },
+
     //Sign in
     actionSignIn: function (json) {
         var _this = this,
@@ -73,6 +74,9 @@ _public = {
 
                 global.token.create(function (err, token) {
                     _data['token'] = token;
+                    global.redis.setData(token, {
+                        user: data
+                    })
                     _this.callReplyHandler(_data);
                 });
             })
@@ -84,6 +88,32 @@ _public = {
             })
             .getByPermission();
     },
+
+    //Sign out
+    actionSignOut: function (token) {
+        var _this = this,
+            reply = global.models.reply.createInstance();
+
+        if (!token) {
+            reply.setStatus(true)
+
+            return reply.getResponce();
+        }
+
+        global.redis.removeData(token, function (error, data) {
+            if (!error) {
+                reply
+                    .setStatus(true)
+                    .setMessage('Your token has removed');
+            } else {
+                reply
+                    .setStatus(false)
+                    .setMessage('Your token not remove');
+            }
+
+            _this.callReplyHandler(reply.getResponce());
+        })
+    }
 }
 
 var AuthModel = {

@@ -12,7 +12,11 @@ var RouteUser = {
                 .actionSignIn();
         });
         app.get('/sign-out', function (req, res) {
-            res.end('');
+            authController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionSignOut();
         });
         app.post('/check-in', function (req, res) {
             authController

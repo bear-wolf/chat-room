@@ -6,4 +6,5 @@ module.exports = {
     room: require('./room-model'),
     user: require('./user-model'),
     auth: require('./auth-model'),
+    reply: require('./reply-model')
 }

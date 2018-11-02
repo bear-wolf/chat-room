@@ -13,10 +13,6 @@ var _public = {
         var _this = this,
             auth = global.getControllers().AuthController;
 
-        global.client.on("error", function (err) {
-            console.log("Error " + err);
-        });
-
         app.use(function (req, res, next) {
             //addHeader(res);
 
