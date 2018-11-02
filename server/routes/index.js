@@ -2,6 +2,7 @@
  * Created by andrew on 2/1/17.
  */
 var RouteUser = require('./users');
+var RouteAuth = require('./auth');
 
 var _public = {
     constructor: function () {
@@ -9,9 +10,8 @@ var _public = {
         return this;
     },
     assignRoutes: function (app) {
-        var _this = this;
-
-        //mongoCtrl = new mongoController(config);
+        var _this = this,
+            auth = global.getControllers().AuthController;
 
         app.use(function (req, res, next) {
             //addHeader(res);
@@ -24,16 +24,14 @@ var _public = {
         });
 
         RouteUser.assignRoutes(app);
+        RouteAuth.assignRoutes(app);
 
         // GET method routes
         app.get('/', function (req, res) {
-            var controller = global.getControllers().MainController.createInstance()
+            global.getControllers().MainController.createInstance()
                 .setRequest(req)
-                .setResponce(res);
-
-            controller.actionPage();
-
-            res.end('');
+                .setResponce(res)
+                .actionPage();
         });
 
         app.use(function (req, res) {

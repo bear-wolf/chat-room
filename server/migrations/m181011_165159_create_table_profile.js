@@ -1,5 +1,4 @@
 var modelMigration = require('./migrate/model/migration-model');
-require('./../dependencies');
 
 var _public = {
     constructor: function () {
@@ -7,16 +6,18 @@ var _public = {
         return this;
     },
     up: function () {
-        this.setQuery('CREATE TABLE `'+this.getDataBaseName()+'`.`migration` ('+
-            '`version` VARCHAR(100) NOT NULL, ' +
-            '`timestamp` INT NULL)')
-            .setCallBackSuccessfully( function (data) {
-                console.log('Migration is successful.');
-            })
-            .setCallBackError(function (error) {
-                console.log('Error:', error);
-            })
-            .runQuery();
+        this.setQuery('CREATE TABLE `'+ this.database_name +'`.`Profile`(' +
+            '`id` INT NOT NULL,' +
+            '`firstName` VARCHAR(50) NOT NULL,'+
+            '`lastName` VARCHAR(50) NOT NULL,' +
+            '`middleName` VARCHAR(50) NOT NULL,' +
+            '`date_create` DATETIME NULL,' +
+            '`date_update` DATETIME NULL,' +
+            ' PRIMARY KEY (`id`))')
+        .setCallBackSuccessfully( function (data) {
+            console.log('Migration is successful.');
+        })
+        .runQuery();
     },
     down: function () {
 

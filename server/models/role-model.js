@@ -2,14 +2,15 @@ var _public = {
     id: null,
     date_create: null,
     date_update: null,
-    user_id: null,
+    status: null,
+    description: null,
 
     constructor: function () {
         return this;
     }
 }
 
-var Participant = {
+var Role = {
     createInstance : function(){
         var Obj = function(){
             for(var key in _public){
@@ -17,7 +18,7 @@ var Participant = {
             }
         }
 
-        return Participant.instance = new Obj().constructor();
+        return Role.instance = new Obj().constructor();
     },
     save: function (user) {
         return this;
@@ -26,7 +27,8 @@ var Participant = {
         return this;
     },
     getInstance: function () {
-        return Participant.instance;
+        return Role.instance;
     }
 }
-model.exports
+
+module.exports = Role;

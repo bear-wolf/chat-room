@@ -1,4 +1,4 @@
-var modelMigration = require('./model/migration-model');
+var modelMigration = require('./migrate/model/migration-model');
 
 var _public = {
     constructor: function () {
@@ -6,14 +6,19 @@ var _public = {
         return this;
     },
     up: function () {
-        this.setQuery('CREATE TABLE `'+ this.database_name +'`.`User` (\n' +
-            '  `id` INT NOT NULL,\n' +
-            '  `profile_id` INT NULL,\n' +
-            '  PRIMARY KEY (`id`));\n')
-            .setCallBackAfterQuery( function (data) {
-                console.log('Migration is successful.');
-            })
-            .runQuery();
+        this.setQuery('CREATE TABLE `'+ this.database_name +'`.`User`(' +
+            '`id` INT NOT NULL,' +
+            '`email` VARCHAR(50) NOT NULL,'+
+            '`password` VARCHAR(50) NOT NULL,' +
+            '`role_id` INT NOT NULL,' +
+            '`profile_id` INT NULL,' +
+            '`date_create` DATETIME,' +
+            '`date_update` DATETIME NULL,' +
+            ' PRIMARY KEY (`id`))')
+        .setCallBackSuccessfully( function (data) {
+            console.log('Migration is successful.');
+        })
+        .runQuery();
     },
     down: function () {
 

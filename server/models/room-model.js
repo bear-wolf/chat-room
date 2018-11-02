@@ -2,15 +2,16 @@ var _public = {
     id: null,
     date_create: null,
     date_update: null,
-    status: null,
-    description: null,
+    user_id: null, // owner room
+    participant_id: null,
+    role_id: null,
 
     constructor: function () {
         return this;
     }
 }
 
-var Role = {
+var Room = {
     createInstance : function(){
         var Obj = function(){
             for(var key in _public){
@@ -18,7 +19,7 @@ var Role = {
             }
         }
 
-        return Role.instance = new Obj().constructor();
+        return Room.instance = new Obj().constructor();
     },
     save: function (user) {
         return this;
@@ -27,7 +28,8 @@ var Role = {
         return this;
     },
     getInstance: function () {
-        return Role.instance;
+        return Room.instance;
     }
 }
-model.exports
+
+module.exports = Room;

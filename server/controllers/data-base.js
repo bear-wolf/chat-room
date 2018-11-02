@@ -1,3 +1,5 @@
+var mysqlModel = require('./../models/mysql-model');
+
 var _private = {
 
 }
@@ -7,9 +9,14 @@ var _public = {
     connection: null,
 
     constructor: function () {
+        this.database_name = global.config.getDataBaseName();
+
         this.connection = global.mysql.createConnection(global.config.getDataBase());
 
         return this;
+    },
+    getDataBaseName: function () {
+        return this.database_name;
     },
     setCallBackConnection: function (callback_connection) {
         this.callback_connection = callback_connection;
@@ -32,7 +39,14 @@ var _public = {
     },
     connectionClose: function () {
         this.connection.end();
-    }
+    },
+    getModel: function () {
+        var instance = mysqlModel.createInstance();
+
+        instance.setDataBase(this);
+
+        return instance;
+    },
 }
 var DataBase = {
     createInstance : function(){

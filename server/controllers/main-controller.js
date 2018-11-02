@@ -8,7 +8,8 @@ _public = {
     },
     // route '/'
     actionPage: function () {
-        var db = global.getControllers().DataBase.createInstance();
+        this.responce.end(JSON.stringify({page: 'main'}));
+        // var db = global.getControllers().DataBase.createInstance();
 
         // db
         //     .setCallBackConnection(function (data) {

@@ -1,17 +1,15 @@
 var _public = {
     id: null,
-    role_id: null,
-    profile_id: null,
     date_create: null,
-    email: null,
-    password: null,
+    date_update: null,
+    user_id: null,
 
     constructor: function () {
         return this;
     }
 }
 
-var User = {
+var Participant = {
     createInstance : function(){
         var Obj = function(){
             for(var key in _public){
@@ -19,7 +17,7 @@ var User = {
             }
         }
 
-        return User.instance = new Obj().constructor();
+        return Participant.instance = new Obj().constructor();
     },
     save: function (user) {
         return this;
@@ -27,14 +25,9 @@ var User = {
     remove: function (user) {
         return this;
     },
-    getUserByPraticipantId: function (participant_id) {
-        return this;
-    },
-    changeRole: function (role) {
-        return this;
-    },
     getInstance: function () {
-        return User.instance;
+        return Participant.instance;
     }
 }
-model.exports
+
+module.exports = Participant;

@@ -6,6 +6,18 @@ _public = {
 
         return this;
     },
+    actionPage: function () {
+      this.responce.end(JSON.stringify({user: true}));
+    },    
+    save: function () {
+        var modelUser = global.models.user;
+
+        if (modelUser.isValidate()) {
+            modelUser.save()
+        } else {
+            this.responce.end('Not Valide');
+        }
+    }
 }
 
 UserController = {
