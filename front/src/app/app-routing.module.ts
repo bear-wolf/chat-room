@@ -2,7 +2,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'guest', pathMatch: 'full' },
+    { path: '', redirectTo: 'auth', pathMatch: 'full' },
     {
       path: 'guest',
       pathMatch: 'full',

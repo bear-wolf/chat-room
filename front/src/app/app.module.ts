@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {ChatPanelComponent} from "./components/chat-panel/chat-panel.component";
-import {ContactPanelComponent} from "./components/contact-panel/contact-panel.component";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 import {AppRoutingModule} from "./app-routing.module";
 import {SharedModule} from "./modules/shared/shared.module";
@@ -37,8 +35,6 @@ const stompConfig: StompConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    ChatPanelComponent,
-    ContactPanelComponent,
   ],
   imports: [
     BrowserModule,
