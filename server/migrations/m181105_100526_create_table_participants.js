@@ -6,21 +6,19 @@ var _public = {
         return this;
     },
     up: function () {
-        this.setQuery('CREATE TABLE `'+ this.database_name +'`.`Profile`(' +
+        this.setQuery('CREATE TABLE `'+ this.database_name +'`.`Participant`(' +
             '`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,' +
-            '`firstName` VARCHAR(50) NOT NULL,'+
-            '`lastName` VARCHAR(50) NOT NULL,' +
-            '`middleName` VARCHAR(50) NOT NULL,' +
-            '`date_create` DATETIME NULL,' +
-            '`date_update` DATETIME NULL,' +
-            '`userId` INT NOT NULL REFERENCES `User`(id))')
-        .setCallBackSuccessfully( function (data) {
-            console.log('Migration is successful.');
-        })
-        .setCallBackError(function (error) {
-            console.log(error);
-        })
-        .runQuery();
+            '`room_id` INT NOT NULL REFERENCES `Room` (id),'+
+            '`user_id` INT NOT NULL REFERENCES `User` (id),'+
+            '`date_create` DATETIME NOT NULL,' +
+            '`date_update` DATETIME NULL)')
+            .setCallBackSuccessfully( function (data) {
+                console.log('Migration is successful.');
+            })
+            .setCallBackError(function (error) {
+                console.log(error);
+            })
+            .runQuery();
     },
     down: function () {
 

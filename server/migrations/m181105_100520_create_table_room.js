@@ -6,9 +6,18 @@ var _public = {
         return this;
     },
     up: function () {
-        this.setQuery('DROP TABLE `'+this.database_name+'`.`customers`;')
-            .setCallBackAfterQuery( function (data) {
+        this.setQuery('CREATE TABLE `'+ this.database_name +'`.`Room`(' +
+            '`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,' +
+            '`user_id` INT NOT NULL REFERENCES `User`(id),'+
+            '`participant_id` VARCHAR(255) NOT NULL REFERENCES `Participant`(id),' +
+            '`role_id` INT NOT NULL REFERENCES `Roles`(id),' +
+            '`date_create` DATETIME NOT NULL,' +
+            '`date_update` DATETIME NULL)')
+            .setCallBackSuccessfully( function (data) {
                 console.log('Migration is successful.');
+            })
+            .setCallBackError(function (error) {
+                console.log(error);
             })
             .runQuery();
     },
