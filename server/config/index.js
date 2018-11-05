@@ -13,6 +13,12 @@ var Config = {
     getDataBaseName: function () {
         return this.database.database;
     },
+    getUser: function () {
+        return this.database.user;
+    },
+    getPassword: function () {
+        return this.database.password;
+    },
     getDateFormat: function () {
       return this.date_format;
     }

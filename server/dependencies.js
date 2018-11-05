@@ -4,6 +4,8 @@ global.crypto = require("crypto");
 global.passport = require('passport');
 global.models = require('./models');
 global.moment = require('moment');
+global.sequelize = require('./config/orm/orm_sequelize');
+
 
 global.token = require('./helpers/token-helper');
 global.redis = require('./helpers/redis');

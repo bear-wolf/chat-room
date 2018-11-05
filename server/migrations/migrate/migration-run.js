@@ -5,7 +5,7 @@ var _public = {
 
         return this;
     },
-    up: function () { debugger;
+    up: function () {
         this.setQuery('CREATE TABLE `'+ this.database_name +'`.`User` (\n' +
                 '  `id` INT NOT NULL,\n' +
                 '  `profile_id` INT NULL,\n' +
