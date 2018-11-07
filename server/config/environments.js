@@ -1,4 +1,4 @@
-var env = {
+module.exports = {
     development: {
         username: 'root',
         password: 'root',
@@ -12,6 +12,4 @@ var env = {
     production: {
 
     }
-}
-
-module.exports = env;
+};

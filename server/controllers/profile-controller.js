@@ -5,7 +5,43 @@ _public = {
         this.super();
 
         return this;
-    }
+    },
+    actionGet: function () {
+        var _this = this,
+            modelProfile = global.db.Profile,
+            reply = global.models.reply.createInstance();
+
+        modelProfile
+            .map()
+            .findAll()
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data)
+
+                _this.getResponce().end(reply.getToJSONstringify())
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error)
+
+                _this.getResponce().end(reply.getToJSONstringify())
+            });
+    },
+    actionSave: function () {
+        var modelProfile = global.db.Profile;
+
+        modelProfile
+            .map()
+            .findAll()
+            .then((data)=>{
+                debugger;
+            })
+            .catch((error)=>{
+                debugger
+            });
+    },
 }
 
 ProfileController = {

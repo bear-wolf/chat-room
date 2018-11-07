@@ -14,8 +14,6 @@ self = {
         return this;
     },
 
-
-
     insert: function () {
         var template,
             db = global.getControllers().DataBase.createInstance();
@@ -108,7 +106,9 @@ _public = {
 
         return this;
     },
-
+    getAll: function () {
+      //global.se
+    },
     save: function () {
         var _this = this;
 

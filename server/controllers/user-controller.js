@@ -17,7 +17,20 @@ _public = {
         } else {
             this.responce.end('Not Valide');
         }
-    }
+    },
+    actionGetUsers: function () {
+        var modelUser = global.db.User;
+
+        modelUser
+            .map()
+            .findAll()
+            .then((data)=>{
+                debugger;
+            })
+            .catch((error)=>{
+                debugger
+            });
+    },
 }
 
 UserController = {
