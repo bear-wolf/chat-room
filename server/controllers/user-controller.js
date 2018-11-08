@@ -19,17 +19,28 @@ _public = {
         }
     },
     actionGetUsers: function () {
-        var modelUser = global.db.User;
+        var _this = this,
+            modelUser = global.db.User,
+            reply = global.models.reply.createInstance();
 
         modelUser
             .map()
             .findAll()
             .then((data)=>{
-                debugger;
+                reply
+                    .setStatus(true)
+                    .setData(data);
+                _this.callReplyHandler(reply.getToJSONstringify());
             })
             .catch((error)=>{
-                debugger
-            });
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+                _this.callReplyHandler(reply.getToJSONstringify());
+            })
+            // .finnaly(()=>{
+            //     _this.callReplyHandler(reply.getToJSONstringify());
+            // });
     },
 }
 

@@ -1,4 +1,4 @@
-require('./orm_sequelize');
+require('./sequelize');
 
 module.exports = {
     User: require('./models/user'),
