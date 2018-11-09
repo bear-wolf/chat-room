@@ -1,9 +1,9 @@
 var Config = {
     database: {
         host: "localhost",
-        user: "root",
-        password: "root",
-        database : process.env.DATABASE_NAME || 'chat-room'
+        user: "andrew",
+        password: "14714711",
+        database : process.env.DATABASE_NAME || 'chatroom'
     },
     date_format: 'YYYY-MM-DD HH:mm:ss',
 
