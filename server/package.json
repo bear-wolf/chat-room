@@ -23,6 +23,7 @@
     "connect-redis": "^3.4.0",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
+    "mocha": "^5.2.0",
     "moment": "^2.22.2",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.2",
