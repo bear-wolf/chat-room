@@ -1,4 +1,4 @@
-var ProfileController, _public, _private;
+var ParticipantController, _public, _private;
 
 _public = {
     constructor: function () {
@@ -10,13 +10,13 @@ _public = {
         var request,
             _this = this,
             bodyRequest = this.request.body,
-            modelProfile = global.dbModel.Profile,
+            modelParticipant = global.dbModel.Participant,
             reply = global.models.reply.createInstance();
 
         if (this.request.params.id) {
-            request = modelProfile.findByPk(this.request.params.id);
+            request = modelParticipant.findByPk(this.request.params.id);
         } else {
-            request = modelProfile.findAll();
+            request = modelParticipant.findAll();
         }
 
         request
@@ -38,16 +38,16 @@ _public = {
     actionSave: function () {
         var request,
             _this = this,
-            modelProfile = global.dbModel.Profile,
+            modelParticipant = global.dbModel.Participant,
             bodyRequest = this.request.body,
             reply = global.models.reply.createInstance();
 
         if (this.request.params.id) {
             bodyRequest['date_update'] = global.moment().unix();
 
-            request = modelProfile.update(bodyRequest, {where: {id: Number(this.request.params.id)}});
+            request = modelParticipant.update(bodyRequest, {where: {id: Number(this.request.params.id)}});
         } else {
-            request = modelProfile.build(bodyRequest).save();
+            request = modelParticipant.build(bodyRequest).save();
         }
 
         request
@@ -69,7 +69,7 @@ _public = {
 
     actionRemove: function () {
         var _this = this,
-            modelProfile = global.dbModel.Profile,
+            modelParticipant = global.dbModel.Participant,
             reply = global.models.reply.createInstance();
 
         if (!this.request.params.id) {
@@ -82,7 +82,7 @@ _public = {
             return;
         }
 
-        modelProfile
+        modelParticipant
             .remove(this.request.params.id)
             .then((data)=>{
                 reply
@@ -103,7 +103,7 @@ _public = {
     }
 }
 
-ProfileController = {
+ParticipantController = {
     createInstance : function(){
         var Obj = function(){
             for(var key in _public){
@@ -118,4 +118,4 @@ ProfileController = {
 }
 
 
-module.exports = ProfileController;
+module.exports = ParticipantController;

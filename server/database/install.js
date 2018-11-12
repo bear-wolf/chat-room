@@ -67,7 +67,6 @@ var Room =  global.sequelize.define('Room', {
     },
     title: Sequelize.DataTypes.STRING,
     user_id: Sequelize.DataTypes.INTEGER,
-    participant_id: Sequelize.DataTypes.INTEGER,
     role_id: Sequelize.DataTypes.INTEGER,
     date_create: Sequelize.DataTypes.DATE,
     date_update: Sequelize.DataTypes.DATE
@@ -81,6 +80,14 @@ var Participant =  global.sequelize.define('Participant', {
         primaryKey: true
     },
     user_id: {
+        type: Sequelize.DataTypes.INTEGER,
+        // foreignKey: true,
+        // references: {
+        //     model: 'User',
+        //     key: 'id'
+        // }
+    },
+    room_id: {
         type: Sequelize.DataTypes.INTEGER,
         // foreignKey: true,
         // references: {

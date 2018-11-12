@@ -6,4 +6,5 @@ module.exports = {
     UserController: require('./user-controller'),
     RoomController: require('./room-controller'),
     ProfileController: require('./profile-controller'),
+    ParticipantController: require('./participant-controller'),
 }
