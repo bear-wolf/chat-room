@@ -38,7 +38,7 @@ var RouteRoom = {
                 .setResponce(res)
                 .actionSave();
         });
-        //DELETE // curl -X "DELETE" http://www.url.com/page
+        //DELETE // curl -X "DELETE" http://www.url.com/page // verify
         app.delete('/room/:id', function (req, res) {
             roomController
                 .createInstance()

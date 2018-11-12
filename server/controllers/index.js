@@ -7,4 +7,5 @@ module.exports = {
     RoomController: require('./room-controller'),
     ProfileController: require('./profile-controller'),
     ParticipantController: require('./participant-controller'),
+    RoleController: require('./role-controller'),
 }
