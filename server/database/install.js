@@ -94,6 +94,21 @@ var Participant =  global.sequelize.define('Participant', {
 
 // Participant.belongsTo(User, {foreignKey: 'user_id'}); // Adds profile_id to User
 
+var Message =  global.sequelize.define('Message', {
+    id: {
+        type: Sequelize.DataTypes.INTEGER,
+        primaryKey: true
+    },
+    owner_id: {
+        type: Sequelize.DataTypes.INTEGER,
+    },
+    participant_id: {
+        type: Sequelize.DataTypes.INTEGER,
+    },
+    date_create: Sequelize.DataTypes.DATE,
+    date_update: Sequelize.DataTypes.DATE
+});
+
 global.sequelize.sync();
 
 global.dbModel = {
@@ -102,6 +117,7 @@ global.dbModel = {
     Role: Role,
     Room: Room,
     Participant: Participant,
+    Message: Message,
 
     getModelByKey: function (key) {
         return this[key];

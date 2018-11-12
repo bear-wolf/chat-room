@@ -8,8 +8,8 @@ module.exports = {
 
         return this;
     },
-    remove: (json)=> {
-        return this.dbUser.destroy({ where: { id: json.id }});
+    remove: (id)=> {
+        return this.dbUser.destroy({ where: { id: id }});
     },
 
     //return promise
