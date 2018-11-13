@@ -35,35 +35,27 @@ _public = {
             })
     },
     actionSave: function () {
-        var request,
-            _this = this,
-            modelRoom = global.dbModel.Room,
+        var _this = this,
+            modelRoom = global.db.Room,
             bodyRequest = this.request.body,
+            currentId = this.request.params.id,
             reply = global.models.reply.createInstance();
 
-        if (this.request.params.id) {
-            bodyRequest['date_update'] = global.moment().unix();
-
-            request = modelRoom.update(bodyRequest, {where: {id: Number(this.request.params.id)}});
-        } else {
-            request = modelRoom.build(bodyRequest).save();
-        }
-
-        request
-            .then((data)=>{
+        modelRoom
+            .setCallBackSuccessfully(function (data) {
                 reply
                     .setStatus(true)
                     .setData(data);
-
-                _this.responce.end(reply.getToJSONstringify())
             })
-            .catch((error)=>{
+            .setCallBackError(function (error) {
                 reply
                     .setStatus(false)
                     .setMessage(error);
-
+            })
+            .setCallBackFinally(function () {
                 _this.responce.end(reply.getToJSONstringify())
             })
+            .save(bodyRequest, currentId);
 
         return this;
     },

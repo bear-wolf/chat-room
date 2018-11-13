@@ -7,7 +7,7 @@ var db = {
     User: require('./models/user').createInstance(),
     Profile: require('./models/profile').createInstance(),
     Participant: require('./models/participant'),
-    Room: require('./models/room').init(),
+    Room: require('./models/room').createInstance(),
     Role: require('./models/role'),
     Message: require('./models/message')
 }

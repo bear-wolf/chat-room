@@ -5,6 +5,7 @@ _public = {
     reply_handler: null, // ответ от модели
     callback: null,
     callback_successfully: null,
+    callback_finally: null,
     callback_error: null,
 
     constructor: function () {
@@ -33,6 +34,11 @@ _public = {
     },
     setCallBackError: function (callback_error) {
         this.callback_error = callback_error;
+
+        return this;
+    },
+    setCallBackFinally: function (callback_finally) {
+        this.callback_finally = callback_finally;
 
         return this;
     },

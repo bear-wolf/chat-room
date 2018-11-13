@@ -1,37 +1,75 @@
 'use strict';
 
-module.exports = {
+var _public = {
     dbRoom: null,
 
-    init: function () {
+    constructor: function () {
         this.dbRoom = global.dbModel.Room;
 
         return this;
     },
     //return promise
-    sync: ()=> {
-        return global.sequelize.sync() // promise
-    },
     remove: (id)=> {
         return global.dbModel.Room.destroy({ where: { id: id }});
     },
-
     //return promise
-    save: function (json) {
-        var p;
+    save: function (bodyRequest, id) {
+        var request,
+            reply = global.models.reply.createInstance(),
+            _this = this;
 
-        if (json.id) {
-            p = this.dbRoom.update(json, {where: { id: json.id } })
+        if (id) {
+            bodyRequest['date_update'] = global.moment().unix();
+
+            request = this.dbRoom.update(bodyRequest, {where: {id: Number(id)}});
         } else {
-            p = this.dbRoom.create(json);
+            bodyRequest['date_create'] = global.moment().unix();
+
+            request = this.dbRoom.build(bodyRequest).save();
         }
 
-        return p;
+        request
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data);
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+            })
+            .finally(function () {
+                _this.callback_error(reply.get());
+            });
+
+        return this;
     },
+    //return promise
     getById: function (id) {
         return this.dbRoom.findById(id);
     },
+    //return promise
     getAll: function () {
         return this.dbRoom.findAndCountAll();
     },
 }
+
+var RoomModel = {
+    createInstance : function(){
+        var Obj = function(){
+            for(var key in _public){
+                this[key] = _public[key];
+            }
+        }
+
+        Obj.prototype = Object.create(global.baseModel.createInstance());
+
+        return this.instance = new Obj().constructor();
+    },
+    getInstance: function () {
+        return this.instance || this.createInstance();
+    }
+}
+
+module.exports = RoomModel;
