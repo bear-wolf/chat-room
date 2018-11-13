@@ -113,6 +113,9 @@ var Message =  global.sequelize.define('Message', {
     participant_id: {
         type: Sequelize.DataTypes.INTEGER,
     },
+    status: {
+        type: Sequelize.DataTypes.INTEGER,
+    },
     date_create: Sequelize.DataTypes.DATE,
     date_update: Sequelize.DataTypes.DATE
 });
