@@ -46,6 +46,24 @@ var RouteParticipant = {
                 .setResponce(res)
                 .actionRemove();
         });
+
+        //add new Participant in Room
+        app.post('/addParticipant/:room_id', function (req, res) {
+            participantController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionAddParticipant();
+        });
+
+        //add new Participant in Room
+        app.post('/removeParticipant/:room_id', function (req, res) {
+            participantController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionRemove();
+        });
     }
 }
 

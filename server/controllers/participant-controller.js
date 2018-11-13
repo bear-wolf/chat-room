@@ -35,67 +35,77 @@ _public = {
                 _this.getResponce().end(reply.getToJSONstringify())
             });
     },
-    actionSave: function () {
-        var request,
-            _this = this,
-            modelParticipant = global.dbModel.Participant,
+    // actionSave: function () {
+    //     var request,
+    //         _this = this,
+    //         modelParticipant = global.db.Participant,
+    //         bodyRequest = this.request.body,
+    //         reply = global.models.reply.createInstance();
+    //
+    //     request
+    //         .then((data)=>{
+    //             reply
+    //                 .setStatus(true)
+    //                 .setData(data);
+    //
+    //             _this.responce.end(reply.getToJSONstringify())
+    //         })
+    //         .catch((error)=>{
+    //             reply
+    //                 .setStatus(false)
+    //                 .setMessage(error);
+    //
+    //             _this.responce.end(reply.getToJSONstringify())
+    //         })
+    // },
+    actionAddParticipant: function () {
+        var _this = this,
+            participant = global.db.Participant,
             bodyRequest = this.request.body,
             reply = global.models.reply.createInstance();
 
-        if (this.request.params.id) {
-            bodyRequest['date_update'] = global.moment().unix();
+        bodyRequest['room_id'] = this.request.params.room_id;
 
-            request = modelParticipant.update(bodyRequest, {where: {id: Number(this.request.params.id)}});
-        } else {
-            request = modelParticipant.build(bodyRequest).save();
-        }
-
-        request
-            .then((data)=>{
+        participant
+            .setCallBackSuccessfully(function (data) {
                 reply
                     .setStatus(true)
                     .setData(data);
 
                 _this.responce.end(reply.getToJSONstringify())
             })
-            .catch((error)=>{
+            .setCallBackError(function (error) {
                 reply
                     .setStatus(false)
                     .setMessage(error);
 
                 _this.responce.end(reply.getToJSONstringify())
             })
-    },
+            .save(bodyRequest);
 
+        return this;
+    },
     actionRemove: function () {
         var _this = this,
-            modelParticipant = global.dbModel.Participant,
+            participant = global.db.Participant,
+            bodyRequest = this.request.body,
             reply = global.models.reply.createInstance();
 
-        if (!this.request.params.id) {
-            reply
-                .setStatus(false)
-                .setMessage('Id not exist');
+        bodyRequest['room_id'] = this.request.params.room_id;
 
-            _this.responce.end(reply.getToJSONstringify())
-
-            return;
-        }
-
-        modelParticipant
-            .remove(this.request.params.id)
+        participant
+            .remove(bodyRequest)
             .then((data)=>{
                 reply
                     .setStatus(true)
                     .setData(data);
-
-                _this.responce.end(reply.getToJSONstringify())
             })
             .catch((error)=>{
                 reply
                     .setStatus(false)
                     .setMessage(error);
-
+            })
+            .finally(()=>{
                 _this.responce.end(reply.getToJSONstringify())
             })
 

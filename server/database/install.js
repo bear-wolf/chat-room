@@ -77,7 +77,8 @@ var Room =  global.sequelize.define('Room', {
 var Participant =  global.sequelize.define('Participant', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     user_id: {
         type: Sequelize.DataTypes.INTEGER,

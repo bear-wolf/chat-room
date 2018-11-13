@@ -1,10 +1,13 @@
 'use strict';
 
-module.exports = {
+var Common;
+
+var _public = {
     dbParticipant: null,
 
-    init: function () {
-        this.dbParticipant = global.dbModel.Profile;
+    constructor: function () {
+        this.dbParticipant = global.dbModel.Participant;
+        Common = global.common;
 
         return this;
     },
@@ -12,21 +15,70 @@ module.exports = {
     sync: ()=> {
         return global.sequelize.sync() // promise
     },
+    //promise
     remove: (json)=> {
-        return this.map().destroy({ where: { id: json.id }});
+        var reply = global.models.reply.createInstance();
+
+        //validate
+        if (!json.room_id || !json.user_id) {
+            reply
+                .setStatus(false)
+                .setMessage('not valid');
+
+            if (Common.isFunction(this.callback_error)) {
+                this.callback_error(reply.get());
+            }
+        }
+
+        //need json.user_id & json.room_id
+        return global.dbModel.Participant.destroy({ where: {
+            user_id: json.user_id,
+            room_id: json.room_id
+        }});
     },
 
     //return promise
     save: function (json) {
-        var p;
+        var request,
+            reply = global.models.reply.createInstance(),
+            _this = this;
 
-        if (json.id) {
-            p = this.dbParticipant.update(json, {where: { id: json.id } })
-        } else {
-            p = this.dbParticipant.create(json);
+        //validate
+        if (!json.room_id || !json.user_id) {
+            reply
+                .setStatus(false)
+                .setMessage('not valid');
+
+            if (Common.isFunction(_this.callback_error)) {
+                _this.callback_error(reply.get());
+            }
         }
 
-        return p;
+        json['date_create'] = '1970-01-18 20:20:24';// global.moment().unix();
+        request = this.dbParticipant.build(json);
+
+        request
+            .save()
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data);
+
+                if (Common.isFunction(_this.callback_successfully)) {
+                    _this.callback_successfully(reply.get());
+                }
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+
+                if (Common.isFunction(_this.callback_error)) {
+                    _this.callback_error(reply.get());
+                }
+            });
+
+        return this;
     },
     getById: function (id) {
         return this.dbParticipant.findById(id);
@@ -35,3 +87,22 @@ module.exports = {
         return this.dbParticipant.findAndCountAll();
     },
 }
+
+var Participant =  {
+    createInstance : function(){
+        var Obj = function(){
+            for(var key in _public){
+                this[key] = _public[key];
+            }
+        }
+
+        Obj.prototype = Object.create(global.baseModel.createInstance());
+
+        return this.instance = new Obj().constructor();
+    },
+    getInstance: function () {
+        return this.instance || this.createInstance();
+    }
+}
+
+module.exports = Participant
