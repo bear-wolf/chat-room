@@ -9,7 +9,6 @@ _public = {
     actionGet: function () {
         var request,
             _this = this,
-            bodyRequest = this.request.body,
             modelProfile = global.dbModel.Profile,
             reply = global.models.reply.createInstance();
 
@@ -24,47 +23,39 @@ _public = {
                 reply
                     .setStatus(true)
                     .setData(data)
-
-                _this.getResponce().end(reply.getToJSONstringify())
             })
             .catch((error)=>{
                 reply
                     .setStatus(false)
                     .setMessage(error)
-
+            })
+            .finally(()=>{
                 _this.getResponce().end(reply.getToJSONstringify())
             });
     },
     actionSave: function () {
-        var request,
-            _this = this,
-            modelProfile = global.dbModel.Profile,
+        var _this = this,
             bodyRequest = this.request.body,
-            reply = global.models.reply.createInstance();
+            reply = global.models.reply.createInstance(),
+            profile = global.db.Profile,
+            currentId = this.request.params.id;
 
-        if (this.request.params.id) {
-            bodyRequest['date_update'] = global.moment().unix();
-
-            request = modelProfile.update(bodyRequest, {where: {id: Number(this.request.params.id)}});
-        } else {
-            request = modelProfile.build(bodyRequest).save();
-        }
-
-        request
-            .then((data)=>{
+        profile
+            .setCallBackSuccessfully(function (data) {
                 reply
                     .setStatus(true)
                     .setData(data);
 
                 _this.responce.end(reply.getToJSONstringify())
             })
-            .catch((error)=>{
+            .setCallBackError(function (error) {
                 reply
                     .setStatus(false)
                     .setMessage(error);
 
                 _this.responce.end(reply.getToJSONstringify())
             })
+            .save(bodyRequest, currentId);
     },
 
     actionRemove: function () {

@@ -13,7 +13,7 @@ var RouteUser = {
         });
 
         // verify
-        app.get('/room/:id', function (req, res) {
+        app.get('/profile/:id', function (req, res) {
             profileController
                 .createInstance()
                 .setRequest(req)
@@ -23,24 +23,24 @@ var RouteUser = {
 
         //INSERT // verify
         //users/123/accounts
-        app.post('/room/', function (req, res) {
-            roomController
+        app.post('/profile/', function (req, res) {
+            profileController
                 .createInstance()
                 .setRequest(req)
                 .setResponce(res)
                 .actionSave();
         });
         //UPDATE // verify
-        app.post('/room/:id', function (req, res) {
-            roomController
+        app.post('/profile/:id', function (req, res) {
+            profileController
                 .createInstance()
                 .setRequest(req)
                 .setResponce(res)
                 .actionSave();
         });
         //DELETE // curl -X "DELETE" http://www.url.com/page // verify
-        app.delete('/room/:id', function (req, res) {
-            roomController
+        app.delete('/profile/:id', function (req, res) {
+            profileController
                 .createInstance()
                 .setRequest(req)
                 .setResponce(res)

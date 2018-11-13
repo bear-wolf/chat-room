@@ -1,9 +1,35 @@
 'use strict';
 
-module.exports = {
+var _private = {
+    addProfileInUser: function (id, user_id, callback) {
+        var modelUser = global.db.User,
+            reply = global.models.reply.createInstance();
+
+        modelUser
+            .save({
+                id: user_id,
+                profile_id: id
+            })
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data);
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+            })
+            .finally(()=>{
+                callback(reply.get());
+            });
+    }
+}
+
+var _public = {
     dbProfile: null,
 
-    init: function () {
+    constructor: function () {
         this.dbProfile = global.dbModel.Profile;
 
         return this;
@@ -17,16 +43,50 @@ module.exports = {
     },
 
     //return promise
-    save: function (json) {
-        var p;
+    save: function (bodyRequest, id) {
+        var p, request,
+            reply = global.models.reply.createInstance(),
+            _this = this;
 
-        if (json.id) {
-            p = this.dbProfile.update(json, {where: { id: json.id } })
+
+        if (id) {
+            bodyRequest['date_update'] = global.moment().unix();
+
+            request = this.dbProfile.update(bodyRequest, {where: {id: Number(id)}});
         } else {
-            p = this.dbProfile.create(json);
+            request = this.dbProfile.build(bodyRequest).save();
         }
 
-        return p;
+        request
+            .then((data)=>{
+                if (!id) {
+                    //new profile
+                    _private.addProfileInUser(data.dataValues.id, bodyRequest.user_id, function (data) {
+                        //callback
+                        reply
+                            .setStatus(true)
+                            .setData(data);
+
+                        _this.callback_successfully(reply.get());
+                    });
+                } else {
+                    reply
+                        .setStatus(true)
+                        .setData(data);
+
+                    _this.callback_successfully(reply.get());
+                }
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setStatus(false)
+                    .setMessage(error);
+
+                _this.callback_error(reply.get());
+            });
+
+        return this;
     },
     getById: function (id) {
         return this.dbProfile.findById(id);
@@ -35,3 +95,22 @@ module.exports = {
         return this.dbProfile.findAndCountAll();
     },
 }
+
+var ProfileModel = {
+    createInstance : function(){
+        var Obj = function(){
+            for(var key in _public){
+                this[key] = _public[key];
+            }
+        }
+
+        Obj.prototype = Object.create(global.baseModel.createInstance());
+
+        return this.instance = new Obj().constructor();
+    },
+    getInstance: function () {
+        return this.instance || this.createInstance();
+    }
+}
+
+module.exports = ProfileModel;
