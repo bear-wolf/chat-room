@@ -44,7 +44,7 @@ var _public = {
 
     //return promise
     save: function (bodyRequest, id) {
-        var p, request,
+        var request,
             reply = global.models.reply.createInstance(),
             _this = this;
 

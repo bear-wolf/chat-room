@@ -1,10 +1,13 @@
 'use strict';
 
+var Common;
 var _public = {
     dbRoom: null,
 
     constructor: function () {
         this.dbRoom = global.dbModel.Room;
+
+        Common = global.common;
 
         return this;
     },

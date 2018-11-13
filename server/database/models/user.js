@@ -1,9 +1,8 @@
 'use strict';
-
-module.exports = {
+var _public = {
     dbUser: null,
 
-    init: function () {
+    constructor: function () {
         this.dbUser = global.dbModel.User;
 
         return this;
@@ -27,4 +26,45 @@ module.exports = {
     getByPermission: function (json) {
         return this.dbUser.findOne(json, {where: { email: json.email, password: json.password } });
     },
+    getByID: function (id) {
+        var _this = this,
+            reply = global.models.reply.createInstance();
+
+        this.dbUser
+            .findById(id)
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data);
+
+                _this.callback_successfully(reply.get());
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+
+                _this.callback_error(reply.get());
+            });
+    }
 }
+
+var UserModel = {
+    createInstance : function(){
+        var Obj = function(){
+            for(var key in _public){
+                this[key] = _public[key];
+            }
+        }
+
+        Obj.prototype = Object.create(global.baseModel.createInstance());
+
+        return this.instance = new Obj().constructor();
+    },
+    getInstance: function () {
+        return this.instance || this.createInstance();
+    }
+}
+
+
+module.exports = UserModel;

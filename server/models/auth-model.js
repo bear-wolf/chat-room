@@ -18,7 +18,7 @@ _public = {
     //Registry user
     actionCheckIn: function (json) {
         var _this = this,
-            modelUser = global.db.User.init();
+            modelUser = global.dbModel.User;
 
         if (!self.validation(json)) {
             _this.callReplyHandler({
@@ -111,7 +111,7 @@ _public = {
                     .setMessage('Your token not remove');
             }
 
-            _this.callReplyHandler(reply.getResponce());
+            _this.callReplyHandler(reply.get());
         })
     }
 }
