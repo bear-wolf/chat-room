@@ -4,6 +4,9 @@ global.crypto = require("crypto");
 global.passport = require('passport');
 global.models = require('./models');
 global.moment = require('moment');
+global.common = require('./common');
+global.db = require('./database/index');
+global.environments = require('./config/environments');
 
 global.token = require('./helpers/token-helper');
 global.redis = require('./helpers/redis');

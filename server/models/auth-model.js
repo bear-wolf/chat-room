@@ -18,7 +18,7 @@ _public = {
     //Registry user
     actionCheckIn: function (json) {
         var _this = this,
-            user = global.models.user.createInstance();
+            modelUser = global.dbModel.User;
 
         if (!self.validation(json)) {
             _this.callReplyHandler({
@@ -28,32 +28,28 @@ _public = {
             })
         }
 
-        user
-            .setEmail(json.email)
-            .setPassword(json.password)
-            .setCallBackSuccessfully(function (data) {
+        modelUser
+            .save({
+                email: json.email
+            })
+            .then((data)=>{
                 _this.callReplyHandler({
                     status: true,
                     message: 'Your email added saccessffuly'
                 })
             })
-            .setCallBackError(function (data) {
+            .catch((error)=>{
                 _this.callReplyHandler({
                     status: false,
-                    message: data.message,
+                    message: error,
                 })
-            })
-            .save();
-
-        // user.getByPermission(json, function (data) {
-        //     _this.callReplyHandler(data)
-        // })
+            });
     },
 
     //Sign in
     actionSignIn: function (json) {
         var _this = this,
-            user = global.models.user.createInstance();
+            modelUser = global.db.User;
 
         if (!self.validation(json)) {
             _this.callReplyHandler({
@@ -63,30 +59,34 @@ _public = {
             })
         }
 
-        user
-            .setEmail(json.email)
-            .setPassword(json.password)
-            .setCallBackSuccessfully(function (data) {
-                var _data = {
-                    status: true,
-                    body: data
-                };
+        modelUser.map().create({
+            username: req.body.username
+        })
 
-                global.token.create(function (err, token) {
-                    _data['token'] = token;
-                    global.redis.setData(token, {
-                        user: data
-                    })
-                    _this.callReplyHandler(_data);
-                });
-            })
-            .setCallBackError(function (data) {
-                _this.callReplyHandler({
-                    status: false,
-                    message: data.message,
-                })
-            })
-            .getByPermission();
+        // user
+        //     .setEmail(json.email)
+        //     .setPassword(json.password)
+        //     .setCallBackSuccessfully(function (data) {
+        //         var _data = {
+        //             status: true,
+        //             body: data
+        //         };
+        //
+        //         global.token.create(function (err, token) {
+        //             _data['token'] = token;
+        //             global.redis.setData(token, {
+        //                 user: data
+        //             })
+        //             _this.callReplyHandler(_data);
+        //         });
+        //     })
+        //     .setCallBackError(function (data) {
+        //         _this.callReplyHandler({
+        //             status: false,
+        //             message: data.message,
+        //         })
+        //     })
+        //     .getByPermission();
     },
 
     //Sign out
@@ -111,7 +111,7 @@ _public = {
                     .setMessage('Your token not remove');
             }
 
-            _this.callReplyHandler(reply.getResponce());
+            _this.callReplyHandler(reply.get());
         })
     }
 }

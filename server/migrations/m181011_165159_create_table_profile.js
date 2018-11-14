@@ -7,15 +7,18 @@ var _public = {
     },
     up: function () {
         this.setQuery('CREATE TABLE `'+ this.database_name +'`.`Profile`(' +
-            '`id` INT NOT NULL,' +
+            '`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,' +
             '`firstName` VARCHAR(50) NOT NULL,'+
             '`lastName` VARCHAR(50) NOT NULL,' +
             '`middleName` VARCHAR(50) NOT NULL,' +
             '`date_create` DATETIME NULL,' +
             '`date_update` DATETIME NULL,' +
-            ' PRIMARY KEY (`id`))')
+            '`userId` INT NOT NULL REFERENCES `User`(id))')
         .setCallBackSuccessfully( function (data) {
             console.log('Migration is successful.');
+        })
+        .setCallBackError(function (error) {
+            console.log(error);
         })
         .runQuery();
     },

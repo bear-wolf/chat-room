@@ -3,6 +3,11 @@
  */
 var RouteUser = require('./users');
 var RouteAuth = require('./auth');
+var RouteRoom = require('./room');
+var RouteRole = require('./role');
+var RouteProfile = require('./profile');
+var RouteParticipant = require('./participant');
+var RouteMessage = require('./message');
 
 var _public = {
     constructor: function () {
@@ -25,6 +30,11 @@ var _public = {
 
         RouteUser.assignRoutes(app);
         RouteAuth.assignRoutes(app);
+        RouteProfile.assignRoutes(app);
+        RouteRoom.assignRoutes(app);
+        RouteRole.assignRoutes(app);
+        RouteParticipant.assignRoutes(app);
+        RouteMessage.assignRoutes(app);
 
         // GET method routes
         app.get('/', function (req, res) {

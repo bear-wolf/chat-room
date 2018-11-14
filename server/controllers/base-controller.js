@@ -17,6 +17,9 @@ _public = {
         this.responce = responce;
 
         return this;
+    },
+    getResponce: function () {
+        return this.responce;
     }
 }
 

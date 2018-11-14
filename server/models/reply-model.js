@@ -31,7 +31,7 @@ _public = {
 
         return this;
     },
-    getResponce: function () {
+    createJson: function () {
         var data = {
             status: this.status,
             message: this.message,
@@ -39,6 +39,12 @@ _public = {
         };
 
         return data;
+    },
+    get: function () {
+        return this.createJson();
+    },
+    getToJSONstringify: function () {
+        return JSON.stringify(this.createJson());
     }
 }
 
