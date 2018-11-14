@@ -105,7 +105,8 @@ var Participant =  global.sequelize.define('Participant', {
 var Message =  global.sequelize.define('Message', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     owner_id: {
         type: Sequelize.DataTypes.INTEGER,
@@ -115,6 +116,9 @@ var Message =  global.sequelize.define('Message', {
     },
     status: {
         type: Sequelize.DataTypes.INTEGER,
+    },
+    description: {
+        type: Sequelize.DataTypes.STRING,
     },
     date_create: Sequelize.DataTypes.DATE,
     date_update: Sequelize.DataTypes.DATE
