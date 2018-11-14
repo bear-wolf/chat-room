@@ -48,12 +48,14 @@ var _public = {
 
         return this;
     },
-    remove: (json)=> {
-        if (!self.validate(json, ValidateStatus.REMOVE)) {
+    remove: (id)=> {
+        if (!self.validate({
+            id: id
+        }, ValidateStatus.REMOVE)) {
             return;
         }
 
-        return this.dbRole.destroy({ where: { id: json.id }});
+        return global.dbModel.Role.destroy({ where: { id: id }});
     },
 
     //return promise
@@ -97,7 +99,7 @@ var _public = {
     },
     //promise
     getById: function (id) {
-        return this.dbRole.findById(id);
+        return this.dbRole.findByPk(id);
     },
     //promise
     getAll: function () {

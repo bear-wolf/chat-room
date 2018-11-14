@@ -9,13 +9,13 @@ _public = {
     actionGet: function () {
         var request,
             _this = this,
-            modelProfile = global.dbModel.Profile,
+            role = global.db.Role,
             reply = global.models.reply.createInstance();
 
         if (this.request.params.id) {
-            request = modelProfile.findByPk(this.request.params.id);
+            request = role.getById(this.request.params.id);
         } else {
-            request = modelProfile.findAll();
+            request = role.getAll();
         }
 
         request
