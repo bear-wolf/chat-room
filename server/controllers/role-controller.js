@@ -64,33 +64,14 @@ _public = {
 
     actionRemove: function () {
         var _this = this,
-            role = global.db.Role,
-            reply = global.models.reply.createInstance();
-
-        if (!this.request.params.id) {
-            reply
-                .setStatus(false)
-                .setMessage('Id not exist');
-
-            _this.responce.end(reply.getToJSONstringify())
-
-            return;
-        }
+            role = global.db.Role;
 
         role
             .remove(this.request.params.id)
-            .then((data)=>{
-                reply
-                    .setStatus(true)
-                    .setData(data);
-
+            .catch((reply)=>{
                 _this.responce.end(reply.getToJSONstringify())
             })
-            .catch((error)=>{
-                reply
-                    .setStatus(false)
-                    .setMessage(error);
-
+            .finally((reply)=>{
                 _this.responce.end(reply.getToJSONstringify())
             })
 

@@ -40,18 +40,29 @@ var self = {
     }
 }
 
+var Common;
 var _public = {
     dbRole: null,
 
     constructor: function () {
         this.dbRole = global.dbModel.Role;
+        Common = global.common;
 
         return this;
     },
     remove: (id)=> {
+        var reply = global.models.reply.createInstance();
+
         if (!self.validate({
             id: id
         }, ValidateStatus.REMOVE)) {
+            reply
+                .setStatus(false)
+                .setMessage('No validate');
+
+            if (Common.isFunction(this.callback_error)) {
+                this.callback_error(reply);
+            }
             return;
         }
 
@@ -66,6 +77,14 @@ var _public = {
 
 
         if (!self.validate(json, ValidateStatus.SAVE)) {
+            reply
+                .setStatus(false)
+                .setMessage('No validate');
+
+            if (Common.isFunction(this.callback_error)) {
+                this.callback_error(reply);
+            }
+
             return;
         }
 

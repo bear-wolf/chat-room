@@ -38,21 +38,16 @@ _public = {
         var _this = this,
             modelRoom = global.db.Room,
             bodyRequest = this.request.body,
-            currentId = this.request.params.id,
-            reply = global.models.reply.createInstance();
+            currentId = this.request.params.id;
 
         modelRoom
-            .setCallBackSuccessfully(function (data) {
-                reply
-                    .setStatus(true)
-                    .setData(data);
+            .setCallBackSuccessfully(function (reply) {
+                _this.responce.end(reply.getToJSONstringify())
             })
-            .setCallBackError(function (error) {
-                reply
-                    .setStatus(false)
-                    .setMessage(error);
+            .setCallBackError(function (reply) {
+                _this.responce.end(reply.getToJSONstringify())
             })
-            .setCallBackFinally(function () {
+            .setCallBackFinally(function (reply) {
                 _this.responce.end(reply.getToJSONstringify())
             })
             .save(bodyRequest, currentId);

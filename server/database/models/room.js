@@ -35,7 +35,7 @@ var _public = {
             .then((data)=>{
                 reply
                     .setStatus(true)
-                    .setData(data);
+                    .setData(data.dataValues);
             })
             .catch((error)=>{
                 reply
@@ -43,7 +43,7 @@ var _public = {
                     .setMessage(error);
             })
             .finally(function () {
-                _this.callback_error(reply.get());
+                _this.callback_finally(reply);
             });
 
         return this;
