@@ -9,7 +9,8 @@ var db = {
     Participant: require('./models/participant').createInstance(),
     Room: require('./models/room').createInstance(),
     Role: require('./models/role').createInstance(),
-    Message: require('./models/message').createInstance()
+    Message: require('./models/message').createInstance(),
+    Translate: require('./models/translate').createInstance()
 }
 
 module.exports = db;

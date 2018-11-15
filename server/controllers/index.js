@@ -9,4 +9,5 @@ module.exports = {
     ParticipantController: require('./participant-controller'),
     RoleController: require('./role-controller'),
     MessageController: require('./message-controller'),
+    TranslateController: require('./translate-controller'),
 }
