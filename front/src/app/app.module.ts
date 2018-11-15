@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 import {AppRoutingModule} from "./app-routing.module";
 import {SharedModule} from "./modules/shared/shared.module";
-import {GuestModule} from "./modules/guest/guest.module";
 
 const stompConfig: StompConfig = {
     // Which server?
@@ -40,8 +39,7 @@ const stompConfig: StompConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GuestModule
-    //SharedModule
+    SharedModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

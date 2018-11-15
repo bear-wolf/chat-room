@@ -12,6 +12,7 @@ import {StorageService} from "./services/storage.service";
 import {UserService} from "./services/user.service";
 import {RoleService} from "./services/role.service";
 import {ProfileService} from "./services/profile.service";
+import {TranslateService} from "./services/translate.service";
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import {ProfileService} from "./services/profile.service";
         ProfileService,
         RoleService,
         StorageService,
-        UserService
+        UserService,
+        TranslateService
     ],
     exports: [
       AuthComponent,
