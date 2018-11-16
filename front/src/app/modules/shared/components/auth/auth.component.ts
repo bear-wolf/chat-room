@@ -9,7 +9,6 @@ export class AuthComponent implements OnInit{
   title = 'app';
 
     constructor() {
-        debugger;
     }
 
     ngOnInit(){

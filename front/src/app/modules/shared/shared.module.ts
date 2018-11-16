@@ -17,8 +17,6 @@ import {TranslateService} from "./services/translate.service";
 @NgModule({
     imports: [
       CommonModule,
-      // MainModule,
-      GuestModule,
       FormsModule,
       ReactiveFormsModule,
   ],
@@ -27,15 +25,7 @@ import {TranslateService} from "./services/translate.service";
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     providers: [
-        HttpClient,
-        AuthService,
-        MessageService,
-        ParticipantService,
-        ProfileService,
-        RoleService,
-        StorageService,
-        UserService,
-        TranslateService
+
     ],
     exports: [
       AuthComponent,

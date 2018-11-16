@@ -691,3 +691,7 @@ app-root{
         max-width: 100%;
     }
 }
+
+.top-nav ul.top-menu>li{
+    height: 8vh;
+}

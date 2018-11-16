@@ -11,7 +11,7 @@ body {
     font-size:13px;
     text-rendering:optimizeLegibility;
 }
-ul, .list-unstyled {
+ul, .list-unstyled {.top-nav
     padding-left: 30px;
 }
 ul li {
@@ -518,7 +518,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     font-size:11px;
 }
 .top-nav {
-    margin-top:20px;
+
 }
 .top-nav img {
     border-radius:50%;

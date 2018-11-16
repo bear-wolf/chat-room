@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 import {AppRoutingModule} from "./app-routing.module";
 import {SharedModule} from "./modules/shared/shared.module";
+import {GuestModule} from "./modules/guest/guest.module";
+import {HttpClientModule} from "@angular/common/http";
+import {StorageService} from "./modules/shared/services/storage.service";
 
 const stompConfig: StompConfig = {
     // Which server?
@@ -38,11 +41,12 @@ const stompConfig: StompConfig = {
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    SharedModule
+    GuestModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [HttpClientModule, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
