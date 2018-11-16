@@ -7,6 +7,8 @@ _public = {
     constructor: function () {
         this.super();
 
+        this.reply = global.models.reply.createInstance();
+
         return this;
     },
     createModel: function () {
@@ -26,6 +28,8 @@ _public = {
                 _this.responce.end(JSON.stringify(data));
             })
             .actionCheckIn(bodyRequest);
+
+        return this;
     },
     //Sign in
     actionSignIn: function () {
@@ -34,11 +38,27 @@ _public = {
             bodyRequest = this.request.body;
 
         authModel
-            .setReplyHandler(function (data) {
-                _this.responce.end(JSON.stringify(data));
+            .setReplyHandler(function (reply) {
+                global.token.create((error, token)=>{
+                    if (error) {
+                        reply
+                            .setStatus(false)
+                            .setMessage('Error by create token')
+
+                        _this.responce.end(reply.toString());
+                    } else {
+                        var json = reply.get();
+
+                        json['token'] = token;
+                        global.redis.setData(token, reply.getData());
+                        _this.responce.end(JSON.stringify(json));
+                    }
+                })
+
             })
             .actionSignIn(bodyRequest);
-        return
+
+        return this;
     },
     //Sign out
     actionSignOut: function () {
@@ -51,7 +71,39 @@ _public = {
                 _this.responce.end(JSON.stringify(data));
             })
             .actionSignOut(token);
-        return
+
+        return this;
+    },
+    actionCheckToken: function () {
+        var _this = this,
+            token = this.request.headers.authorization;
+
+        if (!token) {
+            this.reply
+                .setStatus(false)
+                .setMessage('Token is not exist');
+            this.responce.end(this.reply.get());
+
+            return this;
+        }
+
+        global.redis.getData(token, function (error, data) {
+            if (error) {
+                this.reply
+                    .setStatus(false)
+                    .setMessage('error');
+            } else {
+                data = data || { status: true};
+
+                _this.reply
+                    .setStatus(true)
+                    .setData(data);
+            }
+
+            _this.responce.end(_this.reply.toString());
+        })
+
+        return this;
     },
 }
 

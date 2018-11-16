@@ -124,6 +124,28 @@ var Message =  global.sequelize.define('Message', {
     date_update: Sequelize.DataTypes.DATE
 });
 
+var Translate =  global.sequelize.define('Translate', {
+    id: {
+        type: Sequelize.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    key: {
+        type: Sequelize.DataTypes.STRING,
+    },
+    value_en: {
+        type: Sequelize.DataTypes.STRING,
+    },
+    value_ru: {
+        type: Sequelize.DataTypes.STRING,
+    },
+    value_ua: {
+        type: Sequelize.DataTypes.STRING,
+    },
+    date_create: Sequelize.DataTypes.DATE,
+    date_update: Sequelize.DataTypes.DATE
+});
+
 global.sequelize.sync();
 
 global.dbModel = {
@@ -133,6 +155,7 @@ global.dbModel = {
     Room: Room,
     Participant: Participant,
     Message: Message,
+    Translate: Translate,
 
     getModelByKey: function (key) {
         return this[key];

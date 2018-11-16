@@ -1,26 +1,50 @@
 var commonModel = require('./common-model');
 var self, _public;
 
+const ValidateStatus = {
+    SAVE: 'save',
+    REMOVE: 'remove'
+}
+
 self = {
-    validation: function (json) {
-        if (!json.email || !json.password) {
-            return false;
+    validate: function (json, key) {
+        var result = false;
+
+        switch (key) {
+            case ValidateStatus.SAVE: {
+                if (json.email && json.password) {
+                    result = true;
+                }
+                break;
+            }
+            case ValidateStatus.REMOVE: {
+                if (json.id) {
+                    result = true;
+                }
+                break;
+            }
+
+            default: {
+                break
+            }
         }
 
-        return true;
+        return result;
     }
 }
 
 _public = {
     constructor: function () {
+        this.reply = global.models.reply.createInstance();
+
         return this;
     },
     //Registry user
     actionCheckIn: function (json) {
         var _this = this,
-            modelUser = global.dbModel.User;
+            modelUser = global.db.User;
 
-        if (!self.validation(json)) {
+        if (!!self.validate(json, ValidateStatus.SAVE)) {
             _this.callReplyHandler({
                 status: true,
                 //message: 'This Email or password is exist'
@@ -51,42 +75,29 @@ _public = {
         var _this = this,
             modelUser = global.db.User;
 
-        if (!self.validation(json)) {
+        if (!self.validate(json, ValidateStatus.SAVE)) {
             _this.callReplyHandler({
-                status: true,
+                status: false,
                 //message: 'This Email or password is exist'
                 message: 'No verify format of request'
             })
         }
 
-        modelUser.map().create({
-            username: req.body.username
-        })
-
-        // user
-        //     .setEmail(json.email)
-        //     .setPassword(json.password)
-        //     .setCallBackSuccessfully(function (data) {
-        //         var _data = {
-        //             status: true,
-        //             body: data
-        //         };
-        //
-        //         global.token.create(function (err, token) {
-        //             _data['token'] = token;
-        //             global.redis.setData(token, {
-        //                 user: data
-        //             })
-        //             _this.callReplyHandler(_data);
-        //         });
-        //     })
-        //     .setCallBackError(function (data) {
-        //         _this.callReplyHandler({
-        //             status: false,
-        //             message: data.message,
-        //         })
-        //     })
-        //     .getByPermission();
+        modelUser
+            .getByPermission(json)
+            .then((data)=>{
+                _this.reply
+                    .setStatus(true)
+                    .setData(data.dataValues);
+            })
+            .catch((error)=>{
+                _this.reply
+                    .setStatus(false)
+                    .setMessage(error);
+            })
+            .finally(()=>{
+                _this.callReplyHandler(_this.reply);
+            });
     },
 
     //Sign out
