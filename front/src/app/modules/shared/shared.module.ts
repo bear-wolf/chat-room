@@ -1,31 +1,25 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MainModule} from "../main/main.module";
-import {GuestModule} from "../guest/guest.module";
 import {AuthComponent} from "./components/auth/auth.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {ParticipantService} from "./services/participant.service";
-import {MessageService} from "./services/message.service";
-import {AuthService} from "./services/auth.service";
-import {StorageService} from "./services/storage.service";
-import {UserService} from "./services/user.service";
-import {RoleService} from "./services/role.service";
-import {ProfileService} from "./services/profile.service";
-import {TranslateService} from "./services/translate.service";
+import {AuthModule} from "../auth/auth.module";
+import {ModalService} from "./services/modal.service";
+import {ModalComponent} from "./directives/modal.component";
 
 @NgModule({
     imports: [
       CommonModule,
       FormsModule,
       ReactiveFormsModule,
-  ],
+      AuthModule
+    ],
     declarations: [
-      AuthComponent
-  ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA],
+        AuthComponent,
+        ModalComponent
+    ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     providers: [
-
+        ModalService
     ],
     exports: [
       AuthComponent,

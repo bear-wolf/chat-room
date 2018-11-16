@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
+import {Subscription} from "rxjs";
+import {ModalService} from "../../services/modal.service";
 
 @Component({
   selector: 'auth-panel',
@@ -6,12 +10,39 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit{
-  title = 'app';
+    public mode: StatusAuthorizated = StatusAuthorizated.Guest;
+    private isAuthSubscription: Subscription;
 
-    constructor() {
+    constructor(
+        public router: Router,
+        private modalService: ModalService,
+        public authService: AuthService) {
     }
 
-    ngOnInit(){
-
+    ngOnInit() {
+        this.isAuthSubscription = this.authService.isAuthenticate().subscribe((data)=>{
+            if (data.status) {
+                this.mode = StatusAuthorizated.Auth
+            }
+        },(data)=>{
+            this.mode = StatusAuthorizated.Guest
+        });
     }
+
+    ngOnDestroy() {
+        this.isAuthSubscription.unsubscribe();
+    }
+
+    openModal(id: string) {
+        this.modalService.open(id);
+    }
+
+    closeModal(id: string) {
+        this.modalService.close(id);
+    }
+}
+
+export enum StatusAuthorizated {
+  Guest = 1,
+  Auth = 2
 }

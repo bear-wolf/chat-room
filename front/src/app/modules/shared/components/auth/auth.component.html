@@ -1,15 +1,43 @@
 <ul class="nav pull-right top-menu">
-  <!--<li>-->
-    <!--<input type="text" class="form-control search" placeholder=" Search">-->
-  <!--</li>-->
-  <!-- user login dropdown start-->
   <li class="dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
+    <div *ngIf="mode == 1">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Guest</a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item"
+           (click)="openModal('custom-modal-1')"
+           href="javascript:void(0)">Авторизуйтесь</a>
+      </div>
     </div>
+
+    <div *ngIf="mode == 2">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
+    </div>
+  </li>
 </ul>
+
+
+
+<modal id="custom-modal-1">
+  <div class="modal">
+    <div class="modal-wrapper">
+      <div class="modal-header">
+        <button (click)="closeModal('custom-modal-1');">Close</button>
+      </div>
+      <div class="modal-body">
+        <h1>A Custom Modal!</h1>
+        <p>
+          Home page text: <input type="text" />
+        </p>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>
