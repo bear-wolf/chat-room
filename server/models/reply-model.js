@@ -26,6 +26,17 @@ _public = {
 
         return this;
     },
+    getData: function () {
+        return this.body;
+    },
+    getFullData: function () {
+        return {
+            code: this.code,
+            status: this.status,
+            message: this.message,
+            body: this.body,
+        };
+    },
     setStatus: function (status) {
         this.status = status;
 
@@ -44,6 +55,9 @@ _public = {
         return this.createJson();
     },
     getToJSONstringify: function () {
+        return JSON.stringify(this.createJson());
+    },
+    toString: function () {
         return JSON.stringify(this.createJson());
     }
 }
