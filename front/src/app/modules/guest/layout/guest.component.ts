@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../../shared/services/auth.service";
+import {AuthService} from "../../../../modules/authorization/services/auth.service";
 import {Route, Router} from "@angular/router";
 import {Subscribable, Subscriber, Subscription} from "rxjs";
 
@@ -14,6 +14,7 @@ export class GuestComponent implements OnInit, OnDestroy {
   constructor(
       public router: Router,
       public authService: AuthService) {
+        debugger;
   }
 
   ngOnInit() {

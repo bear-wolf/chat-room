@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {RequestMethod, RequestOptions} from "@angular/http";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {Observable, of} from "rxjs";
-import {BaseService} from "./base.service";
+import {BaseService} from "../../../app/modules/shared/services/base.service";
 import {catchError, map} from "rxjs/operators";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 

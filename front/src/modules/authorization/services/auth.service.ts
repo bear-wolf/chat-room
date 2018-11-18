@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {AuthModel} from "../models/auth";
-import {StorageService} from "./storage.service";
-import {UserModel} from "../models/user";
+import {AuthModel} from "../../../app/modules/shared/models/auth";
+import {StorageService} from "../../storage/services/storage.service";
+import {UserModel} from "../../../app/modules/shared/models/user";
 
 @Injectable({
     providedIn: 'root'

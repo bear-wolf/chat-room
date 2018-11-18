@@ -1,5 +1,6 @@
 import {Routes, RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
+import {AppComponent} from "./app.component";
 
 export const routes: Routes = [
     { path: '', redirectTo: 'guest', pathMatch: 'full' },
@@ -15,7 +16,7 @@ export const routes: Routes = [
 
 @NgModule({
     imports: [ RouterModule.forRoot(routes,
-        { enableTracing: true } // <-- debugging purposes only
+        { enableTracing: false } // <-- debugging purposes only
     ) ],
     exports: [RouterModule]
 })
