@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {AuthService} from "../../../../../modules/authorization/services/auth.service";
+import {AuthService} from "../../../../../ui/authorization/services/auth.service";
 import {Subscription} from "rxjs";
-import {ModalService} from "../../../../../modules/modal/services/modal.service";
+import {ModalService} from "../../../../../ui/modal/services/modal.service";
 
 @Component({
   selector: 'auth-panel',

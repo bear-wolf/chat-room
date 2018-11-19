@@ -1,5 +1,4 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {StompConfig} from "@stomp/ng2-stompjs";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 
 const stompConfig: StompConfig = {

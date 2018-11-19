@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {GuestModule} from "./modules/guest/guest.module";
 import {HttpClientModule} from "@angular/common/http";
-import {ModalModule} from "../modules/modal/modal.module";
-import {AuthModule} from "../modules/authorization/auth.module";
-import {StorageModule} from "../modules/storage/storage.module";
+import {ModalModule} from "../ui/modal/modal.module";
+import {AuthModule} from "../ui/authorization/auth.module";
+import {StorageModule} from "../ui/storage/storage.module";
 
 @NgModule({
   declarations: [

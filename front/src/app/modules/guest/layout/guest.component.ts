@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../../../../modules/authorization/services/auth.service";
+import {AuthService} from "../../../../ui/authorization/services/auth.service";
 import {Route, Router} from "@angular/router";
 import {Subscribable, Subscriber, Subscription} from "rxjs";
 
