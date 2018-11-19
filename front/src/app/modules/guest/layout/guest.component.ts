@@ -14,12 +14,10 @@ export class GuestComponent implements OnInit, OnDestroy {
   constructor(
       public router: Router,
       public authService: AuthService) {
-        debugger;
   }
 
   ngOnInit() {
       this.isAuthSubscription = this.authService.isAuthenticate().subscribe((data)=>{
-        debugger;
         if (data.status) {
             this.router.navigate(['main'])
         }

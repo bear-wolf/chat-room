@@ -4,6 +4,8 @@ import {AuthComponent} from "./components/auth/auth.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthModule} from "../../../ui/authorization/auth.module";
 import {ModalModule} from "../../../ui/modal/modal.module";
+import {ModalDialogsComponent} from "./components/modal-dialogs/modal-dialogs.component";
+import {CheckInComponent} from "./components/check-in/check-in.component";
 
 @NgModule({
     imports: [
@@ -15,6 +17,8 @@ import {ModalModule} from "../../../ui/modal/modal.module";
     ],
     declarations: [
         AuthComponent,
+        CheckInComponent,
+        ModalDialogsComponent,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     providers: [
@@ -22,7 +26,8 @@ import {ModalModule} from "../../../ui/modal/modal.module";
     exports: [
       AuthComponent,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      ModalDialogsComponent,
   ],
     // entryComponents:[AuthComponent]
 })
