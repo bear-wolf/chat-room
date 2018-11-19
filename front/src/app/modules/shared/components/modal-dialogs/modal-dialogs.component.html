@@ -2,18 +2,11 @@
     <modal id="custom-modal-1">
         <div class="modal">
             <div class="modal-wrapper">
-                <div class="modal-header">
-                    <button
-                            class="close-icon"
-                            (click)="closeModal('custom-modal-1');">Close</button>
-                </div>
-                <div class="modal-body">
-                    <h1>A Custom Modal!</h1>
-                    <p>
-                        Home page text: <input type="text" />
-                    </p>
+                <button class="close-icon"
+                        (click)="closeModal('custom-modal-1');">Close</button>
 
-                </div>
+                <authentication-dialog></authentication-dialog>
+
             </div>
         </div>
         <div class="modal-background"></div>

@@ -36,9 +36,18 @@ export class AuthComponent implements OnInit{
     openModal(id: string) {
         this.modalService.open(id);
     }
+
+    openTab(step) {
+
+    }
 }
 
 export enum StatusAuthorizated {
   Guest = 1,
   Auth = 2
+}
+
+export enum CurrentPanel {
+    SignIn = 1,
+    CheckIn = 2
 }

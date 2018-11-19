@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <div class="flex">
+        <div (click)="openTab(CurrentPanel.SignIn)">
+            Авторизаціція
+        </div>
+        <div (click)="openTab(CurrentPanel.CheckIn)">
+            Реєстрація
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <sign-in></sign-in>
+    <check-in></check-in>
+</div>
