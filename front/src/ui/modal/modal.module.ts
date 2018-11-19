@@ -18,7 +18,7 @@ import {ModalService} from "./services/modal.service";
         ModalService
     ],
     exports: [
-
+        ModalComponent
     ],
     // entryComponents:[AuthComponent]
 })

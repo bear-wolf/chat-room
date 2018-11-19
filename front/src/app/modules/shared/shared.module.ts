@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import {AuthComponent} from "./components/auth/auth.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthModule} from "../../../ui/authorization/auth.module";
+import {ModalModule} from "../../../ui/modal/modal.module";
 
 @NgModule({
     imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
-      AuthModule
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AuthModule,
+        ModalModule
     ],
     declarations: [
         AuthComponent,
