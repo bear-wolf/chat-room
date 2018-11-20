@@ -7,6 +7,8 @@ import {ModalModule} from "../../../ui/modal/modal.module";
 import {ModalDialogsComponent} from "./components/modal-dialogs/modal-dialogs.component";
 import {CheckInComponent} from "./components/check-in/check-in.component";
 import {AuthenticationDialogComponent} from "./components/modal-dialogs/components/authentication/authentication-dialog.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {SignInComponent} from "./components/sign-in/sign-in.component";
 
 @NgModule({
     imports: [
@@ -14,11 +16,13 @@ import {AuthenticationDialogComponent} from "./components/modal-dialogs/componen
         FormsModule,
         ReactiveFormsModule,
         AuthModule,
-        ModalModule
+        ModalModule,
+        FontAwesomeModule
     ],
     declarations: [
         AuthComponent,
         CheckInComponent,
+        SignInComponent,
         AuthenticationDialogComponent,
         ModalDialogsComponent,
     ],

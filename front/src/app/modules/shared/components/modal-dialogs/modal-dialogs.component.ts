@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'modal-dialogs',
@@ -8,6 +9,8 @@ import {ModalService} from "../../../../../ui/modal/services/modal.service";
   styleUrls: ['./modal-dialogs.component.scss']
 })
 export class ModalDialogsComponent implements OnInit {
+
+  public faTimes = faTimes;
 
   constructor(public router: Router,
               private modalService: ModalService) {

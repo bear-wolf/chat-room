@@ -11,41 +11,59 @@ modal {
     float: right;
   }
 
+  .modal-body{
+    padding: 0;
+  }
+  .modal {
+    /* modal container fixed across whole screen */
+    display: block;
+    /* z-index must be higher than .modal-background */
+    z-index: 1000;
+
+    /* enables scrolling for tall modals */
+    overflow: auto;
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.75;
+
+    z-index: 900;
+  }
 }
 
-modal .modal {
-  /* modal container fixed across whole screen */
-  display: block;
-  /* z-index must be higher than .modal-background */
-  z-index: 1000;
-
-  /* enables scrolling for tall modals */
-  overflow: auto;
-}
-
-modal .modal-wrapper {
-  padding: 20px;
-  background: #fff;
-  margin: 40px;
-}
-
-modal .modal-background {
-  /* modal background fixed across whole screen */
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  /* semi-transparent black  */
-  background-color: #000;
-  opacity: 0.75;
-
-  /* z-index must be below .modal and above everything else  */
-  z-index: 900;
-}
 
 body.modal-open {
   /* body overflow is hidden to hide main scrollbar when modal window is open */
   overflow: hidden;
+}
+
+
+.close-icon{
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+
+.modal-wrapper{
+  margin-top: 100px!important;
+  border-radius: 10px ;
+  padding: 10px;
+  background: #fff;
+  position: relative;
+
+  &.auth-container{
+    width: 300px!important;
+    margin: 0 auto!important;
+  }
 }

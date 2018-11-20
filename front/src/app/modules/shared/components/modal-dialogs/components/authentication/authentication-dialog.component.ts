@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./authentication-dialog.component.scss']
 })
 export class AuthenticationDialogComponent implements OnInit {
+  CurrentPanel = CurrentPanel;
+  mode: CurrentPanel = CurrentPanel.SignIn;
 
   constructor(public router: Router) {
 
@@ -15,5 +17,14 @@ export class AuthenticationDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+    openTab(id: CurrentPanel) {
+        this.mode = id;
+    }
 
+}
+
+
+enum CurrentPanel {
+    SignIn = 1,
+    CheckIn = 2
 }

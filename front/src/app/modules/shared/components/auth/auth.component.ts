@@ -46,8 +46,3 @@ export enum StatusAuthorizated {
   Guest = 1,
   Auth = 2
 }
-
-export enum CurrentPanel {
-    SignIn = 1,
-    CheckIn = 2
-}

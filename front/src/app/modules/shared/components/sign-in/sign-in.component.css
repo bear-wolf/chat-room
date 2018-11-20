@@ -23,3 +23,8 @@
 .home-instruction{
 
 }
+
+.has-danger .form-control-feedback,
+.has-success .form-control-feedback {
+    display: block;
+}
