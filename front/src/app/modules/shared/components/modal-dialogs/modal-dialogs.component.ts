@@ -10,14 +10,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class ModalDialogsComponent implements OnInit {
 
-  @ViewChild('modal') public eRefModal: ElementRef;
-
   public faTimes = faTimes;
 
   constructor(public router: Router,
-              private eRef: ElementRef,
               private modalService: ModalService) {
-
   }
 
   ngOnInit() {
@@ -28,7 +24,7 @@ export class ModalDialogsComponent implements OnInit {
     closeModal(event, id: string) {
         if(id) {
             let modal:any = this.modalService.getById(id);
-            debugger;
+
             if (modal) {
                 let eRef = modal.nativeElement;
                 //TODO: close  window
