@@ -34,11 +34,20 @@
                    placeholder="password"
                    formControlName="password">
 
-            <div class="form-control-feedback" [innerText]="userForm.valid"></div>
+            <!--<div class="form-control-feedback" [innerText]="userForm.valid"></div>-->
         </div>
 
-        <button class="btn btn-primary btn-sm"
-                [disabled]="form.pristine || form.invalid"
-                type="submit">Вхід</button>
+        <div class="is-remind-password small">
+            Если вы забыли свой пароль, вы можете
+            <a routerLink=""
+               (click)="remindPassword()"
+               class="under-line">восстановить его</a>.
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary btn-sm"
+                    [disabled]="form.pristine || form.invalid"
+                    type="submit">Вхід</button>
+        </div>
     </form>
 </div>

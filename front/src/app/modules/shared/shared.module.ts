@@ -9,6 +9,10 @@ import {CheckInComponent} from "./components/check-in/check-in.component";
 import {AuthenticationDialogComponent} from "./components/modal-dialogs/components/authentication/authentication-dialog.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {SignInComponent} from "./components/sign-in/sign-in.component";
+import {RequestInterceptor} from "./services/interceptors/request.interceptor";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {StorageModule} from "../../../ui/storage/storage.module";
+import {RemindPasswordDialogComponent} from "./components/modal-dialogs/components/remind-password/remind-password-dialog.component";
 
 @NgModule({
     imports: [
@@ -17,17 +21,25 @@ import {SignInComponent} from "./components/sign-in/sign-in.component";
         ReactiveFormsModule,
         AuthModule,
         ModalModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        StorageModule
     ],
     declarations: [
         AuthComponent,
         CheckInComponent,
         SignInComponent,
-        AuthenticationDialogComponent,
+
         ModalDialogsComponent,
+        AuthenticationDialogComponent,
+        RemindPasswordDialogComponent,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true
+        },
     ],
     exports: [
       AuthComponent,

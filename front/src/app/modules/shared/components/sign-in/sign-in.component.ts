@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
+import {Router} from "@angular/router";
+import {ModalService} from "../../../../../ui/modal/services/modal.service";
 
 @Component({
   selector: 'sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
   message: string = null;
   userForm: FormGroup;
   submitted = false;
 
-  constructor( private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+      private router: Router,
+      private fb: FormBuilder,
+      private modalService: ModalService,
+      private authService: AuthService) {
       this.userForm = this.fb.group({
           'email': ['', Validators.required ],
           'password': ['', Validators.required ]
@@ -28,28 +34,33 @@ export class SignInComponent implements OnInit {
   }
 
     submitForm() {
-      this.submitted = true;
-      let credentials = this.userForm.value;
+        this.submitted = true;
+        let credentials = this.userForm.value;
 
-      if (this.userForm.valid) {
-          this.authService.signIn(credentials)
-              .subscribe(
-                  (data)=>{
-                    debugger
-                  },
-                  (error)=>{
-                      this.message = error.message;
-                  })
-      } else{
-         if (credentials.email.indexOf('@')<0){
-             this.userForm.controls['email']
-                 .setErrors({ message: 'This field is not email'})
-         }
-          if (credentials.password.length){
-              this.userForm.controls['password']
-                  .setErrors({ message: 'This field is empty'})
-          }
-      }
+        if (this.userForm.valid) {
+            this.authService.signIn(credentials)
+                .subscribe(
+                    (data)=>{
+                        debugger
+                    },
+                    (error)=>{
+                        this.message = error.message;
+                    })
+        } else{
+            if (credentials.email.indexOf('@')<0){
+                this.userForm.controls['email']
+                    .setErrors({ message: 'This field is not email'})
+            }
+            if (credentials.password.length){
+                this.userForm.controls['password']
+                    .setErrors({ message: 'This field is empty'})
+            }
+        }
+    }
+
+    remindPassword() {
+      this.modalService.closeAll();
+      this.router.navigate(['guest/remind-password']);
     }
 
 }
