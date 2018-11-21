@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -10,9 +10,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 })
 export class ModalDialogsComponent implements OnInit {
 
+  @ViewChild('modal') public eRefModal: ElementRef;
+
   public faTimes = faTimes;
 
   constructor(public router: Router,
+              private eRef: ElementRef,
               private modalService: ModalService) {
 
   }
@@ -20,12 +23,12 @@ export class ModalDialogsComponent implements OnInit {
   ngOnInit() {
   }
 
-    openModal(id: string) {
-        this.modalService.open(id);
-    }
+    //@HostListener('document:click', ['$event'])
 
-    closeModal(id: string) {
-        this.modalService.close(id);
+    closeModal(event, id: string) {
+        if(!this.eRefModal.nativeElement.contains(event.target) && id) {
+            this.modalService.close(id);
+        }
     }
 
 }

@@ -1,10 +1,11 @@
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 export class ModalService {
     private modals: any[] = [];
     private bs_modals = new BehaviorSubject<any[]>(this.modals);
 
     public isLoadedModals = this.bs_modals.asObservable();
+    public afterClose = new Subject();
 
     constructor() {
     }
@@ -31,6 +32,8 @@ export class ModalService {
         // close modal specified by id
         let modal: any = this.modals.filter(x => x.id === id)[0];
         modal.close();
+
+        this.afterClose.next(modal);
     }
 
     closeAll() {

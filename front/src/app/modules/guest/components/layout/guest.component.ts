@@ -23,18 +23,6 @@ export class GuestComponent implements OnInit, OnDestroy {
         }
       },(data)=>{
       });
-
-      this.routerEvents()
-  }
-
-  routerEvents() {
-
-      this.router.events.subscribe((data) => {
-          console.log('events', data);
-          if (data['routerEvent'] instanceof NavigationEnd) {
-              debugger
-          }
-      })
   }
 
   ngOnDestroy() {
