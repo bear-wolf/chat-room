@@ -20,15 +20,16 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.clearView();
+  }
 
+  clearView() {
+      this.message = null;
   }
 
     submitForm() {
       this.submitted = true;
       let credentials = this.userForm.value;
-        debugger;
-
-        console.log(credentials);
 
       if (this.userForm.valid) {
           this.authService.signIn(credentials)
@@ -37,15 +38,16 @@ export class SignInComponent implements OnInit {
                     debugger
                   },
                   (error)=>{
-                      debugger
-                      this.message = error;
+                      this.message = error.message;
                   })
       } else{
          if (credentials.email.indexOf('@')<0){
-             this.userForm.controls['email'].setErrors({ message: 'This field is not email'})
+             this.userForm.controls['email']
+                 .setErrors({ message: 'This field is not email'})
          }
           if (credentials.password.length){
-              this.userForm.controls['password'].setErrors({ message: 'This field is empty'})
+              this.userForm.controls['password']
+                  .setErrors({ message: 'This field is empty'})
           }
       }
     }

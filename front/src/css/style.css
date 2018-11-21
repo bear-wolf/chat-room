@@ -701,3 +701,12 @@ app-root{
 .top-nav ul.top-menu>li{
     height: 8vh;
 }
+
+
+.message-container{
+    background: darkseagreen;
+    text-align: center;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 10px;
+}
