@@ -2,6 +2,8 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AuthService} from "./services/auth.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "./services/interceptors/auth.interceptor";
 
 @NgModule({
     imports: [
@@ -13,7 +15,12 @@ import {AuthService} from "./services/auth.service";
   ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     providers: [
-        AuthService
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
     ],
     exports: [
 

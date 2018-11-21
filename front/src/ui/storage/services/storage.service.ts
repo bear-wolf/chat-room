@@ -8,4 +8,12 @@ export class StorageService {
     getAuth():string {
         return window[this.storageName].getItem('auth');
     }
+
+    setToken(data: string ) {
+        window[this.storageName].setItem('token', data);
+    }
+
+    getToken():string {
+        return window[this.storageName].getItem('token');
+    }
 }

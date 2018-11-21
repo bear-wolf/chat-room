@@ -20,10 +20,13 @@ var _public = {
             auth = global.getControllers().AuthController;
 
         app.use(function (req, res, next) {
-            //addHeader(res);
-
             if (req.method == 'OPTIONS') {
-                //res.setHeader('Access-Control-Allow-Headers', ''); // Request methods you wish to allow
+                console.log('enable CORS');
+
+                // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+                res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+                res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+
                 res.statusCode = 200;
                 res.end('');
             } else next();

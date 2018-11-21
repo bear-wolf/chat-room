@@ -76,11 +76,11 @@ _public = {
             modelUser = global.db.User;
 
         if (!self.validate(json, ValidateStatus.SAVE)) {
-            _this.callReplyHandler({
-                status: false,
-                //message: 'This Email or password is exist'
-                message: 'No verify format of request'
-            })
+            _this.reply
+                .setStatus(false)
+                .setMessage('No verify format of request');
+
+            _this.callReplyHandler(_this.reply)
         }
 
         modelUser

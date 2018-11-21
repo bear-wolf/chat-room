@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../../../../ui/authorization/services/auth.service";
-import {Route, Router} from "@angular/router";
+import {AuthService} from "../../../../../ui/authorization/services/auth.service";
+import {NavigationEnd, Route, Router} from "@angular/router";
 import {Subscribable, Subscriber, Subscription} from "rxjs";
 
 @Component({
@@ -23,6 +23,18 @@ export class GuestComponent implements OnInit, OnDestroy {
         }
       },(data)=>{
       });
+
+      this.routerEvents()
+  }
+
+  routerEvents() {
+
+      this.router.events.subscribe((data) => {
+          console.log('events', data);
+          if (data['routerEvent'] instanceof NavigationEnd) {
+              debugger
+          }
+      })
   }
 
   ngOnDestroy() {

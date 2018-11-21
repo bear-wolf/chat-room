@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AuthModel} from "../../../app/modules/shared/models/auth";
 import {StorageService} from "../../storage/services/storage.service";
 import {UserModel} from "../../../app/modules/shared/models/user";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -50,6 +51,10 @@ export class AuthService {
 
     signIn(body: {}): Observable<any> {
         return this.httpClient.post('/sign-in/', body);
+    }
+
+    remindPassword(body: {}): Observable<any> {
+        return this.httpClient.post('/remind-password/', body);
     }
 
     signOut(body: {}): Observable<any> {

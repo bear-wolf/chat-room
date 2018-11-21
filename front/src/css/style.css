@@ -1,8 +1,15 @@
 /*global*/
-.flex-row{
-    flex-direction: row;
+.under-line{
+    text-decoration: underline!important;
 }
+.under-line:hover{
+     text-decoration: none!important;
+ }
 /*global==========*/
+
+a{
+    cursor: pointer;
+}
 
 ul{
     padding: 0;
@@ -709,4 +716,9 @@ app-root{
     font-size: 12px;
     padding: 5px;
     border-radius: 10px;
+}
+
+.auth-container .item{
+    height: 55px;
+    line-height: 55px;
 }
