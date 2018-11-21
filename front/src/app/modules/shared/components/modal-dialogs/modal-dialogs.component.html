@@ -11,4 +11,17 @@
         </div>
         <div class="modal-background"></div>
     </modal>
+
+    <modal id="RemindPassword">
+        <div class="modal">
+            <div class="modal-wrapper remind-password">
+                <button class="close-icon"
+                        (click)="closeModal('RemindPassword');"> <fa-icon [icon]="faTimes"></fa-icon></button>
+
+                <remind-password-dialog></remind-password-dialog>
+
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>
 </div>

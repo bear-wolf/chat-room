@@ -1,16 +1,19 @@
 <div class="modal-header">
-    <div class="d-flex justify-content-between flex-row w-100">
-        <div class="d-flex"
+    <div class="tab-title d-flex justify-content-between flex-row w-100">
+        <div class="d-flex item"
+             [ngClass]="isSignIn() ? 'active' : ''"
              (click)="openTab(CurrentPanel.SignIn)">
             Авторизація
         </div>
-        <div class="d-flex"
+        <div class="d-flex item"
+             [ngClass]="isCheckIn() ? 'active' : ''"
              (click)="openTab(CurrentPanel.CheckIn)">
             Реєстрація
         </div>
     </div>
 </div>
 <div class="modal-body">
-    <sign-in *ngIf="mode == CurrentPanel.SignIn"></sign-in>
-    <check-in *ngIf="mode == CurrentPanel.CheckIn"></check-in>
+    <sign-in *ngIf="isSignIn()"></sign-in>
+    <check-in *ngIf="isCheckIn()"
+              (openSignInTab)="openSignInTab($event)"></check-in>
 </div>

@@ -21,6 +21,17 @@ export class AuthenticationDialogComponent implements OnInit {
         this.mode = id;
     }
 
+    openSignInTab() {
+        this.mode = CurrentPanel.SignIn;
+    }
+
+    isSignIn(){
+      return this.mode == CurrentPanel.SignIn
+    }
+
+    isCheckIn(){
+        return this.mode == CurrentPanel.CheckIn
+    }
 }
 
 

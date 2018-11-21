@@ -45,9 +45,11 @@ body.modal-open {
   border-radius: 10px;
   padding: 10px;
   background: #fff;
-  position: relative; }
+  position: relative;
+  margin: 0 auto !important; }
   .modal-wrapper.auth-container {
-    width: 300px !important;
-    margin: 0 auto !important; }
+    width: 300px !important; }
+  .modal-wrapper.remind-password {
+    width: 300px !important; }
 
 /*# sourceMappingURL=modal-dialogs.component.css.map */

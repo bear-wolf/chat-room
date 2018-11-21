@@ -61,9 +61,12 @@ body.modal-open {
   padding: 10px;
   background: #fff;
   position: relative;
+  margin: 0 auto!important;
 
   &.auth-container{
     width: 300px!important;
-    margin: 0 auto!important;
+  }
+  &.remind-password{
+    width: 300px!important;
   }
 }

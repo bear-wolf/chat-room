@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAEA,aAAa;EACX,OAAO,EAAE,YAAW;EAEpB,wBAAU;IACR,aAAa,EAAE,IAAI;EAErB,mBAAK;IACH,KAAK,EAAE,GAAG;IACV,eAAe,EAAE,MAAM;;AAI3B,OAAO;EACL,aAAa,EAAE,oBAAoB",
+"sources": ["authentication-dialog.component.scss"],
 "names": [],
-"file": "authentication.component.css"
+"file": "authentication-dialog.component.css"
 }

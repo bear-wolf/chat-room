@@ -1,0 +1,17 @@
+
+
+.modal-header{
+  padding: 0!important;
+
+  .tab-title{
+    margin-bottom: -2px;
+  }
+  .item{
+    width: 50%;
+    justify-content: center;
+  }
+}
+
+.active{
+  border-bottom: 2px solid lightcoral;
+}
