@@ -26,8 +26,16 @@ export class ModalDialogsComponent implements OnInit {
     //@HostListener('document:click', ['$event'])
 
     closeModal(event, id: string) {
-        if(!this.eRefModal.nativeElement.contains(event.target) && id) {
-            this.modalService.close(id);
+        if(id) {
+            let modal:any = this.modalService.getById(id);
+            debugger;
+            if (modal) {
+                let eRef = modal.nativeElement;
+                //TODO: close  window
+                if (!eRef.children[0].children[0].contains(event.target)) {
+                    this.modalService.close(id);
+                }
+            }
         }
     }
 

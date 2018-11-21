@@ -8,10 +8,10 @@ import {ModalService} from "../services/modal.service";
 
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;
-    private element: any;
+    public nativeElement: any;
 
     constructor(private modalService: ModalService, private el: ElementRef) {
-        this.element = el.nativeElement;
+        this.nativeElement = el.nativeElement;
     }
 
     ngOnInit(): void {
@@ -24,10 +24,10 @@ export class ModalComponent implements OnInit, OnDestroy {
         }
 
         // move element to bottom of page (just before </body>) so it can be displayed above everything else
-        document.body.appendChild(this.element);
+        document.body.appendChild(this.nativeElement);
 
         // close modal on background click
-        this.element.addEventListener('click', function (e: any) {
+        this.nativeElement.addEventListener('click', function (e: any) {
             if (e.target.className === 'modal') {
                 modal.close();
             }
@@ -40,18 +40,18 @@ export class ModalComponent implements OnInit, OnDestroy {
     // remove self from modal service when directive is destroyed
     ngOnDestroy(): void {
         this.modalService.remove(this.id);
-        this.element.remove();
+        this.nativeElement.remove();
     }
 
     // open modal
     open(): void {
-        this.element.style.display = 'block';
+        this.nativeElement.style.display = 'block';
         document.body.classList.add('modal-open');
     }
 
     // close modal
     close(): void {
-        this.element.style.display = 'none';
+        this.nativeElement.style.display = 'none';
         document.body.classList.remove('modal-open');
     }
 }

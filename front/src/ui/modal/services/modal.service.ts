@@ -22,6 +22,10 @@ export class ModalService {
         this.modals = this.modals.filter(x => x.id !== id);
     }
 
+    getById(id:string) {
+        return this.modals.filter(x => x.id === id)[0];
+    }
+
     open(id: string) {
         // open modal specified by id
         let modal: any = this.modals.filter(x => x.id === id)[0];
