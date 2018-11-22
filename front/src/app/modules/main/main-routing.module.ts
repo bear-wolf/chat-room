@@ -1,12 +1,13 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {LayoutComponent} from "./components/layout/layout.component";
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'event-list', pathMatch: 'full'
-  //
-  // },
+  {
+    path: '',
+    pathMatch: 'full',
+    component: LayoutComponent
+  },
 ];
 
 @NgModule({

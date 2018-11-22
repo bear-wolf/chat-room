@@ -3,7 +3,8 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from "./app.component";
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'guest', pathMatch: 'full' },
+    // { path: '', redirectTo: 'guest', pathMatch: 'full' },
+    { path: '', redirectTo: 'auth', pathMatch: 'full' },
     {
       path: 'guest',
       loadChildren: './modules/guest/guest.module#GuestModule'
