@@ -44,22 +44,24 @@ _public = {
         var _this = this,
             modelUser = global.db.User;
 
-        if (!!self.validate(json, ValidateStatus.SAVE)) {
+        if (!self.validate(json, ValidateStatus.SAVE)) {
             _this.callReplyHandler({
-                status: true,
-                //message: 'This Email or password is exist'
+                status: false,
                 message: 'No verify format of request'
             })
+
+            return this;
         }
 
         modelUser
             .save({
-                email: json.email
+                email: json.email,
+                password: json.password
             })
             .then((data)=>{
                 _this.callReplyHandler({
                     status: true,
-                    message: 'Your email added saccessffuly'
+                    message: 'Your email added saccessffully'
                 })
             })
             .catch((error)=>{

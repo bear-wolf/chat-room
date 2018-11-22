@@ -23,9 +23,9 @@ var _public = {
             if (req.method == 'OPTIONS') {
                 console.log('enable CORS');
 
-                // res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+                res.header("Access-Control-Allow-Origin", "http://localhost:4200");
                 res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-                res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+                res.header("Access-Control-Allow-Methods", "GET, DELETE, PUT, POST");
 
                 res.statusCode = 200;
                 res.end('');

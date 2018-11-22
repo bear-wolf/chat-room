@@ -3,7 +3,7 @@ var RouteUser = {
         var _this = this,
             authController = global.getControllers().AuthController;
 
-        app.get('/is-auth', function (req, res) {
+        app.post('/is-auth', function (req, res) {
             authController
                 .createInstance()
                 .setRequest(req)
