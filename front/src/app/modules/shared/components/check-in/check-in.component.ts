@@ -8,6 +8,7 @@ import {AuthService} from "../../../../../ui/authorization/services/auth.service
   styleUrls: ['./check-in.component.scss']
 })
 export class CheckInComponent implements OnInit {
+    registrationIsSuccessful = true;
     message: string = null;
     userForm: FormGroup;
     submitted = false;
@@ -29,13 +30,16 @@ export class CheckInComponent implements OnInit {
         let credentials = this.userForm.value;
 
         if (this.userForm.valid) {
-            this.authService.signIn(credentials)
+            this.authService.checkIn(credentials)
                 .subscribe(
                     (data)=>{
-                        debugger
+                        if (data.status) {
+                            this.message = data.message;
+                            this.registrationIsSuccessful = false;
+                        }
                     },
-                    (error)=>{
-                        this.message = error.message;
+                    (data)=>{
+                        this.message = data.message;
                     })
         } else{
             if (credentials.email.indexOf('@')<0){

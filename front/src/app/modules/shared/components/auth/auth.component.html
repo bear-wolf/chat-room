@@ -1,16 +1,18 @@
 <ul class="nav pull-right top-menu">
   <li class="dropdown">
-    <div *ngIf="mode == 1">
+    <div *ngIf="mode == StatusAuthorizated.Guest">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Guest</a>
       <div class="dropdown-menu">
         <a class="dropdown-item"
-           (click)="openModal('custom-modal-1')"
+           (click)="openModal('authentication')"
            href="javascript:void(0)">Авторизуйтесь</a>
       </div>
     </div>
 
-    <div *ngIf="mode == 2">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+    <div *ngIf="mode == StatusAuthorizated.Auth">
+      <a class="nav-link dropdown-toggle"
+         [innerText]=""
+         data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false"></a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Action</a>
         <a class="dropdown-item" href="#">Another action</a>

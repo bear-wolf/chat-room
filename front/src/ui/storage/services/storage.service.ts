@@ -1,8 +1,10 @@
 export class StorageService {
     private storageName = 'localStorage';
 
-    setAuth(data: any ) {
+    setAuth(data: string ) {
         window[this.storageName].setItem('auth', data);
+
+        return this;
     }
 
     getAuth():string {
@@ -11,6 +13,8 @@ export class StorageService {
 
     setToken(data: string ) {
         window[this.storageName].setItem('token', data);
+
+        return this;
     }
 
     getToken():string {

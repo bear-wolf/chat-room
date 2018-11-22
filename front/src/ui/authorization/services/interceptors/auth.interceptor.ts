@@ -20,12 +20,12 @@ export class AuthInterceptor implements HttpInterceptor {
         } = { 'Content-Type': 'application/json' };
 
         if (token) {
-            headers['Authorization'] = 'Bearer '+token;
+            // headers['Authorization'] = 'Bearer '+token;
+            headers['Authorization'] = token;
 
             options.setHeaders = headers;
+            request = request.clone(options);
         }
-
-        request = request.clone(options);
         return next.handle(request);
     }
 }

@@ -11,15 +11,15 @@ import {Subscribable, Subscriber, Subscription} from "rxjs";
 export class GuestComponent implements OnInit, OnDestroy {
   private isAuthSubscription: Subscription;
 
-  constructor(
-      public router: Router,
-      public authService: AuthService) {
-  }
+      constructor(
+          public router: Router,
+          public authService: AuthService) {
+      }
 
   ngOnInit() {
       this.isAuthSubscription = this.authService.isAuthenticate().subscribe((data)=>{
         if (data.status) {
-            this.router.navigate(['main'])
+            this.router.navigate(['auth'])
         }
       },(data)=>{
       });

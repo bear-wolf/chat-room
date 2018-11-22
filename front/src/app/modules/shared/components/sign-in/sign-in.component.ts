@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
 import {Router} from "@angular/router";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
+import {Reply} from "../../models/reply";
+import {StorageService} from "../../../../../ui/storage/services/storage.service";
 
 @Component({
   selector: 'sign-in',
@@ -17,6 +19,7 @@ export class SignInComponent implements OnInit {
   constructor(
       private router: Router,
       private fb: FormBuilder,
+      private storageService: StorageService,
       private modalService: ModalService,
       private authService: AuthService) {
       this.userForm = this.fb.group({
@@ -40,8 +43,15 @@ export class SignInComponent implements OnInit {
         if (this.userForm.valid) {
             this.authService.signIn(credentials)
                 .subscribe(
-                    (data)=>{
-                        debugger
+                    (data: Reply)=>{
+                        if (data.status) {
+                            this.modalService.close('authentication');
+                            this.storageService
+                                .setToken(data.token)
+                                .setAuth(JSON.stringify(data.body))
+
+                            this.router.navigate(['auth']);
+                        }
                     },
                     (error)=>{
                         this.message = error.message;
