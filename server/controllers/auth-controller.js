@@ -50,7 +50,7 @@ _public = {
                         var json = reply.get();
 
                         json['token'] = token;
-                        global.redis.setData(token, reply.getData());
+                        //global.redis.setData(token, reply.getData());
                         _this.responce.end(JSON.stringify(json));
                     }
                 })

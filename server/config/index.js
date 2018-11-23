@@ -1,10 +1,13 @@
 var Config = {
+    port: "3200",
+    switchRedis: false, // false - disable || true - enable
+
     database: {
         host: "localhost",
         // user: "andrew",
         // password: "14714711",
         user: "root",
-        password: "root",
+        password: "",
         database : process.env.DATABASE_NAME || 'chat-room'
     },
     date_format: 'YYYY-MM-DD HH:mm:ss',
