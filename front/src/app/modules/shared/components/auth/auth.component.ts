@@ -5,17 +5,19 @@ import {Subscription} from "rxjs";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import {StorageService} from "../../../../../ui/storage/services/storage.service";
 import {User} from "../../models/user";
+import {AuthModel, StatusAuthorizated} from "../../models/auth";
+import {debug} from "util";
 
 @Component({
   selector: 'auth-panel',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+    styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit{
+    public userModel :User;
+    public authModel :AuthModel;
     StatusAuthorizated = StatusAuthorizated;
-    displayUser = '';
 
-    public mode: StatusAuthorizated = StatusAuthorizated.Guest;
     private isAuthSubscription: Subscription;
 
     constructor(
@@ -23,40 +25,42 @@ export class AuthComponent implements OnInit{
         private modalService: ModalService,
         private storageService: StorageService,
         public authService: AuthService) {
+
+        this.authModel = new AuthModel();
+        this.userModel  = new User();
     }
 
-    ngOnInit() { debugger;
+    ngOnInit() {
         // this.authService.afterCheckToken().subscribe();
-
         this.isAuthSubscription = this.authService.isAuthenticate()
             .subscribe((data)=>{
                 if (data.status) {
-                    this.mode = StatusAuthorizated.Auth;
-
-                    let user:User = JSON.parse(this.storageService.getAuth());
-
-                    this.displayUser = user.email;
+                    this.authModel.setMode(StatusAuthorizated.Auth)
+                    this.userModel.importStorage(this.storageService.getAuth());
                 }
             },(data)=>{
-                this.mode = StatusAuthorizated.Guest
+                this.authModel.setMode(StatusAuthorizated.Guest)
+
                 this.router.navigate(['guest']);
             });
     }
-
     ngOnDestroy() {
         this.isAuthSubscription.unsubscribe();
+    }
+
+    logOut(){
+        this.authService.logOut().subscribe((data)=>{
+            if (data.status) {
+                this.storageService.removeToken(this.userModel.token);
+                 this.router.navigate(['guest']);
+            }
+        },(data)=>{
+            debugger;
+            this.router.navigate(['guest']);
+        });
     }
 
     openModal(id: string) {
         this.modalService.open(id);
     }
-
-    openTab(step) {
-
-    }
-}
-
-export enum StatusAuthorizated {
-  Guest = 1,
-  Auth = 2
 }

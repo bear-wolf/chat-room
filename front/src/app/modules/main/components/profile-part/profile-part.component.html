@@ -1,8 +1,13 @@
 <div id="profile"
+     class="profile-container"
      [ngClass]="expanded ? 'expanded' : ''">
+
     <div class="wrap">
-        <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="">
-        <p>Mike Ross</p>
+        <span class="avatar pull-left"
+              style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
+              [innerText]="initials || ''"></span>
+        <p [innerText]="displayName"></p>
+
         <a routerLink=""
            (click)="expanded = !expanded">
             <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
@@ -16,12 +21,78 @@
             <!--</ul>-->
         <!--</div>-->
         <div id="expanded">
-            <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-            <input name="twitter" type="text" value="mikeross">
-            <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-            <input name="twitter" type="text" value="ross81">
-            <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-            <input name="twitter" type="text" value="mike.ross">
+            <div id="profile-form"
+                 *ngIf="profileFormContainer"
+                 class="profile-form">
+
+                <div class="message-container"
+                     *ngIf="message" [innerText]="message"></div>
+
+                    <form [formGroup]="profileForm"
+                      #form="ngForm"
+                      novalidate
+                      (ngSubmit)="saveProfileForm()">
+
+                        <div [class]="'form-group'+ (firstName.errors && firstName.errors.message ? 'has-danger' : '')">
+                            <input type="text"
+                                   class="form-control"
+                                   id="first_name"
+                                   #firstName
+                                   placeholder="First Name"
+                                   formControlName="first_name">
+
+                            <div *ngIf="firstName.errors && firstName.errors.message"
+                                 class="invalid-feedback form-control-feedback">
+                                <div [innerText]="firstName.errors.message"></div>
+                            </div>
+                        </div>
+
+                    <div [class]="'form-group'+ (lastName.errors && lastName.errors.message ? 'has-danger' : '')">
+                        <input type="text"
+                               class="form-control"
+                               id="last_name"
+                               #lastName
+                               placeholder="Last Name"
+                               formControlName="last_name">
+
+                        <div *ngIf="lastName.errors && lastName.errors.message"
+                             class="invalid-feedback form-control-feedback">
+                            <div [innerText]="lastName.errors.message"></div>
+                        </div>
+                    </div>
+                        <div [class]="'form-group'+ (middleName.errors && middleName.errors.message ? 'has-danger' : '')">
+                            <input type="text"
+                                   class="form-control"
+                                   id="middle_name"
+                                   #middleName
+                                   placeholder="Middle Name"
+                                   formControlName="middle_name">
+
+                            <div *ngIf="middleName.errors && middleName.errors.message"
+                                 class="invalid-feedback form-control-feedback">
+                                <div [innerText]="middleName.errors.message"></div>
+                            </div>
+                        </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-style btn-sm"
+                                type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm pull-right">
+                <button class="btn btn-style"
+                        [innerText]="profileBtn"
+                        (click)="onChangeProfile()"> <fa-icon [icon]="faUser"></fa-icon>Add Profile</button>
+            </div>
+
+            <!--<label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>-->
+            <!--<input name="twitter" type="text" value="mikeross">-->
+            <!--<label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>-->
+            <!--<input name="twitter" type="text" value="ross81">-->
+            <!--<label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>-->
+            <!--<input name="twitter" type="text" value="mike.ross">-->
         </div>
     </div>
 </div>

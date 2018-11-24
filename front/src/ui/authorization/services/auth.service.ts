@@ -21,10 +21,6 @@ export class AuthService {
         private storageService: StorageService) {
     }
 
-    updateAuthentication(data: AuthModel){
-        return this.auth.next(data);
-    }
-
     isAuthenticate(): Observable<any> {
         let token = this.storageService.getToken();
 
@@ -63,12 +59,14 @@ export class AuthService {
         return this.httpClient.post('/remind-password/', body);
     }
 
-    signOut(body: {}): Observable<any> {
-        return this.httpClient.get('/sign-in/', body);
+    logOut(): Observable<any> {
+        return this.httpClient.get('/log-out/');
     }
 
     //registry
     checkIn(body: {}): Observable<any> {
+        debugger
         return this.httpClient.post('/check-in/', body);
+        //return this.httpClient.post('http://localhost:3200/check-in/', body);
     }
 }

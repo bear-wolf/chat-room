@@ -1,24 +1,45 @@
 <ul class="nav pull-right top-menu">
   <li class="dropdown">
-    <div *ngIf="mode == StatusAuthorizated.Guest">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Guest</a>
+    <div
+            class="private-panel"
+            *ngIf="authModel.is(StatusAuthorizated.Guest)">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+         [routerLink]=""
+         aria-haspopup="true" aria-expanded="false">
+        <span class="avatar pull-left"
+              style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
+              [innerText]="userModel.getInitials() || 'g@'"
+        ></span>
+        <span class="text"
+              [innerText]="userModel.getDisplayName()"></span>
+      </a>
+
       <div class="dropdown-menu">
         <a class="dropdown-item"
            (click)="openModal('authentication')"
-           href="javascript:void(0)">Авторизуйтесь</a>
+           href="javascript:void(0)">Log in</a>
       </div>
     </div>
 
-    <div *ngIf="mode == StatusAuthorizated.Auth">
+    <div
+            class="private-panel"
+            *ngIf="authModel.is(StatusAuthorizated.Auth)">
       <a class="nav-link dropdown-toggle"
-         [innerText]=""
-         data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false"></a>
+         data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
+          <span class="avatar pull-left"
+                style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
+                [innerText]="userModel.getInitials()"></span>
+        <span class="text"
+              [innerText]="userModel.getDisplayName()"></span>
+      </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
+        <!--<a class="dropdown-item" href="#">Action</a>-->
+        <!--<a class="dropdown-item" href="#">Another action</a>-->
+        <!--<a class="dropdown-item" href="#">Something else here</a>-->
+        <!--<div class="dropdown-divider"></div>-->
+        <a class="dropdown-item"
+           (click)="logOut()"
+           [routrerLink]="">Log out</a>
       </div>
     </div>
   </li>

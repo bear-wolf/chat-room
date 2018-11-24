@@ -13,6 +13,7 @@ import {RequestInterceptor} from "./services/interceptors/request.interceptor";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {StorageModule} from "../../../ui/storage/storage.module";
 import {RemindPasswordDialogComponent} from "./components/modal-dialogs/components/remind-password/remind-password-dialog.component";
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import {RemindPasswordDialogComponent} from "./components/modal-dialogs/componen
         AuthModule,
         ModalModule,
         FontAwesomeModule,
-        StorageModule
+        StorageModule,
+        MomentModule
     ],
     declarations: [
         AuthComponent,
