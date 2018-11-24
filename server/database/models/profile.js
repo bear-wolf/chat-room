@@ -65,25 +65,26 @@ var _public = {
                         //callback
                         reply
                             .setStatus(true)
+                            .setMessage('You change profile is successfully')
                             .setData(data);
 
-                        _this.callback_successfully(reply.get());
+                        _this.callback_successfully(reply);
                     });
                 } else {
                     reply
                         .setStatus(true)
+                        .setMessage('You save profile is successfully')
                         .setData(data);
 
-                    _this.callback_successfully(reply.get());
+                    _this.callback_successfully(reply);
                 }
             })
             .catch((error)=>{
                 reply
                     .setStatus(false)
-                    .setStatus(false)
                     .setMessage(error);
 
-                _this.callback_error(reply.get());
+                _this.callback_error(reply);
             });
 
         return this;

@@ -103,14 +103,15 @@ _public = {
     },
 
     //Sign out
-    actionSignOut: function (token) {
+    actionLogOut: function (token) {
         var _this = this,
             reply = global.models.reply.createInstance();
 
         if (!token) {
             reply.setStatus(true)
 
-            return reply.getResponce();
+            _this.callReplyHandler(reply);
+            return this;
         }
 
         global.redis.removeData(token, function (error, data) {
@@ -124,7 +125,7 @@ _public = {
                     .setMessage('Your token not remove');
             }
 
-            _this.callReplyHandler(reply.get());
+            _this.callReplyHandler(reply);
         })
     }
 }

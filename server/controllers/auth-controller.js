@@ -61,16 +61,16 @@ _public = {
         return this;
     },
     //Sign out
-    actionSignOut: function () {
+    actionLogOut: function () {
         var _this = this,
             authModel = this.createModel(),
             token = this.request.headers.authorization;
 
         authModel
-            .setReplyHandler(function (data) {
-                _this.responce.end(JSON.stringify(data));
+            .setReplyHandler(function (reply) {
+                _this.responce.end(reply.toString());
             })
-            .actionSignOut(token);
+            .actionLogOut(token);
 
         return this;
     },

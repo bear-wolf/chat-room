@@ -19,12 +19,12 @@ var RouteUser = {
                 .setResponce(res)
                 .actionSignIn();
         });
-        app.get('/sign-out', function (req, res) {
+        app.get('/log-out', function (req, res) {
             authController
                 .createInstance()
                 .setRequest(req)
                 .setResponce(res)
-                .actionSignOut();
+                .actionLogOut();
         });
         app.post('/check-in', function (req, res) {
             authController

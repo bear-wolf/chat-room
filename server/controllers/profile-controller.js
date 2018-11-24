@@ -30,30 +30,21 @@ _public = {
                     .setMessage(error)
             })
             .finally(()=>{
-                _this.getResponce().end(reply.getToJSONstringify())
+                _this.getResponce().end(reply.toString())
             });
     },
     actionSave: function () {
         var _this = this,
             bodyRequest = this.request.body,
-            reply = global.models.reply.createInstance(),
             profile = global.db.Profile,
             currentId = this.request.params.id;
 
         profile
-            .setCallBackSuccessfully(function (data) {
-                reply
-                    .setStatus(true)
-                    .setData(data);
-
-                _this.responce.end(reply.getToJSONstringify())
+            .setCallBackSuccessfully(function (reply) {
+                _this.responce.end(reply.toString())
             })
-            .setCallBackError(function (error) {
-                reply
-                    .setStatus(false)
-                    .setMessage(error);
-
-                _this.responce.end(reply.getToJSONstringify())
+            .setCallBackError(function (reply) {
+                _this.responce.end(reply.toString())
             })
             .save(bodyRequest, currentId);
     },
@@ -68,7 +59,7 @@ _public = {
                 .setStatus(false)
                 .setMessage('Id not exist');
 
-            _this.responce.end(reply.getToJSONstringify())
+            _this.responce.end(reply.toString())
 
             return;
         }
