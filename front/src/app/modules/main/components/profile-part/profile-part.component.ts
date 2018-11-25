@@ -22,9 +22,6 @@ export class ProfilePartComponent implements OnInit {
     profileFormContainer = false;
     profileBtn = 'add Profile';
 
-  displayName: string = '';
-    initials = null;
-
     profileForm: FormGroup;
     submitted = false;
     userModel: User = new User();

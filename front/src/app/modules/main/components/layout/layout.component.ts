@@ -9,8 +9,6 @@ import {AuthService} from "../../../../../ui/authorization/services/auth.service
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-    private isAuthSubscription: Subscription;
-
     constructor(
         public router: Router,
         public authService: AuthService) {
@@ -18,16 +16,10 @@ export class LayoutComponent implements OnInit {
 
 
     ngOnInit() {
-      this.isAuthSubscription = this.authService.isAuthenticate().subscribe((data)=>{
-          if (data.status) {
-              this.router.navigate(['auth'])
-          }
-      },(data)=>{
-      });
+
   }
 
     ngOnDestroy() {
-        this.isAuthSubscription.unsubscribe();
     }
 
 }
