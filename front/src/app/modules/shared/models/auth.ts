@@ -12,16 +12,11 @@ export class AuthModel {
     }
 
     getMode() {
-        return mode;
+        return this.mode;
     }
 
     is(mode) {
         return this.mode == mode ? true : false;
-    }
-
-    getInitials(){
-        debugger;
-        return '';
     }
 
 }

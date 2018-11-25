@@ -35,11 +35,11 @@ export class AuthComponent implements OnInit{
         this.isAuthSubscription = this.authService.isAuthenticate()
             .subscribe((data)=>{
                 if (data.status) {
-                    this.authModel.setMode(StatusAuthorizated.Auth)
-                    this.userModel.importStorage(this.storageService.getAuth());
+                    this.authModel.setMode(StatusAuthorizated.Auth);
+                    this.userModel.importStorage(JSON.parse(this.storageService.getAuth()));
                 }
             },(data)=>{
-                this.authModel.setMode(StatusAuthorizated.Guest)
+                this.authModel.setMode(StatusAuthorizated.Guest);
 
                 this.router.navigate(['guest']);
             });

@@ -7,6 +7,7 @@ import {ProfileService} from "../../../shared/services/profile.service";
 
 import {DateFormatPipe} from "ngx-moment";
 import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
+import {AuthService} from "../../../../../ui/authorization/services/auth.service";
 
 @Component({
   selector: 'profile-part',
@@ -26,38 +27,33 @@ export class ProfilePartComponent implements OnInit {
 
     profileForm: FormGroup;
     submitted = false;
-    user: User = null;
+    userModel: User = new User();
 
   constructor(
       private fb: FormBuilder,
       private profileService: ProfileService,
-      private storageService: StorageService) {
+      public authService: AuthService) {
 
       this.profileForm = this.fb.group({
-          'first_name': ['', Validators.required ],
-          'last_name': ['', Validators.required ],
-          'middle_name': ['', Validators.required ],
+          'first_name': [''],
+          'last_name': [''],
+          'middle_name': [''],
+          'picture': [''],
       });
   }
 
   ngOnInit() {
-
     this.setDisplayName()
+      console.log(this.authService.getUser().getDisplayName());
   }
 
     setDisplayName() {
-      let string = this.storageService.getAuth();
+      let user: User  = this.authService.getUser();
 
-        if (string) {
-            this.user = JSON.parse(string);
-
-          if (this.user.profile_id) {
-            //TOdo change it;
-              this.displayName = this.user.email;
+        if (user) {
+            this.userModel.importStorage(user)
+          if (this.userModel.profile_id) {
               this.profileBtn = 'change Profile';
-          } else {
-              this.displayName = this.user.email
-              this.initials = this.user.email.substring(0, 1)+'@';
           }
         }
     }
@@ -65,6 +61,15 @@ export class ProfilePartComponent implements OnInit {
 
     onChangeProfile(){
         this.profileFormContainer = !this.profileFormContainer;
+
+        let user: User = this.authService.getUser();
+
+        if (user.profile) {
+            this.profileForm.controls['first_name'].setValue(user.profile.first_name);
+            this.profileForm.controls['last_name'].setValue(user.profile.last_name);
+            this.profileForm.controls['middle_name'].setValue(user.profile.middle_name);
+            this.profileForm.controls['picture'].setValue(user.profile.picture);
+        }
     }
 
     saveProfileForm() {
@@ -72,13 +77,7 @@ export class ProfilePartComponent implements OnInit {
         let credentials = this.profileForm.value;
 
         if (this.profileForm.valid) {
-            let date = (new DateFormatPipe()).transform(new Date(), 'YYYY-MM-DD HH:mm');
-
-            if (this.user.profile_id) {
-                credentials.date_update = date;
-            } else {
-                credentials.date_create = date;
-            }
+            credentials.user_id = this.authService.getUser().id;
 
             this.profileService.save(credentials)
                 .subscribe(

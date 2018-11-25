@@ -5,6 +5,7 @@ import {AuthModel} from "../../../app/modules/shared/models/auth";
 import {StorageService} from "../../storage/services/storage.service";
 import {environment} from "../../../environments/environment";
 import {catchError, map} from "rxjs/operators";
+import {User} from "../../../app/modules/shared/models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -13,8 +14,11 @@ export class AuthService {
     headers: HttpHeaders = new HttpHeaders();
 
     private auth = new BehaviorSubject<AuthModel>(new AuthModel());
+    private userModel:User;
+
     public dataAuthentication = this.auth.asObservable();
     public afterCheckToken = new Subject<any>();
+
 
     constructor(
         private httpClient: HttpClient,
@@ -57,6 +61,20 @@ export class AuthService {
 
     remindPassword(body: {}): Observable<any> {
         return this.httpClient.post('/remind-password/', body);
+    }
+
+    getUser(): User {
+        let user;
+
+        if (!this.userModel) {
+            this.userModel  = new User(JSON.parse(this.storageService.getAuth()));
+
+            user = this.userModel;
+        } else {
+            user = this.userModel;
+        }
+
+        return user;
     }
 
     logOut(): Observable<any> {

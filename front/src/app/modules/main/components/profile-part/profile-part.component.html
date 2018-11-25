@@ -5,21 +5,14 @@
     <div class="wrap">
         <span class="avatar pull-left"
               style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
-              [innerText]="initials || ''"></span>
-        <p [innerText]="displayName"></p>
+              [innerText]="userModel.getInitials()"></span>
+        <p [innerText]="authService.getUser().getDisplayName()"></p>
 
         <a routerLink=""
            (click)="expanded = !expanded">
             <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
         </a>
-        <!--<div id="status-options">-->
-            <!--<ul>-->
-                <!--<li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>-->
-                <!--<li id="status-away"><span class="status-circle"></span> <p>Away</p></li>-->
-                <!--<li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>-->
-                <!--<li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>-->
-            <!--</ul>-->
-        <!--</div>-->
+
         <div id="expanded">
             <div id="profile-form"
                  *ngIf="profileFormContainer"
@@ -61,17 +54,26 @@
                         </div>
                     </div>
                         <div [class]="'form-group'+ (middleName.errors && middleName.errors.message ? 'has-danger' : '')">
-                            <input type="text"
-                                   class="form-control"
-                                   id="middle_name"
-                                   #middleName
-                                   placeholder="Middle Name"
-                                   formControlName="middle_name">
+                        <input type="text"
+                               class="form-control"
+                               id="middle_name"
+                               #middleName
+                               placeholder="Middle Name"
+                               formControlName="middle_name">
 
-                            <div *ngIf="middleName.errors && middleName.errors.message"
-                                 class="invalid-feedback form-control-feedback">
-                                <div [innerText]="middleName.errors.message"></div>
-                            </div>
+                        <div *ngIf="middleName.errors && middleName.errors.message"
+                             class="invalid-feedback form-control-feedback">
+                            <div [innerText]="middleName.errors.message"></div>
+                        </div>
+                    </div>
+
+                        <div [class]="form-group">
+                            <input type="file"
+                                   class="form-control"
+                                   id="avatar"
+                                   #avatar
+                                   placeholder="update avatar"
+                                   formControlName="picture">
                         </div>
 
                     <div class="text-center">
