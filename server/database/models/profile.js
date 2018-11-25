@@ -52,12 +52,15 @@ var _public = {
         if (id) {
             bodyRequest['date_update'] = global.moment().unix();
 
-            request = this.dbProfile.update(bodyRequest, {where: {id: Number(id)}});
+            request = this.dbProfile.update(bodyRequest, {
+                where: {id: Number(id)},
+                returning: false
+            });
         } else {
             bodyRequest['date_create'] = global.moment().unix();
             request = this.dbProfile.build(bodyRequest).save();
         }
-
+//TODO: reply by update not return result
         request
             .then((data)=>{
                 if (!id) {
@@ -75,7 +78,7 @@ var _public = {
                     reply
                         .setStatus(true)
                         .setMessage('You save profile is successfully')
-                        .setData(data);
+                        .setData(data.dataValues);
 
                     _this.callback_successfully(reply);
                 }
