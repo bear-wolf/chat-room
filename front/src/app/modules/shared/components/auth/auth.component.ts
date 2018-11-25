@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit{
         public authService: AuthService) {
 
         this.authModel = new AuthModel();
-        this.userModel  = new User();
+        this.userModel  = new User(null);
     }
 
     ngOnInit() {
@@ -36,7 +36,8 @@ export class AuthComponent implements OnInit{
             .subscribe((data)=>{
                 if (data.status) {
                     this.authModel.setMode(StatusAuthorizated.Auth);
-                    this.userModel.importStorage(JSON.parse(this.storageService.getAuth()));
+
+                    this.userModel  = new User(JSON.parse(this.storageService.getAuth()));
                 }
             },(data)=>{
                 this.authModel.setMode(StatusAuthorizated.Guest);

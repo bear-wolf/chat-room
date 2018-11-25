@@ -26,7 +26,7 @@ export class Profile {
             return name;
         }
 
-        name = this.first_name + this.last_name.substring(0, 1).toUpperCase()  + this.middle_name.substring(0, 1).toUpperCase();
+        name = this.first_name + ' ' + this.last_name.substring(0, 1).toUpperCase()  + this.middle_name.substring(0, 1).toUpperCase();
 
         return name;
     }

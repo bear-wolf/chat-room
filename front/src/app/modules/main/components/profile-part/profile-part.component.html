@@ -5,7 +5,7 @@
     <div class="wrap">
         <span class="avatar pull-left"
               style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
-              [innerText]="userModel.getInitials()"></span>
+              [innerText]="authService.getUser().getInitials()"></span>
         <p [innerText]="authService.getUser().getDisplayName()"></p>
 
         <a routerLink=""

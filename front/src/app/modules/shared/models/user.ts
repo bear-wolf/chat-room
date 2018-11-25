@@ -1,4 +1,3 @@
-import {debug} from "util";
 import {Profile} from "./profile";
 
 export class User {
@@ -45,17 +44,12 @@ export class User {
         return name;
     }
 
-    importStorage(data:User){
+    getProfile() {
+        return this.profile;
+    }
 
-        this.id = data.id;
-        this.email = data.email;
-        this.password = data.password;
-        this.role_id = data.role_id;
-        this.profile_id = data.profile_id;
-        this.date_create = data.date_create;
-        this.date_update = data.date_update;
-
-        this.profile = new Profile(data.profile)
+    import(data:User){
+        this.constructor(data);
 
         return this;
     };

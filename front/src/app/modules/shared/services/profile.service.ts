@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs/internal/operators";
+import {Reply} from "../models/reply";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,6 +23,16 @@ export class ProfileService {
   save(json: {}): Observable<any> {
     var id = json['id'] || '';
 
-    return this.httpClient.post('/profile/'+id, json);
+    return this.httpClient.post('/profile/'+id, json).pipe(
+        map((data:Reply) => {
+            this.setToStorage(data);
+            return data;
+        }))
+  }
+
+  private setToStorage(data: Reply){
+      debugger;
+      // let user:User = this.authService.getUser();
+      // this.storageService.setAuth(JSON.stringify(data.body))
   }
 }

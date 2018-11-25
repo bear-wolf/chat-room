@@ -1,8 +1,5 @@
-// import {LocalStorageService} from "./local-storage.service";
-// import {SessionStorageService} from "./session-storage.service";
-
-export class StorageService {
-    private storageName = 'sessionStorage';
+export class LocalStorageService {
+    private storageName = 'localStorage';
 
     setAuth(data: string ) {
         window[this.storageName].setItem('auth', data);

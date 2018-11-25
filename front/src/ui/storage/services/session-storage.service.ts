@@ -1,7 +1,4 @@
-// import {LocalStorageService} from "./local-storage.service";
-// import {SessionStorageService} from "./session-storage.service";
-
-export class StorageService {
+export class SessionStorageService {
     private storageName = 'sessionStorage';
 
     setAuth(data: string ) {
