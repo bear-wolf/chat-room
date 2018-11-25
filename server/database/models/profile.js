@@ -54,6 +54,7 @@ var _public = {
 
             request = this.dbProfile.update(bodyRequest, {where: {id: Number(id)}});
         } else {
+            bodyRequest['date_create'] = global.moment().unix();
             request = this.dbProfile.build(bodyRequest).save();
         }
 
@@ -90,7 +91,7 @@ var _public = {
         return this;
     },
     getById: function (id) {
-        return this.dbProfile.findById(id);
+        return this.dbProfile.findByPk(id);
     },
     getAll: function () {
         return this.dbProfile.findAndCountAll();

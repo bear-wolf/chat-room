@@ -98,10 +98,43 @@ _public = {
                     .setMessage(error);
             })
             .finally(()=>{
-                _this.callReplyHandler(_this.reply);
+                var userData = _this.reply.body;
+
+                if (userData && userData.profile_id) {
+                    _this.getProfileById(userData);
+                } else _this.callReplyHandler(_this.reply);
             });
     },
 
+    getProfileById: function (userData) {
+            var _this = this,
+                modelProfile = global.db.Profile;
+
+            modelProfile
+                .getById(userData.profile_id)
+                .then((data)=>{
+                    if (!data) {
+                        _this.reply
+                            .setStatus(false)
+                            .setMessage(data);
+
+                        return false;
+                    }
+
+                    userData.profile = data.dataValues;
+                    _this.reply
+                        .setStatus(true)
+                        .setData(userData);
+                })
+                .catch((data)=>{
+                    _this.reply
+                        .setStatus(false)
+                        .setMessage(data);
+                })
+                .finally((data)=>{
+                    _this.callReplyHandler(_this.reply);
+                });
+    },
     //Sign out
     actionLogOut: function (token) {
         var _this = this,

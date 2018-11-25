@@ -30,6 +30,7 @@ var Profile = global.sequelize.define('Profile', {
     },
     first_name: Sequelize.DataTypes.STRING,
     last_name: Sequelize.DataTypes.STRING,
+    picture: Sequelize.DataTypes.STRING,
     middle_name: Sequelize.DataTypes.STRING,
     date_create: Sequelize.DataTypes.DATE,
     date_update: Sequelize.DataTypes.DATE
