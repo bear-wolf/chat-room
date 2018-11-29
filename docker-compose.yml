@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+
+#  server:
+#    build:
+#      context: ./server/
+#
+#  front:
+#    build:
+#      context: ./front/
+
+  common:
+    build:
+      context: ./
