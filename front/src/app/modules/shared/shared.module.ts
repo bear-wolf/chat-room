@@ -14,6 +14,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {StorageModule} from "../../../ui/storage/storage.module";
 import {RemindPasswordDialogComponent} from "./components/modal-dialogs/components/remind-password/remind-password-dialog.component";
 import { MomentModule } from 'ngx-moment';
+import {RoomDialogComponent} from "./components/modal-dialogs/components/room/room-dialog.component";
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import { MomentModule } from 'ngx-moment';
         AuthComponent,
         CheckInComponent,
         SignInComponent,
+        RoomDialogComponent,
 
         ModalDialogsComponent,
         AuthenticationDialogComponent,
@@ -48,6 +50,7 @@ import { MomentModule } from 'ngx-moment';
       FormsModule,
       ReactiveFormsModule,
       ModalDialogsComponent,
+      RoomDialogComponent
   ],
     // entryComponents:[AuthComponent]
 })

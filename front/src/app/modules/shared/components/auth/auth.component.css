@@ -1,8 +1,15 @@
-.top-menu .private-panel .avatar {
-  width: 32px;
-  height: 32px;
-  float: left;
-  font-size: 60%; }
+.top-menu .private-panel {
+  display: flex;
+  height: 100%; }
+  .top-menu .private-panel .avatar {
+    width: 32px;
+    height: 32px;
+    float: left;
+    font-size: 60%; }
+  .top-menu .private-panel a.dropdown-item {
+    display: flex;
+    height: 30px;
+    align-items: center; }
 
 .nav-link {
   display: flex;

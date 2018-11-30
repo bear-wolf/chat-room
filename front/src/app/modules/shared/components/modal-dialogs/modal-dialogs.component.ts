@@ -2,6 +2,7 @@ import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/c
 import {Router} from "@angular/router";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import {ModelDialog} from "../../models/model-dialog";
 
 @Component({
   selector: 'modal-dialogs',
@@ -9,6 +10,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./modal-dialogs.component.scss']
 })
 export class ModalDialogsComponent implements OnInit {
+  modelDialog: ModelDialog = new ModelDialog();
 
   public faTimes = faTimes;
 

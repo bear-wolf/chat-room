@@ -54,6 +54,10 @@ export class User {
         return this;
     };
 
+    getId() {
+        return this.id;
+    }
+
     getInitials() {
         let  name = '@';
 

@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <div class="tab-title d-flex justify-content-between flex-row w-100">
+        <div class="d-flex item active">
+            Room
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="container-sign-in">
+        <div class="message-container"
+             *ngIf="message" [innerText]="message"></div>
+
+        <form [formGroup]="formObject"
+              #form="ngForm"
+              novalidate
+              (ngSubmit)="submitForm()">
+
+            <div [class]="'form-group'+ (inputTitle.errors && inputTitle.errors.message ? 'has-danger' : '')">
+                <label for="pTitle"
+                       class="form-control-label">Email:</label>
+
+                <input type="text"
+                       class="form-control"
+                       id="pTitle"
+                       #inputTitle
+                       placeholder="title"
+                       formControlName="title">
+
+                <div *ngIf="inputTitle.errors && inputTitle.errors.message"
+                     class="invalid-feedback form-control-feedback">
+                    <div [innerText]="inputTitle.errors.message"></div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary btn-sm"
+                        [disabled]="form.pristine || form.invalid"
+                        type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
