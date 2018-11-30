@@ -7,7 +7,7 @@ var Config = {
         // user: "andrew",
         // password: "14714711",
         user: "root",
-        password: "",
+        password: "root",
         database : process.env.DATABASE_NAME || 'chat-room'
     },
     date_format: 'YYYY-MM-DD HH:mm:ss',

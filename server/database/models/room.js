@@ -41,6 +41,9 @@ var _public = {
                 reply
                     .setStatus(false)
                     .setMessage(error);
+
+                _this.callback_error(reply);
+                return false;
             })
             .finally(function () {
                 _this.callback_finally(reply);
