@@ -4,6 +4,7 @@
 var app, client,
     http = require('http'),
     express = require('express'),
+    webSocket = require('./web-socket.js'),
     session = require('express-session'),
     RedisStore = require('connect-redis')(session),
     LocalStrategy = require('passport-local').Strategy,
@@ -11,7 +12,7 @@ var app, client,
 
 
 app = express();
-app.set('port', 3200);
+app.set('port', 3201);
 
 require('./dependencies');
 
@@ -21,14 +22,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 
-http.createServer(app).listen(3200, function () {
+global.server = http.createServer(app).listen(app.get('port'), function () {
     var routes = require('./routes/index').createInstance();
     console.log('...............................................................');
-    console.log('Express server listening on port '+ 3200);
+    console.log('Express server listening on port '+ app.get('port'));
     console.log('...............................................................');
 
     routes.assignRoutes(app);
 })
+
+webSocket.init(global.server);
+
 process.on('exit', function (code) {
     console.log('About to exit with code:'+code);
 });
