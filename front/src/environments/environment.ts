@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:3200'
+  host: 'http://localhost:3200',
+  wshost: 'http://localhost:3200'
 };
 
 /*

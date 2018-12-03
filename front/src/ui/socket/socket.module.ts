@@ -1,9 +1,10 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
+import {WebSocketService} from "./services/web-socket.service";
 
 const stompConfig: StompConfig = {
     // Which server?
-    url: 'ws://89.223.90.166/api/role_play_game/ws',
+    url: 'ws://localhost:3200/ws',
 
     // Headers
     // Typical keys: login, passcode, host
@@ -29,14 +30,20 @@ const stompConfig: StompConfig = {
 
 @NgModule({
     imports: [
-  ],
+    ],
     declarations: [
-  ],
+        WebSocketService,
+    ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA],
     providers: [
+        {
+            provide: StompConfig,
+            useValue: stompConfig
+        },
     ],
     exports: [
-        StompService
+        StompService,
+        WebSocketService
     ],
     // entryComponents:[AuthComponent]
 })

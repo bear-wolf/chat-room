@@ -9,9 +9,10 @@
           class="contact">
       <div class="wrap">
         <span class="contact-status online"></span>
-        <img src="room.getPicture()" alt="">
+        <img [src]="room.getPicture()" alt="">
         <div class="meta">
-          <p class="name">room.getTitle()</p>
+          <p class="name"
+            [innerText]="room.getTitle()"></p>
           <!--<p class="preview">You just got LITT up, Mike.</p>-->
         </div>
       </div>

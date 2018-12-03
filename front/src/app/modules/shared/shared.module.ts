@@ -15,6 +15,7 @@ import {StorageModule} from "../../../ui/storage/storage.module";
 import {RemindPasswordDialogComponent} from "./components/modal-dialogs/components/remind-password/remind-password-dialog.component";
 import { MomentModule } from 'ngx-moment';
 import {RoomDialogComponent} from "./components/modal-dialogs/components/room/room-dialog.component";
+import {SocketModule} from "../../../ui/socket/socket.module";
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import {RoomDialogComponent} from "./components/modal-dialogs/components/room/ro
         ModalModule,
         FontAwesomeModule,
         StorageModule,
-        MomentModule
+        MomentModule,
+        SocketModule
     ],
     declarations: [
         AuthComponent,

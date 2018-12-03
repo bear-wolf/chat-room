@@ -4,6 +4,14 @@ import {Reply} from "../../../shared/models/reply";
 import {Room} from "../../../shared/models/room";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import {EnumDialogs} from "../../../shared/components/modal-dialogs/enum-dialogs";
+import {Subject} from "rxjs";
+import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
+import {environment} from "../../../../../environments/environment";
+
+export interface Message {
+    author: string,
+    message: string
+}
 
 @Component({
   selector: 'contact-panel',
@@ -11,9 +19,12 @@ import {EnumDialogs} from "../../../shared/components/modal-dialogs/enum-dialogs
   styleUrls: ['./contact-panel.component.scss']
 })
 export class ContactPanelComponent implements OnInit, OnDestroy{
-    listOfRoom: [Room] = null;
+    listOfRoom = null;
+
+    public messages: Subject<Message>;
 
     constructor(private roomService: RoomService,
+                private webSocketService: WebSocketService,
                 private modalService: ModalService) {
 
     }
@@ -24,9 +35,25 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void {
+        debugger;
+        // this.webSocketService
+        //     .connect(environment.host)
+        //     .map((response: MessageEvent): Message => {
+        //         debugger;
+        //         let data = JSON.parse(response.data);
+        //         return {
+        //             author: data.author,
+        //             message: data.message
+        //         }
+        //     });
+
         this.roomService.get().subscribe(
         (data: Reply)=>{
-            debugger;
+            this.listOfRoom = [];
+            for (let item of <[Room]>data.body) {
+                this.listOfRoom.push(new Room(item));
+            }
+
 
         }, (data: Reply)=>{
 
