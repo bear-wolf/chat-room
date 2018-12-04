@@ -28,7 +28,7 @@ export class User {
         }
     }
 
-    getDisplayName() { console.log('getDisplayName');
+    getDisplayName() {
         let  name = '';
 
         if (!this.id) {

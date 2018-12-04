@@ -5,13 +5,11 @@ import {Room} from "../../../shared/models/room";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import {EnumDialogs} from "../../../shared/components/modal-dialogs/enum-dialogs";
 import {Subject} from "rxjs";
-import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 import {environment} from "../../../../../environments/environment";
-
-export interface Message {
-    author: string,
-    message: string
-}
+import {StompService} from "@stomp/ng2-stompjs";
+import {Message} from '@stomp/stompjs';
+import {debug} from "util";
+// import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 
 @Component({
   selector: 'contact-panel',
@@ -24,7 +22,8 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     public messages: Subject<Message>;
 
     constructor(private roomService: RoomService,
-                private webSocketService: WebSocketService,
+                private _stompService: StompService,
+                // private webSocketService: WebSocketService,
                 private modalService: ModalService) {
 
     }
@@ -35,17 +34,36 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void {
-        debugger;
         // this.webSocketService
         //     .connect(environment.host)
-        //     .map((response: MessageEvent): Message => {
+        //     .subscribe((msg_body: any) => {
         //         debugger;
-        //         let data = JSON.parse(response.data);
-        //         return {
-        //             author: data.author,
-        //             message: data.message
-        //         }
+        //         console.log(`Received: ${msg_body}`);
+        //     },(error)=>{
+        //         console.log(`Error: ${error.message}`);
         //     });
+        //     // .map((response: MessageEvent): Message => {
+        //     //     debugger;
+        //     //     let data = JSON.parse(response.data);
+        //     //     return {
+        //     //         author: data.author,
+        //     //         message: data.message
+        //     //     }
+        //     // });
+
+        let stomp_subscription = this._stompService.subscribe('/');
+
+        stomp_subscription
+            // .map((message: Message) => {
+            //     debugger;
+            //     return message.body;
+            // })
+            .subscribe((msg_body: any) => {
+                debugger;
+                console.log(`Received: ${msg_body}`);
+            },(error)=>{
+                console.log(`Error: ${error.message}`);
+            });
 
         this.roomService.get().subscribe(
         (data: Reply)=>{
@@ -58,6 +76,9 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         }, (data: Reply)=>{
 
         })
+
+        debugger;
+        this._stompService.publish('test','description');
     }
 
     ngOnDestroy(): void {
