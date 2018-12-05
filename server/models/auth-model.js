@@ -30,6 +30,30 @@ self = {
         }
 
         return result;
+    },
+    changeRoleAfterSignIn: function (id, callback) {
+        var modelUser = global.db.User,
+            reply = global.models.reply.createInstance();
+
+        modelUser
+            .save({
+                id: id,
+                role_id: global.models.role.TYPE_ACTIVE,
+                date_update: global.common.date.getNow()
+            })
+            .then((rows, data)=>{
+                reply
+                    .setStatus(true)
+                    .setData({})
+            })
+            .catch((data)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(data);
+            })
+            .finally((data)=>{
+                callback(reply);
+            })
     }
 }
 
@@ -42,33 +66,38 @@ _public = {
     //Registry user
     actionCheckIn: function (json) {
         var _this = this,
-            modelUser = global.db.User;
+            modelUser = global.db.User,
+            reply = global.models.reply.createInstance(),
+            role = global.models.role;
 
         if (!self.validate(json, ValidateStatus.SAVE)) {
-            _this.callReplyHandler({
-                status: false,
-                message: 'No verify format of request'
-            })
+            reply
+                .setStatus(false)
+                .setMessage('No verify format of request')
+
+            _this.callReplyHandler(reply);
 
             return this;
         }
 
+        json['date_create'] = global.common.date.getNow();
+        json.role_id = role.TYPE_CHECK_IN;
+
         modelUser
-            .save({
-                email: json.email,
-                password: json.password
-            })
+            .save(json)
             .then((data)=>{
-                _this.callReplyHandler({
-                    status: true,
-                    message: 'Your email added saccessffully'
-                })
+                reply
+                    .setStatus(true)
+                    .setMessage('Your email added saccessffully');
+
+                _this.callReplyHandler(reply);
             })
             .catch((error)=>{
-                _this.callReplyHandler({
-                    status: false,
-                    message: error,
-                })
+                reply
+                    .setStatus(false)
+                    .setMessage(error)
+
+                _this.callReplyHandler(reply);
             });
     },
 
@@ -88,9 +117,20 @@ _public = {
         modelUser
             .getByPermission(json)
             .then((data)=>{
-                _this.reply
-                    .setStatus(true)
-                    .setData(data.dataValues);
+
+                self.changeRoleAfterSignIn(data[0].id, function (reply) {
+                    if (reply.status) {
+                        delete reply.body.password;
+
+                        _this.reply
+                            .setStatus(true)
+                            .setData(reply.body);
+                    } else {
+                        _this.reply
+                            .setStatus(false);
+                    }
+                })
+                return false;
             })
             .catch((error)=>{
                 _this.reply

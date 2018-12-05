@@ -46,6 +46,14 @@ var RouteRoom = {
                 .setResponce(res)
                 .actionRemove();
         });
+
+        app.get('/invite-users', function (req, res) {
+            roomController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionGetInviteUsers();
+        });
     }
 }
 

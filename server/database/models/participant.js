@@ -54,7 +54,7 @@ var _public = {
             }
         }
 
-        json['date_create'] = '1970-01-18 20:20:24';// global.moment().unix();
+        json['date_create'] = global.common.date.getNow();
         request = this.dbParticipant.build(json);
 
         request

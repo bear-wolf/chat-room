@@ -89,11 +89,11 @@ var _public = {
         }
 
         if (json.id) {
-            json['date_update'] = global.moment().unix();
+            json['date_update'] = global.common.date.getNow();
 
             request = this.dbRole.update(json, {where: {id: Number(json.id)}});
         } else {
-            json['date_create'] = global.moment().unix();
+            json['date_create'] = global.common.date.getNow();
             json['status'] = RoleStatus.GUEST;
 
             request = this.dbRole.build(json).save();

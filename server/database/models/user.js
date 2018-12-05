@@ -16,15 +16,24 @@ var _public = {
         var p;
 
         if (json.id) {
-            p = this.dbUser.update(json, {where: { id: json.id } })
+            json['date_update'] = global.common.date.getNow();
+            p = this.dbUser.update(json, {
+                // return : true,
+                where: { id: json.id }
+            })
         } else {
+            json['date_create'] = global.common.date.getNow();
             p = this.dbUser.create(json);
         }
 
         return p;
     },
     getByPermission: function (json) {
-        return this.dbUser.findOne(json, {where: { email: json.email, password: json.password } });
+        //return this.dbUser.findAll(json, {where: { email: json.email, password: json.password } });
+        return this.dbUser.findAll( {
+            raw: true,
+            where: { email: json.email, password: json.password }
+        });
     },
     getByID: function (id) {
         var _this = this,
@@ -45,6 +54,31 @@ var _public = {
                     .setMessage(error);
 
                 _this.callback_error(reply.get());
+            });
+    },
+    get: function (where) {
+        var _this = this,
+            reply = global.models.reply.createInstance();
+
+        if (typeof where != "object") { return};
+
+        this.dbUser
+            .findAll({
+                where: where
+            })
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data.map(function(data){ return data.dataValues }));
+
+                _this.callback_successfully(reply);
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+
+                _this.callback_error(reply);
             });
     }
 }

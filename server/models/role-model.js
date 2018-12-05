@@ -11,6 +11,11 @@ var _public = {
 }
 
 var Role = {
+    TYPE_GUEST: 1, // не розпізнаваний системою
+    TYPE_DEMO: 2, // зайшов як гість (авторизований)
+    TYPE_CHECK_IN: 2, //зареєструвався
+    TYPE_ACTIVE: 4, //авторизувався
+
     createInstance : function(){
         var Obj = function(){
             for(var key in _public){

@@ -53,7 +53,7 @@ var _public = {
             }
         }
 
-        json['date_create'] = global.moment().format();
+        json['date_create'] = global.common.date.getNow();
         request = this.dbTranslate.build(json);
 
         request

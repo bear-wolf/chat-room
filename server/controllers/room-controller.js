@@ -1,4 +1,41 @@
+'use strict';
+
 var RoomController, _public, _private;
+
+const ValidateStatus = {
+    //INVITE_USERS: 'invite_users',
+}
+
+
+var self = {
+    // validate: function (json, key) {
+    //     var result = false;
+    //
+    //     switch (key) {
+    //         case ValidateStatus.INVITE_USERS: {
+    //             if (json.email && json.role_id) {
+    //                 result = true;
+    //             }
+    //             break;
+    //         }
+    //
+    //         default: {
+    //             break
+    //         }
+    //     }
+    //
+    //     return result;
+    // }
+
+    getUserJoinProfile: function (users, profiles) {
+        debugger;
+        for(let user of users) {
+            //user
+        }
+
+        return users;
+    }
+}
 
 _public = {
     constructor: function () {
@@ -84,6 +121,35 @@ _public = {
                     .setMessage(error);
 
                 _this.responce.end(reply.getToJSONstringify())
+            })
+
+        return this;
+    },
+    actionGetInviteUsers: function () {
+        var _this = this,
+            modelUser = global.db.User,
+            modelProfile = global.db.Profile;
+
+        modelUser
+            .setCallBackSuccessfully(function (reply) {
+                let users = reply.body;
+
+                modelProfile
+                    .setCallBackSuccessfully(function (reply) {
+                        reply.body = self.getUserJoinProfile(users, reply.body);
+
+                        _this.responce.end(reply.toString())
+                    })
+                    .setCallBackError(function (reply) {
+                        _this.responce.end(reply.toString())
+                    })
+                    .getAll()
+            })
+            .setCallBackError(function (reply) {
+                _this.responce.end(reply.toString())
+            })
+            .get({
+                role_id: global.models.role.TYPE_ACTIVE
             })
 
         return this;

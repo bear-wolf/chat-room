@@ -22,11 +22,11 @@ var _public = {
             _this = this;
 
         if (id) {
-            bodyRequest['date_update'] = global.moment().unix();
+            bodyRequest['date_update'] = global.common.date.getNow();
 
             request = this.dbRoom.update(bodyRequest, {where: {id: Number(id)}});
         } else {
-            bodyRequest['date_create'] = global.moment().unix();
+            bodyRequest['date_create'] = global.common.date.getNow();
 
             request = this.dbRoom.build(bodyRequest).save();
         }

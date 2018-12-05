@@ -50,14 +50,14 @@ var _public = {
 
 
         if (id) {
-            bodyRequest['date_update'] = global.moment().unix();
+            bodyRequest['date_update'] = global.common.date.getNow();
 
             request = this.dbProfile.update(bodyRequest, {
                 where: {id: Number(id)},
                 returning: false
             });
         } else {
-            bodyRequest['date_create'] = global.moment().unix();
+            bodyRequest['date_create'] = global.common.date.getNow();
             request = this.dbProfile.build(bodyRequest).save();
         }
 //TODO: reply by update not return result

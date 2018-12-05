@@ -1,0 +1,9 @@
+sequelize command
+
+- findAll - вибирає все, ігнорує фільтр
+
+Model.findAll({
+ raw: true,
+ //Other parameters
+});
+будет возвращать только данные, а не экземпляр модели

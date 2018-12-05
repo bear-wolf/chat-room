@@ -93,11 +93,11 @@ var _public = {
         };
 
         if (id) {
-            bodyRequest['date_update'] = global.moment().unix();
+            bodyRequest['date_update'] = global.common.date.getNow();
 
             request = this.dbMessage.update(bodyRequest, {where: {id: Number(id)}});
         } else {
-            bodyRequest['date_create'] = global.moment().unix();
+            bodyRequest['date_create'] = global.common.date.getNow();
 
             request = this.dbMessage.build(bodyRequest).save();
         }

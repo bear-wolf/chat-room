@@ -24,8 +24,8 @@ _public = {
             bodyRequest = this.request.body;
 
         authModel
-            .setReplyHandler(function (data) {
-                _this.responce.end(JSON.stringify(data));
+            .setReplyHandler(function (reply) {
+                _this.responce.end(reply.toString());
             })
             .actionCheckIn(bodyRequest);
 
