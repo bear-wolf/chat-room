@@ -8,7 +8,6 @@ import {Subject} from "rxjs";
 import {environment} from "../../../../../environments/environment";
 import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from '@stomp/stompjs';
-import {debug} from "util";
 // import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 
 @Component({
@@ -25,7 +24,6 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                 private _stompService: StompService,
                 // private webSocketService: WebSocketService,
                 private modalService: ModalService) {
-
     }
 
 
@@ -51,19 +49,19 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         //     //     }
         //     // });
 
-        let stomp_subscription = this._stompService.subscribe('/');
-
-        stomp_subscription
-            // .map((message: Message) => {
-            //     debugger;
-            //     return message.body;
-            // })
-            .subscribe((msg_body: any) => {
-                debugger;
-                console.log(`Received: ${msg_body}`);
-            },(error)=>{
-                console.log(`Error: ${error.message}`);
-            });
+        // let stomp_subscription = this._stompService.subscribe('/');
+        //
+        // stomp_subscription
+        //     // .map((message: Message) => {
+        //     //     debugger;
+        //     //     return message.body;
+        //     // })
+        //     .subscribe((msg_body: any) => {
+        //         debugger;
+        //         console.log(`Received: ${msg_body}`);
+        //     },(error)=>{
+        //         console.log(`Error: ${error.message}`);
+        //     });
 
         this.roomService.get().subscribe(
         (data: Reply)=>{
@@ -77,8 +75,7 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
 
         })
 
-        debugger;
-        this._stompService.publish('test','description');
+        //this._stompService.publish('test','description');
     }
 
     ngOnDestroy(): void {

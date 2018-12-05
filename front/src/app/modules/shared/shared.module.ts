@@ -19,6 +19,7 @@ import {RoomDialogComponent} from "./components/modal-dialogs/components/room/ro
 import {environment} from "../../../environments/environment";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 // import {WebSocketModule} from "../../../ui/socket/web-socket.module";
+import { NgSelectModule } from '@ng-select/ng-select';
 
 const stompConfig: StompConfig = {
     // Which server?
@@ -50,6 +51,8 @@ const stompConfig: StompConfig = {
     imports: [
         CommonModule,
         FormsModule,
+
+        NgSelectModule,
         ReactiveFormsModule,
         AuthModule,
         ModalModule,

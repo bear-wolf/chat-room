@@ -25,13 +25,12 @@ export class ProfileService {
 
     return this.httpClient.post('/profile/'+id, json).pipe(
         map((data:Reply) => {
-            this.setToStorage(data);
+            //this.setToStorage(data);
             return data;
         }))
   }
 
   private setToStorage(data: Reply){
-      debugger;
       // let user:User = this.authService.getUser();
       // this.storageService.setAuth(JSON.stringify(data.body))
   }

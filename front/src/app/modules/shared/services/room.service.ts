@@ -28,4 +28,8 @@ export class RoomService {
 
       return this.httpClient.post('/room/'+id, {});
   }
+
+  getInviteUsers(): Observable<any> {
+      return this.httpClient.get('/invite-users/');
+  }
 }
