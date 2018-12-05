@@ -37,8 +37,9 @@
                        class="form-control-label">Invite users</label>
 
                 <ng-select [items]="inviteUsers"
-                           bindLabel="name"
+                           bindLabel="email"
                            bindValue="id"
+                           class="form-control"
                            [addTag]="addCustomUser"
                            [multiple]="true"
                            placeholder="Select user"

@@ -36,14 +36,12 @@ export class RoomDialogComponent implements OnInit {
         });
     }
 
-  ngOnInit() {
+  ngOnInit() { debugger;
         this.roomService.getInviteUsers().subscribe(
             (data)=>{
                 if (data.body) {
-
+                    this.inviteUsers = data.body;
                 }
-
-                console.log(data);
             },
             (data)=>{
                 console.log(data);
@@ -55,6 +53,7 @@ export class RoomDialogComponent implements OnInit {
     submitForm() {
         this.submitted = true;
         let form = this.formObject.value;
+        debugger
 
         if (this.formObject.valid) {
             form.user_id = this.authService.getUser().getId();

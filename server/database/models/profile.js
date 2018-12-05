@@ -96,8 +96,9 @@ var _public = {
     getById: function (id) {
         return this.dbProfile.findByPk(id);
     },
+    //return promise
     getAll: function () {
-        return this.dbProfile.findAndCountAll();
+        return this.dbProfile.findAll();
     },
 }
 

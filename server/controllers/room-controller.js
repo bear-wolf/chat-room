@@ -28,10 +28,9 @@ var self = {
     // }
 
     getUserJoinProfile: function (users, profiles) {
-        debugger;
-        for(let user of users) {
-            //user
-        }
+        // for(let user of users) {
+        //     //user
+        // }
 
         return users;
     }
@@ -89,6 +88,11 @@ _public = {
             })
             .save(bodyRequest, currentId);
 
+        //invite users for chat
+        // for(bodyRequest.inviteUsersId) {
+        //
+        // }
+
         return this;
     },
     actionRemove: function () {
@@ -135,15 +139,22 @@ _public = {
                 let users = reply.body;
 
                 modelProfile
-                    .setCallBackSuccessfully(function (reply) {
-                        reply.body = self.getUserJoinProfile(users, reply.body);
+                    .getAll()
+                    .then(function (data) {
+                        if (data) {
+                            reply.body = self.getUserJoinProfile(users, data.dataValues);
+                        }
 
                         _this.responce.end(reply.toString())
                     })
-                    .setCallBackError(function (reply) {
+                    .catch(function (data) {
+                        _this.reply
+                            .setStatus(false)
+                            .setMessage(data)
+
                         _this.responce.end(reply.toString())
                     })
-                    .getAll()
+
             })
             .setCallBackError(function (reply) {
                 _this.responce.end(reply.toString())

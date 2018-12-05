@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AACQ,2DAAgD",
+"sources": ["layout.component.scss"],
 "names": [],
 "file": "layout.component.css"
 }

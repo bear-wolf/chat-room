@@ -117,33 +117,47 @@ _public = {
         modelUser
             .getByPermission(json)
             .then((data)=>{
+                var body = data[0];
 
-                self.changeRoleAfterSignIn(data[0].id, function (reply) {
+                self.changeRoleAfterSignIn(body.id, function (reply) {
                     if (reply.status) {
-                        delete reply.body.password;
+                        delete body.password;
+
+                        //TODO: TEMP
+                        body.role_id = global.models.role.TYPE_ACTIVE;
+                        body.date_update = global.common.date.getNow();
 
                         _this.reply
                             .setStatus(true)
-                            .setData(reply.body);
+                            .setData(body);
                     } else {
                         _this.reply
                             .setStatus(false);
                     }
+
+                    var userData = _this.reply.body;
+
+                    if (userData && userData.profile_id) {
+                        _this.getProfileById(userData);
+                    } else {
+                        _this.callReplyHandler(_this.reply);
+                    }
                 })
-                return false;
             })
             .catch((error)=>{
                 _this.reply
                     .setStatus(false)
                     .setMessage(error);
-            })
-            .finally(()=>{
-                var userData = _this.reply.body;
 
-                if (userData && userData.profile_id) {
-                    _this.getProfileById(userData);
-                } else _this.callReplyHandler(_this.reply);
-            });
+                _this.callReplyHandler(_this.reply);
+            })
+            // .finally(()=>{
+            //     var userData = _this.reply.body;
+            //
+            //     if (userData && userData.profile_id) {
+            //         _this.getProfileById(userData);
+            //     } else _this.callReplyHandler(_this.reply);
+            // });
     },
 
     getProfileById: function (userData) {
