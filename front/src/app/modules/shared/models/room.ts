@@ -4,12 +4,13 @@ import {Role} from "./role";
 export class Room {
     public id: number;
     public title: string = '';
-    public user_id:User;
-    public role_id:Role;
+    public user_id: User;
+    public role_id: number;
     public date_create: string;
     public date_update: string;
 
     constructor (data:Room) {
+        debugger;
         if (data) {
             this.id = data.id;
             this.title = data.title;
@@ -21,10 +22,14 @@ export class Room {
     }
 
     getPicture(){
-        return 'http://emilcarlsson.se/assets/louislitt.png';
+        return 'http://emilcarlsson.se/assets/mikeross.png';
+    }
+
+    getInvite(): string{
+        return this.role_id == Role.TYPE_INVITED ? 'invited' : '';
     }
 
     getTitle() {
-        return this.title
+        return this.title || '';
     }
 }

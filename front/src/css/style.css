@@ -241,6 +241,7 @@ body {
     width: 88%;
     margin: 0 auto;
     position: relative;
+    height: 40px;
 }
 @media screen and (max-width: 735px) {
     #frame #sidepanel .list-contacts ul li.contact .wrap {

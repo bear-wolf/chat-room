@@ -4,6 +4,9 @@ import {AuthService} from "../../../../../../../ui/authorization/services/auth.s
 import {RoomService} from "../../../../services/room.service";
 import {UserService} from "../../../../services/user.service";
 import {RoomDialog} from "../../../../models/room-dialog";
+import {Reply} from "../../../../models/reply";
+import {ModalService} from "../../../../../../../ui/modal/services/modal.service";
+import {ModelDialog} from "../../../../models/model-dialog";
 
 @Component({
   selector: 'room-dialog',
@@ -28,6 +31,7 @@ export class RoomDialogComponent implements OnInit {
         private fb: FormBuilder,
         private authService: AuthService,
         private userService: UserService,
+        private modalService: ModalService,
         private roomService: RoomService) {
         this.formObject = this.fb.group({
             'title': [''],
@@ -36,7 +40,7 @@ export class RoomDialogComponent implements OnInit {
         });
     }
 
-  ngOnInit() { debugger;
+  ngOnInit() {
         this.roomService.getInviteUsers().subscribe(
             (data)=>{
                 if (data.body) {
@@ -53,15 +57,16 @@ export class RoomDialogComponent implements OnInit {
     submitForm() {
         this.submitted = true;
         let form = this.formObject.value;
-        debugger
 
         if (this.formObject.valid) {
             form.user_id = this.authService.getUser().getId();
 
             this.roomService.save(form)
                 .subscribe(
-                    (data)=>{
-                        debugger
+                    (data: Reply)=>{
+                        if (data.status) {
+                            this.modalService.close(ModelDialog.TYPE_CREATE_ROOM_ST);
+                        }
                     },
                     (error)=>{
                         this.message = error.message;

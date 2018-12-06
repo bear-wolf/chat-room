@@ -3,8 +3,9 @@
 
   <div id="frame">
     <side-part></side-part>
-    <home-part></home-part>
-    <!--<chat-panel></chat-panel>-->
+
+    <home-part *ngIf="layout.isModeHome()"></home-part>
+    <chat-panel *ngIf="layout.isModeChat()"></chat-panel>
   </div>
 
 </div>

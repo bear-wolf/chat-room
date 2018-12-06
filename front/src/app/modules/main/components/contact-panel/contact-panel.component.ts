@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {RoomService} from "../../../shared/services/room.service";
 import {Reply} from "../../../shared/models/reply";
 import {Room} from "../../../shared/models/room";
@@ -8,6 +8,12 @@ import {Subject} from "rxjs";
 import {environment} from "../../../../../environments/environment";
 import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from '@stomp/stompjs';
+import {ModelDialog} from "../../../shared/models/model-dialog";
+import {ParticipantService} from "../../../shared/services/participant.service";
+import {AuthService} from "../../../../../ui/authorization/services/auth.service";
+import {Role} from "../../../shared/models/role";
+import {LayoutService} from "../../services/layout.service";
+import {Layout, ModeLayout} from "../models/layout";
 // import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 
 @Component({
@@ -18,17 +24,26 @@ import {Message} from '@stomp/stompjs';
 export class ContactPanelComponent implements OnInit, OnDestroy{
     listOfRoom = null;
 
+    //@ViewChild('li') contactElement;
+
     public messages: Subject<Message>;
 
     constructor(private roomService: RoomService,
                 private _stompService: StompService,
+                private participantService: ParticipantService,
+                private layoutService: LayoutService,
+                private authService: AuthService,
                 // private webSocketService: WebSocketService,
                 private modalService: ModalService) {
     }
 
 
     onAddChat() {
-        this.modalService.open(EnumDialogs.CreateRoom);
+        this.modalService.open(ModelDialog.TYPE_CREATE_ROOM_ST);
+    }
+
+    onOpenContact() {
+        this.layoutService.setMode(ModeLayout.VIEW_CHAT);
     }
 
     ngOnInit(): void {
@@ -63,19 +78,52 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         //         console.log(`Error: ${error.message}`);
         //     });
 
-        this.roomService.get().subscribe(
-        (data: Reply)=>{
-            this.listOfRoom = [];
-            for (let item of <[Room]>data.body) {
-                this.listOfRoom.push(new Room(item));
-            }
-
-
-        }, (data: Reply)=>{
-
-        })
+        this.getInvited();
+        this.getMyChat()
 
         //this._stompService.publish('test','description');
+    }
+
+    getInvited(){
+        this.participantService
+            .getInvited({
+                user_id: this.authService.getUser().getId(),
+                role_id: Role.TYPE_INVITED
+            })
+            .subscribe(
+                (data)=>{
+                    if (this.listOfRoom == null) {
+                        this.listOfRoom = [];
+                    }
+
+                    if (data.body) {
+                        for (let item of data.body) {
+                            this.listOfRoom.push(new Room(item));
+                        }
+                    }
+
+                    // data.body = [5, 6];
+                    // data.body.forEach(function (item) {
+                    //     console.log(item);
+                    //     debugger;
+                    //     this.listOfRoom.push(new Room(item));
+                    // });
+                },
+                (data)=>{}
+            );
+    }
+    getMyChat(){
+        // this.roomService.get().subscribe(
+        // (data: Reply)=>{
+        //     if (this.listOfRoom == null) {
+        //         this.listOfRoom = [];
+        //     }
+        //     for (let item of <[Room]>data.body) {
+        //         this.listOfRoom.push(new Room(item));
+        //     }
+        // }, (data: Reply)=>{
+        //
+        // })
     }
 
     ngOnDestroy(): void {

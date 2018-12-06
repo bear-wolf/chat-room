@@ -5,8 +5,12 @@
   </div>
   <ul>
     <li
+        #li
         *ngFor="let room of listOfRoom"
-          class="contact">
+        [attr.data-role]="room.getInvite()"
+        (click)="onOpenContact()"
+        class="contact">
+
       <div class="wrap">
         <span class="contact-status online"></span>
         <img [src]="room.getPicture()" alt="">

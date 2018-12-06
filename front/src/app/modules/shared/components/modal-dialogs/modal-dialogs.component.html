@@ -28,12 +28,12 @@
         <div class="modal-background"></div>
     </modal>
 
-    <modal [id]="modelDialog.createRoom">
+    <modal [id]="modelDialog.TYPE_CREATE_ROOM">
         <div class="modal"
-             (click)="closeModal($event, modelDialog.createRoom)">
+             (click)="closeModal($event, modelDialog.TYPE_CREATE_ROOM)">
             <div class="modal-wrapper remind-password">
                 <button class="close-icon"
-                        (click)="closeModal(modelDialog.createRoom.toString());"> <fa-icon [icon]="faTimes"></fa-icon></button>
+                        (click)="closeModal(null, modelDialog.TYPE_CREATE_ROOM)"> <fa-icon [icon]="faTimes"></fa-icon></button>
 
                 <room-dialog></room-dialog>
             </div>

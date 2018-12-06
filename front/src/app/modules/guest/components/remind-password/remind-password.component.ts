@@ -1,6 +1,7 @@
 import {AfterContentChecked, Component, OnInit} from '@angular/core';
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import {ActivatedRoute, ActivatedRouteSnapshot, Router, RouterEvent} from "@angular/router";
+import {ModelDialog} from "../../../shared/models/model-dialog";
 
 @Component({
   selector: 'remind-password',
@@ -36,7 +37,7 @@ export class RemindPasswordComponent implements OnInit {
               this.router.navigate(['']);
           }
       });
-      this.modalService.open('RemindPassword');
+      this.modalService.open(ModelDialog.TYPE_REMIND_PASSWORD_ST);
   }
 
     routerEvents() {

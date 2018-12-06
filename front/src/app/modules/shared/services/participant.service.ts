@@ -13,8 +13,10 @@ export class ParticipantService {
     return this.httpClient.get('/participant/');
   }
 
-  getById(id: number): Observable<any> {
-      return this.httpClient.get('/participant/'+id);
+  getInvited(json: {}): Observable<any> {
+      let body = json || {};
+
+      return this.httpClient.post('/participant/invited/', body);
   }
 
   save(json: {}): Observable<any> {
