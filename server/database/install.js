@@ -97,6 +97,14 @@ var Participant =  global.sequelize.define('Participant', {
         //     key: 'id'
         // }
     },
+    role_id: {
+        type: Sequelize.DataTypes.INTEGER,
+        // foreignKey: true,
+        // references: {
+        //     model: 'User',
+        //     key: 'id'
+        // }
+    },
     date_create: Sequelize.DataTypes.DATE,
     date_update: Sequelize.DataTypes.DATE
 });

@@ -127,6 +127,13 @@ var _public = {
 }
 
 var Role = {
+    TYPE_ACTIVE: 1, // aктивний користувач
+    TYPE_ONCHECK: 2, // роль на перевірці
+    TYPE_DISABLE: 3, // роль відключена
+    TYPE_REMOVED: 4, // Користувач видалений
+    TYPE_GUEST: 5, // гість
+    TYPE_INVITED: 6, // запрошений
+
     createInstance : function(){
         var Obj = function(){
             for(var key in _public){

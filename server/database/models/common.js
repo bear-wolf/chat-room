@@ -2,6 +2,7 @@
 var CommonModel, _public;
 
 _public = {
+    data: null, // data for request
     reply_handler: null, // ответ от модели
     callback: null,
     callback_successfully: null,

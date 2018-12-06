@@ -12,6 +12,14 @@ var RouteParticipant = {
                 .actionGet();
         });
 
+        app.post('/participant/invited/', function (req, res) {
+            participantController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionGetInvited();
+        });
+
         // verify
         app.get('/participant/:id', function (req, res) {
             participantController

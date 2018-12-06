@@ -50,12 +50,18 @@ var _public = {
                 .setMessage('not valid');
 
             if (Common.isFunction(_this.callback_error)) {
-                _this.callback_error(reply.get());
+                _this.callback_error(reply);
             }
         }
 
-        json['date_create'] = global.common.date.getNow();
-        request = this.dbParticipant.build(json);
+        if (!json.id) {
+            json['date_create'] = global.common.date.getNow();
+            request = this.dbParticipant.build(json);
+        } else {
+
+        }
+
+        this.data = json;
 
         request
             .save()
@@ -65,7 +71,7 @@ var _public = {
                     .setData(data);
 
                 if (Common.isFunction(_this.callback_successfully)) {
-                    _this.callback_successfully(reply.get());
+                    _this.callback_successfully(reply);
                 }
             })
             .catch((error)=>{
@@ -74,12 +80,13 @@ var _public = {
                     .setMessage(error);
 
                 if (Common.isFunction(_this.callback_error)) {
-                    _this.callback_error(reply.get());
+                    _this.callback_error(reply);
                 }
             });
 
-        return this;
+        return request;
     },
+
     getById: function (id) {
         return this.dbParticipant.findById(id);
     },

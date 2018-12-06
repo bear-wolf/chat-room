@@ -36,17 +36,26 @@ var _public = {
                 reply
                     .setStatus(true)
                     .setData(data.dataValues);
+
+                if (Common.isFunction(_this.callback_successfully)) {
+                    _this.callback_successfully(reply);
+                }
             })
             .catch((error)=>{
                 reply
                     .setStatus(false)
                     .setMessage(error);
 
-                _this.callback_error(reply);
+                if (Common.isFunction(_this.callback_error)) {
+                    _this.callback_error(reply);
+                }
+
                 return false;
             })
             .finally(function () {
-                _this.callback_finally(reply);
+                if (Common.isFunction(_this.callback_finally)) {
+                    _this.callback_finally(reply);
+                }
             });
 
         return this;

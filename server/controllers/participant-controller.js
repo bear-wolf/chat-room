@@ -35,6 +35,43 @@ _public = {
                 _this.getResponce().end(reply.getToJSONstringify())
             });
     },
+    actionGetInvited: function () {
+        var request,
+            _this = this,
+            bodyRequest = this.request.body,
+            modelParticipant = global.dbModel.Participant,
+            reply = global.models.reply.createInstance();
+
+        var json = {
+            user_id: bodyRequest.user_id,
+            role_id: bodyRequest.role_id
+        };
+
+        request = modelParticipant.findAndCountAll({
+            where: json
+        });
+
+        request
+            .then((data)=>{
+                var _data = [];
+
+                data.rows.forEach(function (item) {
+                    _data.push(item.dataValues);
+                })
+
+                reply
+                    .setStatus(true)
+                    .setData(_data)
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error)
+            })
+            .finally(()=>{
+                _this.getResponce().end(reply.toString())
+            });
+    },
     // actionSave: function () {
     //     var request,
     //         _this = this,

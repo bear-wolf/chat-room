@@ -33,6 +33,28 @@ var self = {
         // }
 
         return users;
+    },
+    saveInvitedUsers: function (room_id, list_users_id) {
+        var modelParticipant = global.db.Participant,
+            role = global.models.role;
+
+        //list_users_id = [1, 6];
+
+        list_users_id.forEach(function(item) {
+            modelParticipant
+                .setCallBackSuccessfully(function (reply) {
+                    console.log('Add user['+ this.data.user_id +'] in participant.')
+                })
+                .setCallBackError(function (reply) {
+
+                })
+                .save({
+                    room_id: room_id,
+                    user_id: item,
+                    role_id: role.TYPE_INVITED
+                })
+        });
+
     }
 }
 
@@ -78,20 +100,14 @@ _public = {
 
         modelRoom
             .setCallBackSuccessfully(function (reply) {
-                _this.responce.end(reply.getToJSONstringify())
+                self.saveInvitedUsers(reply.body.id, bodyRequest.inviteUsersId);
+
+                _this.responce.end(reply.toString());
             })
             .setCallBackError(function (reply) {
-                _this.responce.end(reply.getToJSONstringify())
-            })
-            .setCallBackFinally(function (reply) {
-                _this.responce.end(reply.getToJSONstringify())
+                _this.responce.end(reply.toString())
             })
             .save(bodyRequest, currentId);
-
-        //invite users for chat
-        // for(bodyRequest.inviteUsersId) {
-        //
-        // }
 
         return this;
     },

@@ -50,14 +50,14 @@ _public = {
                     .setStatus(true)
                     .setData(data);
 
-                _this.responce.end(reply.getToJSONstringify())
+                _this.responce.end(reply.toString())
             })
             .setCallBackError(function (error) {
                 reply
                     .setStatus(false)
                     .setMessage(error);
 
-                _this.responce.end(reply.getToJSONstringify())
+                _this.responce.end(reply.toString())
             })
             .save(bodyRequest, currentId);
     },

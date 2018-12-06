@@ -13,8 +13,9 @@ var _public = {
 var Role = {
     TYPE_GUEST: 1, // не розпізнаваний системою
     TYPE_DEMO: 2, // зайшов як гість (авторизований)
-    TYPE_CHECK_IN: 2, //зареєструвався
-    TYPE_ACTIVE: 4, //авторизувався
+    TYPE_CHECK_IN: 3, //зареєструвався
+    TYPE_ACTIVE: 4, //авторизувався / підтвердив участь
+    TYPE_INVITED: 5, //Запрошений
 
     createInstance : function(){
         var Obj = function(){
