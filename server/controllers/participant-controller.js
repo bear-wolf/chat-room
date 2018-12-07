@@ -53,11 +53,7 @@ _public = {
 
         request
             .then((data)=>{
-                var _data = [];
-
-                data.rows.forEach(function (item) {
-                    _data.push(item.dataValues);
-                })
+                var _data = data.map(function(data){ return data.dataValues; });
 
                 reply
                     .setStatus(true)

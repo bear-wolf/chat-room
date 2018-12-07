@@ -3,29 +3,29 @@
 var RoomController, _public, _private;
 
 const ValidateStatus = {
-    //INVITE_USERS: 'invite_users',
+    GET_INVITED: 'GET_INVITED',
 }
 
 
 var self = {
-    // validate: function (json, key) {
-    //     var result = false;
-    //
-    //     switch (key) {
-    //         case ValidateStatus.INVITE_USERS: {
-    //             if (json.email && json.role_id) {
-    //                 result = true;
-    //             }
-    //             break;
-    //         }
-    //
-    //         default: {
-    //             break
-    //         }
-    //     }
-    //
-    //     return result;
-    // }
+    validate: function (json, key) {
+        var result = false;
+
+        switch (key) {
+            case ValidateStatus.GET_INVITED: {
+                if (json.user_id && json.role_id) {
+                    result = true;
+                }
+                break;
+            }
+
+            default: {
+                break
+            }
+        }
+
+        return result;
+    },
 
     getUserJoinProfile: function (users, profiles) {
         // for(let user of users) {
@@ -180,6 +180,65 @@ _public = {
             })
 
         return this;
+    },
+
+    //Вертає кімнати в яких певний користувач був запрошений
+    actionGetInvited: function () {
+        var request, json,
+            _this = this,
+            bodyRequest = this.request.body,
+            participant = global.db.Participant,
+            room = global.db.Room,
+            reply = global.models.reply.createInstance();
+
+        json = {
+            user_id: bodyRequest.user_id,
+            role_id: bodyRequest.role_id
+        };
+
+        if (!self.validate(json, ValidateStatus.GET_INVITED)) {
+            reply
+                .setStatus(false)
+                .setMessage('List of parameters is not valid');
+
+            _this.responce.end(reply.toString());
+
+            return this;
+        }
+
+        participant
+            .getByJSON(json)
+            .then((data)=>{
+                if (data) {
+                    var listParticipant = data.map(function(data){ return data.dataValues; });
+                    var _data = data.map(function(data){ return data.dataValues['room_id']; });
+
+                    return room
+                        .getByJSON({ where: { id: _data } })
+                        .then(rooms => {
+                            var listRoom = rooms.map(function(data){ return data.dataValues; });
+
+                            reply
+                                .setStatus(true)
+                                .setData({
+                                    room: listRoom,
+                                    participant: listParticipant
+                                });
+                        });
+                } else {
+                    reply
+                        .setStatus(true)
+                        .setData({});
+                }
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error)
+            })
+            .finally(()=>{
+                _this.getResponce().end(reply.toString())
+            });
     }
 }
  RoomController = {

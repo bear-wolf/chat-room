@@ -68,6 +68,10 @@ var _public = {
     getAll: function () {
         return this.dbRoom.findAndCountAll();
     },
+    //return promise
+    getByJSON: function (json) {
+        return this.dbRoom.findAll(json);
+    },
 }
 
 var RoomModel = {

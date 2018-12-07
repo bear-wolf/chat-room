@@ -90,6 +90,12 @@ var _public = {
     getById: function (id) {
         return this.dbParticipant.findById(id);
     },
+    //return promise
+    getByJSON: function (json) {
+        return this.dbParticipant.findAll({
+            where: json
+        });
+    },
     getAll: function () {
         return this.dbParticipant.findAndCountAll();
     },

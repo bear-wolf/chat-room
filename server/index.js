@@ -34,7 +34,7 @@ server = http.createServer(app).listen(app.get('port'), function () {
 
 //webSocket.init(server);
 //webSocket.initWs(server);
-webSocket.run(server);
+// webSocket.run(server);
 
 process.on('exit', function (code) {
     console.log('About to exit with code:'+code);

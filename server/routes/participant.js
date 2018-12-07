@@ -21,15 +21,14 @@ var RouteParticipant = {
         });
 
         // verify
-        app.get('/participant/:id', function (req, res) {
-            participantController
-                .createInstance()
-                .setRequest(req)
-                .setResponce(res)
-                .actionGet();
-        });
+        // app.get('/participant/:id', function (req, res) {
+        //     participantController
+        //         .createInstance()
+        //         .setRequest(req)
+        //         .setResponce(res)
+        //         .actionGet();
+        // });
 
-        //INSERT // verify
         //users/123/accounts
         app.post('/participant/', function (req, res) {
             participantController

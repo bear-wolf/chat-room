@@ -1,17 +1,39 @@
 # chat-room
 Node js, Angular v6+, webSocket
 
-#HTTP Methods
-HTTP GET http://www.appdomain.com/users
-HTTP GET http://www.appdomain.com/users?size=20&page=5
-HTTP GET http://www.appdomain.com/users/123
-HTTP GET http://www.appdomain.com/users/123/address
+#Installation
 
-HTTP POST http://www.appdomain.com/users
-HTTP POST http://www.appdomain.com/users/123/accounts
+You will be need install [Node.js](https://nodejs.org/), [Mysql](https://dev.mysql.com/downloads/installer/) and other dependencies from package manager.
+```sh
+$ mkdir chat-room
+$ cd chat-room
+$ cd server/
+$ npm install -d
+$ node server
+$ cd ../front/
+$ npm install -d
+$ ng server
+```
 
-HTTP PUT http://www.appdomain.com/users/123
-HTTP PUT http://www.appdomain.com/users/123/accounts/456
+#server API:
 
-HTTP DELETE http://www.appdomain.com/users/123
-HTTP DELETE http://www.appdomain.com/users/123/accounts/456
+##AuthController
+/sign-in - authorization  
+/log-out - log out from system  
+/check-in - registration  
+/is-auth - check token
+
+##UserController
+
+##ProfileController
+POST - /profile/ - create user profile 
+POST - /profile/:id - update user profile
+DELETE - /profile/:id  - remove profile
+
+##RoomController
+GET /room/invite-users/ - get list users who 
+POST - /room/ - create room for chatting between users
+
+##ParticipantController
+POST - /participant/invited - get list of room what I am as participant of room
+DELETE - /participant/:id - remove user as participant some room of chatting
