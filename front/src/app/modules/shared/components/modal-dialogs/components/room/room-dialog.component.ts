@@ -74,7 +74,7 @@ export class RoomDialogComponent implements OnInit {
         } else{
             // if (form.email.indexOf('@')<0){
             //     this.formObject.controls['email']
-            //         .setErrors({ message: 'This field is not email'})
+            //         .setErrors({ chat-message: 'This field is not email'})
             // }
         }
     }

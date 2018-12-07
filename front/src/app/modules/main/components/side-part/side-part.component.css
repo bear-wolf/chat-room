@@ -11,10 +11,16 @@
   height: 100vh; }
 
 .avatar {
-  width: 40px;
-  border-radius: 50%;
   float: left;
-  margin: 9px 12px 0 9px; }
+  margin: 9px 12px 0 9px;
+  font-size: 16px;
+  background: black;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex; }
 
 .side-panel {
   padding-bottom: 40px; }

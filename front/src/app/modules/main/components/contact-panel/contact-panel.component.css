@@ -1,3 +1,6 @@
-
+.list-contacts .avatar {
+  margin-right: 10px; }
+.list-contacts .meta .name {
+  margin-bottom: 0; }
 
 /*# sourceMappingURL=contact-panel.component.css.map */

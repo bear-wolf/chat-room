@@ -8,6 +8,9 @@ import {HomePartComponent} from "./components/home-part/home-part.component";
 import {SidePartComponent} from "./components/side-part/side-part.component";
 import {SharedModule} from "../shared/shared.module";
 import {ProfilePartComponent} from "./components/profile-part/profile-part.component";
+import {ChatDashboardComponent} from "./components/chat-panel/components/chat-dashboard/chat-dashboard.component";
+import {ChatMessageComponent} from "./components/chat-panel/components/chat-message/chat-message.component";
+import {ChatHeadComponent} from "./components/chat-panel/components/chat-head/chat-head.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +19,11 @@ import {ProfilePartComponent} from "./components/profile-part/profile-part.compo
       SidePartComponent,
       ContactPanelComponent,
       ChatPanelComponent,
-      ProfilePartComponent
+      ProfilePartComponent,
+
+      ChatDashboardComponent,
+      ChatHeadComponent,
+      ChatMessageComponent
   ],
   imports: [
       CommonModule,

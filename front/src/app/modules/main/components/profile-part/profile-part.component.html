@@ -4,8 +4,9 @@
 
     <div class="wrap">
         <span class="avatar pull-left"
-              style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
+              [innerHtml]="authService.getUser().getPicture()"
               [innerText]="authService.getUser().getInitials()"></span>
+
         <p [innerText]="authService.getUser().getDisplayName()"></p>
 
         <a routerLink=""
@@ -67,14 +68,14 @@
                         </div>
                     </div>
 
-                        <div [class]="form-group">
-                            <input type="file"
-                                   class="form-control"
-                                   id="avatar"
-                                   #avatar
-                                   placeholder="update avatar"
-                                   formControlName="picture">
-                        </div>
+                        <!--<div [class]="form-group">-->
+                            <!--<input type="file"-->
+                                   <!--class="form-control"-->
+                                   <!--id="avatar"-->
+                                   <!--#avatar-->
+                                   <!--placeholder="update avatar"-->
+                                   <!--formControlName="picture">-->
+                        <!--</div>-->
 
                     <div class="text-center">
                         <button class="btn btn-style btn-sm"

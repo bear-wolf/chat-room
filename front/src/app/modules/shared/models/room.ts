@@ -1,16 +1,17 @@
 import {User} from "./user";
 import {Role} from "./role";
+import {Participant} from "./participant";
 
 export class Room {
     public id: number;
     public title: string = '';
     public user_id: User;
     public role_id: number;
+    public participant: Participant[];
     public date_create: string;
     public date_update: string;
 
     constructor (data:Room) {
-        debugger;
         if (data) {
             this.id = data.id;
             this.title = data.title;
@@ -22,7 +23,11 @@ export class Room {
     }
 
     getPicture(){
-        return 'http://emilcarlsson.se/assets/mikeross.png';
+        return this.getFontIcon(); //'http://emilcarlsson.se/assets/mikeross.png';
+    }
+
+    private getFontIcon() {
+        return '<i class="fa fa-user fa-fw" aria-hidden="true"></i>';
     }
 
     getInvite(): string{
@@ -31,5 +36,25 @@ export class Room {
 
     getTitle() {
         return this.title || '';
+    }
+
+    addParticipant(item:Participant){
+        this.participant = this.participant || [];
+
+        if (item) {
+            this.participant.push(item);
+        }
+
+        return this;
+    }
+
+    getCountParticipants() {
+        var size = this.participant ? this.participant.length : 0;
+
+        return size;
+    }
+
+    getStatusOwner() {
+        return 'I am smile';
     }
 }

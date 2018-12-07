@@ -10,22 +10,22 @@ export class MessageService {
   constructor(private httpClient: HttpClient) { }
 
   get(): Observable<any> {
-    return this.httpClient.get('/message/');
+    return this.httpClient.get('/chat-message/');
   }
 
   getById(id: number): Observable<any> {
-      return this.httpClient.get('/message/'+id);
+      return this.httpClient.get('/chat-message/'+id);
   }
 
   save(json: {}): Observable<any> {
     var id = json['id'] || '';
 
-    return this.httpClient.post('/message/'+id, json);
+    return this.httpClient.post('/chat-message/'+id, json);
   }
 
   remove(json: {}): Observable<any> {
       var id = json['id'];
 
-      return this.httpClient.post('/message/'+id, {});
+      return this.httpClient.post('/chat-message/'+id, {});
   }
 }

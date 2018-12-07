@@ -14,6 +14,8 @@ import {AuthService} from "../../../../../ui/authorization/services/auth.service
 import {Role} from "../../../shared/models/role";
 import {LayoutService} from "../../services/layout.service";
 import {Layout, ModeLayout} from "../models/layout";
+import {Participant} from "../../../shared/models/participant";
+import {ChatService} from "../../services/chat.service";
 // import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 
 @Component({
@@ -32,6 +34,7 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                 private _stompService: StompService,
                 private participantService: ParticipantService,
                 private layoutService: LayoutService,
+                private chatService: ChatService,
                 private authService: AuthService,
                 // private webSocketService: WebSocketService,
                 private modalService: ModalService) {
@@ -42,7 +45,9 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         this.modalService.open(ModelDialog.TYPE_CREATE_ROOM_ST);
     }
 
-    onOpenContact() {
+    onOpenContact(room: Room) {
+        this.chatService.setRoom(room);
+
         this.layoutService.setMode(ModeLayout.VIEW_CHAT);
     }
 
@@ -53,29 +58,29 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         //         debugger;
         //         console.log(`Received: ${msg_body}`);
         //     },(error)=>{
-        //         console.log(`Error: ${error.message}`);
+        //         console.log(`Error: ${error.chat-message}`);
         //     });
         //     // .map((response: MessageEvent): Message => {
         //     //     debugger;
         //     //     let data = JSON.parse(response.data);
         //     //     return {
         //     //         author: data.author,
-        //     //         message: data.message
+        //     //         chat-message: data.chat-message
         //     //     }
         //     // });
 
         // let stomp_subscription = this._stompService.subscribe('/');
         //
         // stomp_subscription
-        //     // .map((message: Message) => {
+        //     // .map((chat-message: Message) => {
         //     //     debugger;
-        //     //     return message.body;
+        //     //     return chat-message.body;
         //     // })
         //     .subscribe((msg_body: any) => {
         //         debugger;
         //         console.log(`Received: ${msg_body}`);
         //     },(error)=>{
-        //         console.log(`Error: ${error.message}`);
+        //         console.log(`Error: ${error.chat-message}`);
         //     });
 
         this.getInvited();
@@ -85,7 +90,7 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     }
 
     getInvited(){
-        this.participantService
+        this.roomService
             .getInvited({
                 user_id: this.authService.getUser().getId(),
                 role_id: Role.TYPE_INVITED
@@ -96,18 +101,21 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                         this.listOfRoom = [];
                     }
 
-                    if (data.body) {
-                        for (let item of data.body) {
-                            this.listOfRoom.push(new Room(item));
+                    let body = data.body,
+                        participant: Participant[] = data.body.participant;
+
+                    if (body && body.room) {
+                        for (let item of body.room) {
+                            let room = new Room(item);
+
+                            if (participant) {
+                                room.addParticipant( participant.filter(x => x.room_id === room.id)[0]);
+                            }
+
+                            this.listOfRoom.push(room);
                         }
                     }
 
-                    // data.body = [5, 6];
-                    // data.body.forEach(function (item) {
-                    //     console.log(item);
-                    //     debugger;
-                    //     this.listOfRoom.push(new Room(item));
-                    // });
                 },
                 (data)=>{}
             );

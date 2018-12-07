@@ -17,6 +17,12 @@ export class RoomService {
       return this.httpClient.get('/room/'+id);
   }
 
+    getInvited(json: {}): Observable<any> {
+        let body = json || {};
+
+        return this.httpClient.post('/room/invited/', body);
+    }
+
   save(json: {}): Observable<any> {
     var id = json['id'] || '';
 
@@ -30,6 +36,6 @@ export class RoomService {
   }
 
   getInviteUsers(): Observable<any> {
-      return this.httpClient.get('/invite-users/');
+      return this.httpClient.get('/room/invite-users');
   }
 }

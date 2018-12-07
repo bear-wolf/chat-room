@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAME,sBAAO;EACL,YAAY,EAAE,IAAI;AAEpB,0BAAY;EACV,aAAa,EAAE,CAAC",
+"sources": ["contact-panel.component.scss"],
 "names": [],
 "file": "contact-panel.component.css"
 }

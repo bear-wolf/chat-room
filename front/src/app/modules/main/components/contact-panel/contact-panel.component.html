@@ -8,16 +8,19 @@
         #li
         *ngFor="let room of listOfRoom"
         [attr.data-role]="room.getInvite()"
-        (click)="onOpenContact()"
+        (click)="onOpenContact(room)"
         class="contact">
 
-      <div class="wrap">
-        <span class="contact-status online"></span>
-        <img [src]="room.getPicture()" alt="">
+      <div class="wrap d-flex flex-row">
+        <!--<span class="contact-status online"></span>-->
+        <!--<img [src]="room.getPicture()" alt="">-->
+        <div class="avatar"
+             [innerHTML]="room.getPicture()"></div>
+
         <div class="meta">
           <p class="name"
             [innerText]="room.getTitle()"></p>
-          <!--<p class="preview">You just got LITT up, Mike.</p>-->
+          <p class="preview" [innerText]="room.getStatusOwner()"></p>
         </div>
       </div>
     </li>

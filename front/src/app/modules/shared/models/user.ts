@@ -1,6 +1,7 @@
 import {Profile} from "./profile";
+import {Common} from "./common";
 
-export class User {
+export class User extends Common {
     public id: number;
     public email: string = 'e!';
     public password: string;
@@ -13,6 +14,8 @@ export class User {
     public token: string;
 
     constructor (data: User) {
+        super();
+
         if (data) {
             this.id = data.id;
             this.email = data.email;
@@ -27,6 +30,11 @@ export class User {
             }
         }
     }
+
+    getPicture(){
+        return this.getFontIconUser(); //'http://emilcarlsson.se/assets/mikeross.png';
+    }
+
 
     getDisplayName() {
         let  name = '';

@@ -1,0 +1,15 @@
+.contact-profile > .item {
+  margin: 9px 12px 0 9px;
+  align-items: center; }
+  .contact-profile > .item .text {
+    font-size: 12px; }
+.contact-profile .avatar {
+  margin-right: 10px;
+  background-color: #333; }
+.contact-profile .title {
+  padding: 0;
+  align-items: center;
+  display: flex;
+  margin: 0; }
+
+/*# sourceMappingURL=chat-head.component.css.map */
