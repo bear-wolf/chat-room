@@ -772,4 +772,20 @@ app-root{
     }
 }
 
-/*profile*/
+
+
+.wrap-input{
+    position: relative;
+}
+.wrap-input .change-type{
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    font-size: 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 30px;
+    justify-content: center;
+}

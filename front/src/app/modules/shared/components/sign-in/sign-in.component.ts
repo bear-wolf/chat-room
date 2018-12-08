@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
 import {Router} from "@angular/router";
 import {ModalService} from "../../../../../ui/modal/services/modal.service";
 import {Reply} from "../../models/reply";
 import {StorageService} from "../../../../../ui/storage/services/storage.service";
+import {ShowHideInput} from "../../directives/show-hide-input";
+import {faEyeSlash, faEye} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'sign-in',
@@ -15,6 +17,10 @@ export class SignInComponent implements OnInit {
   message: string = null;
   userForm: FormGroup;
   submitted = false;
+    show = false;
+    faEye = faEyeSlash;
+
+    @ViewChild(ShowHideInput) input: ShowHideInput;
 
   constructor(
       private router: Router,
@@ -31,6 +37,18 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
       this.clearView();
   }
+
+    toggleShow() {
+        this.show = !this.show;
+        if (this.show){
+            this.faEye = faEye;
+            this.input.changeType("text");
+        }
+        else {
+            this.faEye = faEyeSlash;
+            this.input.changeType("password");
+        }
+    }
 
   clearView() {
       this.message = null;
@@ -67,6 +85,7 @@ export class SignInComponent implements OnInit {
             }
         }
     }
+
 
     remindPassword() {
       this.modalService.closeAll();

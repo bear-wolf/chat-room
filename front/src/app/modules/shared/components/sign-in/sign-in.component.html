@@ -28,11 +28,17 @@
             <label class="form-control-label"
                    for="Password">Password:</label>
 
-            <input type="password"
-                   class="form-control"
-                   id="Password"
-                   placeholder="password"
-                   formControlName="password">
+            <div class="wrap-input">
+                <input type="password"
+                       class="form-control"
+                       id="Password"
+                       show-hide-input
+                       placeholder="password"
+                       formControlName="password">
+                <a routerLink=""
+                   class="change-type"
+                   (click)="toggleShow($event)"><fa-icon [icon]="faEye"></fa-icon></a>
+            </div>
 
             <!--<div class="form-control-feedback" [innerText]="userForm.valid"></div>-->
         </div>

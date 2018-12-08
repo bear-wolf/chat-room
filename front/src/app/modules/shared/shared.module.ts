@@ -20,6 +20,7 @@ import {environment} from "../../../environments/environment";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 // import {WebSocketModule} from "../../../ui/socket/web-socket.module";
 import { NgSelectModule } from '@ng-select/ng-select';
+import {ShowHideInput} from "./directives/show-hide-input";
 
 const stompConfig: StompConfig = {
     // Which server?
@@ -76,6 +77,7 @@ const stompConfig: StompConfig = {
         ModalDialogsComponent,
         AuthenticationDialogComponent,
         RemindPasswordDialogComponent,
+        ShowHideInput,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     providers: [
@@ -95,7 +97,8 @@ const stompConfig: StompConfig = {
       FormsModule,
       ReactiveFormsModule,
       ModalDialogsComponent,
-      RoomDialogComponent
+      RoomDialogComponent,
+      ShowHideInput,
   ],
     // entryComponents:[AuthComponent]
 })
