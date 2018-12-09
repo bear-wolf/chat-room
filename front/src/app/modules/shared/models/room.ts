@@ -10,6 +10,7 @@ export class Room {
     public user_id: User;
     public role_id: number;
     public participant: Participant[];
+    public owner: User;
     public message: Message[];
     public date_create: string;
     public date_update: string;
@@ -39,6 +40,14 @@ export class Room {
 
     getTitle() {
         return this.title || '';
+    }
+    getOwner() {
+        return this.owner;
+    }
+    setOwner(user: User) {
+        this.owner = user;
+
+        return this;
     }
 
     addMessage(item: Message){
@@ -73,7 +82,7 @@ export class Room {
     getCountParticipants() {
         var size = this.participant ? this.participant.length : 0;
 
-        return size;
+        return ++size; // + owner the room
     }
 
     getStatusOwner() {

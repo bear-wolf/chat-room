@@ -16,6 +16,7 @@ import {LayoutService} from "../../services/layout.service";
 import {Layout, ModeLayout} from "../models/layout";
 import {Participant} from "../../../shared/models/participant";
 import {ChatService} from "../../services/chat.service";
+import {User} from "../../../shared/models/user";
 // import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 
 @Component({
@@ -103,10 +104,14 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
 
                     let body = data.body,
                         participant: Participant[] = data.body.participant;
+                    debugger;
 
                     if (body && body.room) {
                         for (let item of body.room) {
                             let room = new Room(item);
+                            let user: any = body.user.filter((x)=>{ return x.id === room.user_id ? x : null;})[0];
+
+                            room.setOwner(user);
 
                             if (participant) {
                                 room.addParticipant( participant.filter(x => x.room_id === room.id)[0]);

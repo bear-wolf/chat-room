@@ -29,8 +29,12 @@ export class ModalDialogsComponent implements OnInit {
 
             if (modal) {
                 let eRef = modal.nativeElement;
+
                 //TODO: close  window
                 if (!eRef.children[0].children[0].contains(event.target)) {
+                    if (eRef.querySelector(event.target.tagName)) {
+                        return;
+                    }
                     this.modalService.close(id);
                 }
             }

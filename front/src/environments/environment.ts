@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:3205',
+  host: 'http://localhost:3210',
   ws: 'ws://localhost:3205'
 };
 

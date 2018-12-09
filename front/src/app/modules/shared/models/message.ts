@@ -1,17 +1,20 @@
+import {User} from "./user";
+
 export class MessageInvite {
-    description: 'Your invite users "Andrew"'
+    description = 'Your invite users: ';
+    user: User;
 
-    constructor () {
-        return this;
-    }
-
-    setDescription(description) {
-        this.description = description;
+    constructor (user: User) {
+        this.user = user;
 
         return this;
     }
 
+    getDescription() {
+        return this.description + this.user.email;
+    }
 }
+
 export class Message {
     //from server
     public id: number;

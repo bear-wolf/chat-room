@@ -10,10 +10,11 @@
         <!--</li>-->
     <!--</ul>-->
 
-    <div class="invite-container d-flex">
+    <div class="invite-container d-flex"
+        *ngIf="invited">
         <ul>
             <li class="d-flex flex-column invite justify-content-center w-100">
-                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">
+                <div [innerHtml]="invited"></div>
                 <p [innerHtml]=""></p>
                 <div class="btn-group">
                     <button class="btn btn-primary">Agree</button>

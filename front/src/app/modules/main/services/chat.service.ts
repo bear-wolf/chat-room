@@ -20,6 +20,7 @@ export class ChatService {
   }
 
     setRoom(data: Room) {
+        console.log('In room', data);
         this.subjectRoom.next(data);
 
         return this;
