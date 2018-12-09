@@ -188,6 +188,7 @@ _public = {
             _this = this,
             bodyRequest = this.request.body,
             participant = global.db.Participant,
+            user = global.db.User,
             room = global.db.Room,
             reply = global.models.reply.createInstance();
 
@@ -216,14 +217,31 @@ _public = {
                     return room
                         .getByJSON({ where: { id: _data } })
                         .then(rooms => {
-                            var listRoom = rooms.map(function(data){ return data.dataValues; });
+                            var listRoom = rooms.map((data)=>{ return data.dataValues; });
+                            var users = listRoom.map((x)=>{ return x.user_id; });
 
-                            reply
-                                .setStatus(true)
-                                .setData({
-                                    room: listRoom,
-                                    participant: listParticipant
-                                });
+                            var arrUserId = users.filter(function(elem, pos) {
+                                return users.indexOf(elem) == pos;
+                            })
+
+                            return user
+                                .getByJSON({ id: arrUserId })
+                                .then(user=>{
+                                    var users = user.map((x)=>{ return x.dataValues; });
+
+                                    reply
+                                        .setStatus(true)
+                                        .setData({
+                                            room: listRoom,
+                                            participant: listParticipant,
+                                            user: users
+                                        });
+                                })
+                                .catch((error)=>{
+                                    reply
+                                        .setStatus(false)
+                                        .setMessage(error)
+                                })
                         });
                 } else {
                     reply

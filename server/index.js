@@ -10,7 +10,7 @@ var app, client, server,
     LocalStrategy = require('passport-local').Strategy,
     bodyParser = require('body-parser');
 
-process.env.PORT = process.env.PORT || 3205;
+process.env.PORT = process.env.PORT || 3210;
 
 app = express();
 app.set('port', process.env.PORT);

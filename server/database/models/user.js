@@ -35,6 +35,12 @@ var _public = {
             where: { email: json.email, password: json.password }
         });
     },
+    //return promise
+    getByJSON: function (json) {
+        return this.dbUser.findAll({
+            where: json
+        });
+    },
     getByID: function (id) {
         var _this = this,
             reply = global.models.reply.createInstance();
