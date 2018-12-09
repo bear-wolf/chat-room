@@ -1,8 +1,15 @@
+:host {
+  height: 7vh;
+  min-height: 60px; }
+
 .contact-profile > .item {
-  margin: 9px 12px 0 9px;
-  align-items: center; }
+  margin: 0px 12px 0 9px;
+  align-items: center;
+  height: inherit; }
   .contact-profile > .item .text {
     font-size: 12px; }
+.contact-profile p {
+  margin: 0; }
 .contact-profile .avatar {
   margin-right: 10px;
   background-color: #333; }

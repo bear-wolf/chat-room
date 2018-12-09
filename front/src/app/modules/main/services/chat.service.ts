@@ -19,7 +19,7 @@ export class ChatService {
       return this.httpClient.post('/role/'+id, {});
   }
 
-    setRoom(data: Room) { debugger;
+    setRoom(data: Room) {
         this.subjectRoom.next(data);
 
         return this;

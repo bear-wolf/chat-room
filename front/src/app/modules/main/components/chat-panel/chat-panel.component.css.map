@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AACA,WAAW;EACT,MAAM,EAAE,KAAK",
+"sources": ["chat-panel.component.scss"],
 "names": [],
 "file": "chat-panel.component.css"
 }

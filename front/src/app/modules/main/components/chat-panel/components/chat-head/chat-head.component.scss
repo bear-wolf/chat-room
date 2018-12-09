@@ -1,11 +1,21 @@
+:host{
+  height: 7vh;
+  min-height: 60px;
+}
+
 
 .contact-profile{
   &>.item{
-    margin: 9px 12px 0 9px;
+    margin: 0px 12px 0 9px;
     align-items: center;
+    height: inherit;
+
     .text{
       font-size: 12px;
     }
+  }
+  p{
+    margin: 0;
   }
   .avatar{
     margin-right: 10px;
@@ -17,4 +27,5 @@
     display: flex;
     margin: 0;
   }
+
 }

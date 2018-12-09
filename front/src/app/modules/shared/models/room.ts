@@ -1,6 +1,8 @@
 import {User} from "./user";
 import {Role} from "./role";
 import {Participant} from "./participant";
+import {ChatMessageComponent} from "../../main/components/chat-panel/components/chat-message/chat-message.component";
+import {Message} from "./message";
 
 export class Room {
     public id: number;
@@ -8,6 +10,7 @@ export class Room {
     public user_id: User;
     public role_id: number;
     public participant: Participant[];
+    public message: Message[];
     public date_create: string;
     public date_update: string;
 
@@ -36,6 +39,25 @@ export class Room {
 
     getTitle() {
         return this.title || '';
+    }
+
+    addMessage(item: Message){
+        this.message = this.message || [];
+
+        if (item) {
+            this.message.push(item);
+        }
+
+        return this;
+    }
+    removeMessage(item: Message){
+        this.message = this.message || [];
+
+        if (item) {
+            this.message = this.message.slice(1);
+        }
+
+        return this;
     }
 
     addParticipant(item:Participant){

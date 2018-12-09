@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AACA,0BAA0B;EACxB,MAAM,EAAE,IAAI",
+"sources": ["chat-dashboard.component.scss"],
 "names": [],
-"file": "layout.component.css"
+"file": "chat-dashboard.component.css"
 }

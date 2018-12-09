@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,mBAAmB;EACjB,UAAU,EAAE,IAAI;;AAIhB,yBAAO;EACL,KAAK,EAAE,IAAI",
+"sources": ["chat-message.component.scss"],
 "names": [],
-"file": "layout.component.css"
+"file": "chat-message.component.css"
 }

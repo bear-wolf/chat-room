@@ -17,7 +17,6 @@ export class ChatHeadComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        debugger;
         this.subscription = this.chatService.subjectRoom.subscribe(
             (data:Room)=>{
                 debugger;

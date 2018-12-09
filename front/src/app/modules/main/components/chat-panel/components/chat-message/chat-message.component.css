@@ -1,3 +1,7 @@
+.messages ul li img {
+  max-height: 22px; }
 
+.invite-container .invite {
+  width: 100%; }
 
-/*# sourceMappingURL=chat-dashboard.component.csscss.map */
+/*# sourceMappingURL=chat-message.component.css.map */
