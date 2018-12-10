@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {ChatService} from "../../../../services/chat.service";
 import {Room} from "../../../../../shared/models/room";
 import {Subscription} from "rxjs";
+import {RoomService} from "../../../../../shared/services/room.service";
 
 @Component({
   selector: 'chat-head',
@@ -12,14 +12,13 @@ export class ChatHeadComponent implements OnInit, OnDestroy {
     room: Room = null;
     subscription: Subscription = null;
 
-    constructor(private chatService: ChatService){
+    constructor(private roomService: RoomService){
     }
 
 
     ngOnInit() {
-        this.subscription = this.chatService.subjectRoom.subscribe(
+        this.subscription = this.roomService.subjectRoom.subscribe(
             (data:Room)=>{
-                debugger;
                 this.room = new Room(data);
             },
             (data)=>{

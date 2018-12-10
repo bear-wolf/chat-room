@@ -15,7 +15,7 @@ import {Role} from "../../../shared/models/role";
 import {LayoutService} from "../../services/layout.service";
 import {Layout, ModeLayout} from "../models/layout";
 import {Participant} from "../../../shared/models/participant";
-import {ChatService} from "../../services/chat.service";
+
 import {User} from "../../../shared/models/user";
 // import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
 
@@ -32,10 +32,9 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     public messages: Subject<Message>;
 
     constructor(private roomService: RoomService,
-                private _stompService: StompService,
+                // private _stompService: StompService,
                 private participantService: ParticipantService,
                 private layoutService: LayoutService,
-                private chatService: ChatService,
                 private authService: AuthService,
                 // private webSocketService: WebSocketService,
                 private modalService: ModalService) {
@@ -47,7 +46,7 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     }
 
     onOpenContact(room: Room) {
-        this.chatService.setRoom(room);
+        this.roomService.setRoom(room);
 
         this.layoutService.setMode(ModeLayout.VIEW_CHAT);
     }
@@ -84,17 +83,14 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         //         console.log(`Error: ${error.chat-message}`);
         //     });
 
-        this.getInvited();
-        this.getMyChat()
-
-        //this._stompService.publish('test','description');
+        this.getRoomByOwnerOrParticipant();
     }
 
-    getInvited(){
+    getRoomByOwnerOrParticipant(){
         this.roomService
-            .getInvited({
+            .getByOwnerAndParticipant({
                 user_id: this.authService.getUser().getId(),
-                role_id: Role.TYPE_INVITED
+                // role_id: Role.TYPE_INVITED
             })
             .subscribe(
                 (data)=>{
@@ -103,10 +99,11 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                     }
 
                     let body = data.body,
-                        participant: Participant[] = data.body.participant;
-                    debugger;
+                        participant: Participant[];
 
                     if (body && body.room) {
+                        participant = data.body.participant;
+
                         for (let item of body.room) {
                             let room = new Room(item);
                             let user: any = body.user.filter((x)=>{ return x.id === room.user_id ? x : null;})[0];
@@ -114,7 +111,7 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                             room.setOwner(user);
 
                             if (participant) {
-                                room.addParticipant( participant.filter(x => x.room_id === room.id)[0]);
+                                room.addParticipant(new Participant(participant.filter(x => x.room_id === room.id)[0]));
                             }
 
                             this.listOfRoom.push(room);
@@ -124,19 +121,6 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                 },
                 (data)=>{}
             );
-    }
-    getMyChat(){
-        // this.roomService.get().subscribe(
-        // (data: Reply)=>{
-        //     if (this.listOfRoom == null) {
-        //         this.listOfRoom = [];
-        //     }
-        //     for (let item of <[Room]>data.body) {
-        //         this.listOfRoom.push(new Room(item));
-        //     }
-        // }, (data: Reply)=>{
-        //
-        // })
     }
 
     ngOnDestroy(): void {

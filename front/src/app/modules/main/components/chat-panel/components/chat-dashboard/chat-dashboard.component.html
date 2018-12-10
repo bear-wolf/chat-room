@@ -1,7 +1,12 @@
-<div class="message-input">
+<div class="message-input"
+    *ngIf="IamParticipant">
     <div class="wrap">
-        <input type="text" placeholder="Write your message...">
+        <input type="text"
+               [ngModel]="message.description"
+               placeholder="Write your message...">
         <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-        <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+        <button [disabled]="message.description.length"
+                (click)="sendMessage(message)"
+                class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
     </div>
 </div>

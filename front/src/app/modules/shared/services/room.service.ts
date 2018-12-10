@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {Room} from "../models/room";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
+  public subjectRoom = new Subject<Room>();
 
   constructor(private httpClient: HttpClient) { }
+
+    setRoom(data: Room) {
+        this.subjectRoom.next(data);
+
+        return this;
+    }
 
   get(): Observable<any> {
     return this.httpClient.get('/room/');
@@ -17,10 +25,10 @@ export class RoomService {
       return this.httpClient.get('/room/'+id);
   }
 
-    getInvited(json: {}): Observable<any> {
+    getByOwnerAndParticipant(json: {}): Observable<any> {
         let body = json || {};
 
-        return this.httpClient.post('/room/invited/', body);
+        return this.httpClient.post('/room/has-user/', body);
     }
 
   save(json: {}): Observable<any> {

@@ -86,11 +86,11 @@ const stompConfig: StompConfig = {
             useClass: RequestInterceptor,
             multi: true
         },
-        StompService,
-        {
-            provide: StompConfig,
-            useValue: stompConfig
-        }
+        // StompService,
+        // {
+        //     provide: StompConfig,
+        //     useValue: stompConfig
+        // }
     ],
     exports: [
       AuthComponent,

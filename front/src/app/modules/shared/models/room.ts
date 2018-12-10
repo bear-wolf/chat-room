@@ -9,7 +9,7 @@ export class Room {
     public title: string = '';
     public user_id: User;
     public role_id: number;
-    public participant: Participant[];
+    public participant: Participant[] = [];
     public owner: User;
     public message: Message[];
     public date_create: string;
@@ -23,6 +23,7 @@ export class Room {
             this.role_id = data.role_id;
             this.date_create = data.date_create;
             this.date_update = data.date_update;
+            this.owner = data.owner ? new User(data.owner) : null;
         }
     }
 
@@ -36,6 +37,12 @@ export class Room {
 
     getInvite(): string{
         return this.role_id == Role.TYPE_INVITED ? 'invited' : '';
+    }
+
+    getUserById(id: number) {
+        let user: any = this.participant.filter((x)=>{ x.id == id});
+
+        return user.length ? user : this.owner;
     }
 
     getTitle() {

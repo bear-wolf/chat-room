@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, enableProdMode, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
@@ -8,6 +8,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {ModalModule} from "../ui/modal/modal.module";
 import {AuthModule} from "../ui/authorization/auth.module";
 import {StorageModule} from "../ui/storage/storage.module";
+
+// whenever you deploy your application in a production environment you should disable debugging information and switch into production mode.
+// enableProdMode();
 
 @NgModule({
   declarations: [

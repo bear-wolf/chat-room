@@ -1,42 +1,36 @@
 <div class="container-messages align-items-end d-flex messages">
-    <!--<ul>-->
-        <!--<li class="sent">-->
-            <!--<img src="http://emilcarlsson.se/assets/mikeross.png" alt="">-->
-            <!--<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>-->
-        <!--</li>-->
-        <!--<li class="replies">-->
-            <!--<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">-->
-            <!--<p>When you're backed against the wall, break the god damn thing down.</p>-->
-        <!--</li>-->
-    <!--</ul>-->
+    <div class=""
+        *ngIf="listOfMessage.message">
+        <ul>
+            <!--<li class="sent">-->
+                <!--<img src="http://emilcarlsson.se/assets/mikeross.png" alt="">-->
+                <!--<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>-->
+            <!--</li>-->
+            <li
+                [ngClass]="message.owner_id == authService.getUser().getId() ? 'replies' : 'sent'"
+                *ngFor="let message of listOfMessage.message">
+                <div class="avatar"
+                    [innerHtml]="room.getUserById(message.owner_id).getPicture()"></div>
+                <p [innerHtml]="message.description"></p>
+            </li>
+        </ul>
+    </div>
 
     <div class="invite-container d-flex"
         *ngIf="invited">
         <ul>
             <li class="d-flex flex-column invite justify-content-center w-100">
-                <div [innerHtml]="invited"></div>
-                <p [innerHtml]=""></p>
+                <div class="avatar"
+                        [innerHtml]="invited.getPicture()"></div>
+
+                <p [innerHtml]="invited.getDescription()"></p>
                 <div class="btn-group">
-                    <button class="btn btn-primary">Agree</button>
-                    <button class="btn btn-default">Disagree</button>
+                    <button (click)="onSetReply(true)"
+                            class="btn btn-primary">Agree</button>
+                    <!--<button (click)="onSetReply(false)"-->
+                            <!--class="btn btn-default">Disagree</button>-->
                 </div>
             </li>
         </ul>
     </div>
-
-    <!--<ng-template *ngIf="true">-->
-        <!--<div class="invite-container">-->
-            <!--<ul>-->
-                <!--<li class="invite align-items-center">-->
-                    <!--<img src="http://emilcarlsson.se/assets/mikeross.png" alt="">-->
-                    <!--<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>-->
-                    <!--<div class="btn-group">-->
-                        <!--<button class="btn btn-primary">Agree</button>-->
-                        <!--<button class="btn btn-default">Disagree</button>-->
-                    <!--</div>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</ng-template>-->
-
 </div>

@@ -17,15 +17,20 @@ export class MessageService {
       return this.httpClient.get('/chat-message/'+id);
   }
 
+    getByRoomId(id: number, ): Observable<any> {
+        // body = body || {};
+        return this.httpClient.post('/message/room/'+id, {});
+    }
+
   save(json: {}): Observable<any> {
     var id = json['id'] || '';
 
-    return this.httpClient.post('/chat-message/'+id, json);
+    return this.httpClient.post('/message/'+id, json);
   }
 
   remove(json: {}): Observable<any> {
       var id = json['id'];
 
-      return this.httpClient.post('/chat-message/'+id, {});
+      return this.httpClient.post('/message/'+id, {});
   }
 }

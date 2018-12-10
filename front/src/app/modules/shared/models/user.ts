@@ -25,9 +25,7 @@ export class User extends Common {
             this.date_create = data.date_create;
             this.date_update = data.date_update;
 
-            if (data.profile) {
-                this.profile = new Profile(data.profile)
-            }
+            this.profile = data.profile ? new Profile(data.profile) : null;
         }
     }
 
