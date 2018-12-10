@@ -8,25 +8,6 @@ const ValidateStatus = {
 
 
 var self = {
-    validate: function (json, key) {
-        var result = false;
-
-        switch (key) {
-            case ValidateStatus.GET_INVITED: {
-                if (json.user_id && json.role_id) {
-                    result = true;
-                }
-                break;
-            }
-
-            default: {
-                break
-            }
-        }
-
-        return result;
-    },
-
     getUserJoinProfile: function (users, profiles) {
         // for(let user of users) {
         //     //user
@@ -182,9 +163,9 @@ _public = {
         return this;
     },
 
-    //Вертає кімнати в яких певний користувач був запрошений
-    actionGetInvited: function () {
-        var request, json,
+    //Get rooms by user in there are has as owner and participant
+    actionGetHasUser: function () {
+        var json,
             _this = this,
             bodyRequest = this.request.body,
             participant = global.db.Participant,
@@ -193,11 +174,10 @@ _public = {
             reply = global.models.reply.createInstance();
 
         json = {
-            user_id: bodyRequest.user_id,
-            role_id: bodyRequest.role_id
+            user_id: bodyRequest.user_id
         };
 
-        if (!self.validate(json, ValidateStatus.GET_INVITED)) {
+        if (!participant.validate(json, participant.validateStatus.GET)) {
             reply
                 .setStatus(false)
                 .setMessage('List of parameters is not valid');
@@ -210,7 +190,7 @@ _public = {
         participant
             .getByJSON(json)
             .then((data)=>{
-                if (data) {
+                if (data) { //participants
                     var listParticipant = data.map(function(data){ return data.dataValues; });
                     var _data = data.map(function(data){ return data.dataValues['room_id']; });
 
@@ -222,7 +202,13 @@ _public = {
 
                             var arrUserId = users.filter(function(elem, pos) {
                                 return users.indexOf(elem) == pos;
-                            })
+                            });
+
+                            var arrUserAsParticipant = listParticipant.map((x)=>{ return x.user_id; });
+                            arrUserAsParticipant = arrUserAsParticipant.filter(function(elem, pos) {
+                                return arrUserAsParticipant.indexOf(elem) == pos;
+                            });
+                            arrUserId = arrUserId.concat(arrUserAsParticipant);
 
                             return user
                                 .getByJSON({ id: arrUserId })

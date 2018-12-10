@@ -31,12 +31,12 @@ var RouteRoom = {
                 .actionSave();
         });
 
-        app.post('/room/invited/', function (req, res) {
+        app.post('/room/has-user/', function (req, res) {
             roomController
                 .createInstance()
                 .setRequest(req)
                 .setResponce(res)
-                .actionGetInvited();
+                .actionGetHasUser();
         });
         //UPDATE // verify
         app.post('/room/:id', function (req, res) {

@@ -12,6 +12,14 @@ var RouteMessage = {
                 .actionGet();
         });
 
+        app.post('/message/room/:id', function (req, res) {
+            messageController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionGetByRoomId();
+        });
+
         // verify
         app.get('/message/:id', function (req, res) {
             messageController
@@ -21,8 +29,6 @@ var RouteMessage = {
                 .actionGet();
         });
 
-        //INSERT // verify
-        //users/123/accounts
         app.post('/message/', function (req, res) {
             messageController
                 .createInstance()

@@ -123,6 +123,9 @@ var Message =  global.sequelize.define('Message', {
     participant_id: {
         type: Sequelize.DataTypes.INTEGER,
     },
+    room_id: {
+        type: Sequelize.DataTypes.INTEGER,
+    },
     status: {
         type: Sequelize.DataTypes.INTEGER,
     },
@@ -133,24 +136,24 @@ var Message =  global.sequelize.define('Message', {
     date_update: Sequelize.DataTypes.DATE
 });
 
-var PrivateRoom =  global.sequelize.define('PrivateRoom', {
-    id: {
-        type: Sequelize.DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    owner_id: {
-        type: Sequelize.DataTypes.INTEGER,
-    },
-    user_id: {
-        type: Sequelize.DataTypes.INTEGER,
-    },
-    role_id: {
-        type: Sequelize.DataTypes.INTEGER,
-    },
-    date_create: Sequelize.DataTypes.DATE,
-    date_update: Sequelize.DataTypes.DATE
-});
+// var PrivateRoom =  global.sequelize.define('PrivateRoom', {
+//     id: {
+//         type: Sequelize.DataTypes.INTEGER,
+//         primaryKey: true,
+//         autoIncrement: true,
+//     },
+//     owner_id: {
+//         type: Sequelize.DataTypes.INTEGER,
+//     },
+//     user_id: {
+//         type: Sequelize.DataTypes.INTEGER,
+//     },
+//     role_id: {
+//         type: Sequelize.DataTypes.INTEGER,
+//     },
+//     date_create: Sequelize.DataTypes.DATE,
+//     date_update: Sequelize.DataTypes.DATE
+// });
 
 
 
@@ -183,7 +186,7 @@ global.dbModel = {
     Profile: Profile,
     Role: Role,
     Room: Room,
-    PrivateRoom: PrivateRoom,
+    //PrivateRoom: PrivateRoom,
     Participant: Participant,
     Message: Message,
     Translate: Translate,

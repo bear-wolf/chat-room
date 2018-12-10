@@ -2,6 +2,7 @@
 
 
 const ValidateStatus = {
+    GET: 'get',
     SAVE: 'save',
     REMOVE: 'remove'
 }
@@ -14,13 +15,26 @@ const MessageStatus = {
 
 var Common;
 
-var self = {
+
+var _public = {
+    dbMessage: null,
+
+    validateStatus: ValidateStatus,
+
     validate: function (json, key) {
         var result = false;
 
         switch (key) {
             case ValidateStatus.SAVE: {
-                if (json.owner_id && json.participant_id && json.status) {
+                if (json.owner_id && json.description) {
+                    if (json.participant_id || json.room_id){
+                        result = true;
+                    }
+                }
+                break;
+            }
+            case ValidateStatus.GET: {
+                if (json.room_id || json.participant_id) {
                     result = true;
                 }
                 break;
@@ -38,12 +52,7 @@ var self = {
         }
 
         return result;
-    }
-}
-
-
-var _public = {
-    dbMessage: null,
+    },
 
     constructor: function () {
         this.dbMessage = global.dbModel.Message;
@@ -72,25 +81,11 @@ var _public = {
 
         return global.dbModel.Message.destroy({ where: { id: id }});
     },
-
+    // return promise;
     save: function (bodyRequest, id) {
-        var request,
-            reply = global.models.reply.createInstance(),
-            _this = this;
+        var request;
 
-        bodyRequest['status']= MessageStatus.NOTREAD;
-
-        if (!self.validate(bodyRequest, ValidateStatus.SAVE)) {
-            reply
-                .setStatus(false)
-                .setMessage('No validate');
-
-            if (Common.isFunction(this.callback_error)) {
-                this.callback_error(reply);
-            }
-
-            return;
-        };
+        bodyRequest['status'] = MessageStatus.SEND;
 
         if (id) {
             bodyRequest['date_update'] = global.common.date.getNow();
@@ -102,34 +97,17 @@ var _public = {
             request = this.dbMessage.build(bodyRequest).save();
         }
 
-        request
-            .then((data)=>{
-                reply
-                    .setStatus(true)
-                    .setData(data);
-
-                if (Common.isFunction(this.callback_successfully)) {
-                    _this.callback_successfully(reply);
-                }
-            })
-            .catch((error)=>{
-                reply
-                    .setStatus(false)
-                    .setMessage(error);
-
-                if (Common.isFunction(_this.callback_error)) {
-                    _this.callback_error(reply);
-                }
-            })
-            .finally(()=>{
-                if (Common.isFunction(_this.callback_finally)) {
-                    _this.callback_finally(reply);
-                }
-            });
+        return request;
     },
     //return promise
     getById: function (id) {
         return this.dbMessage.findById(id);
+    },
+    //return promise
+    getByJSON: function (json) {
+        return this.dbMessage.findAll({
+            where: json
+        });
     },
     //return promise
     getByStatusNotRead: function () {

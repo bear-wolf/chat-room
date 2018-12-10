@@ -35,28 +35,79 @@ _public = {
                 _this.getResponce().end(reply.getToJSONstringify())
             });
     },
-    actionSave: function () {
-        var request,
+    actionGetByRoomId: function () {
+        var json,
             _this = this,
+            bodyRequest = this.request.body,
+            message = global.db.Message,
+            reply = global.models.reply.createInstance();
+
+
+        json = {
+            room_id: this.request.params.id
+        }
+
+        if (!message.validate(json, message.validateStatus.GET)) {
+            reply
+                .setStatus(false)
+                .setMessage('List of parameters is not valid');
+
+            _this.responce.end(reply.toString());
+
+            return this;
+        }
+
+        message
+            .getByJSON(json)
+            .then((data)=>{
+                var listMessages = data.map((data)=>{ return data.dataValues; });
+
+                reply
+                    .setStatus(true)
+                    .setData(listMessages)
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error)
+            })
+            .finally((data)=>{
+                _this.getResponce().end(reply.toString())
+            });
+    },
+    actionSave: function () {
+        var _this = this,
             message = global.db.Message,
             bodyRequest = this.request.body,
             currentId = this.request.params.id,
             reply = global.models.reply.createInstance();
 
+        if (!message.validate(bodyRequest, message.validateStatus.SAVE)) {
+            reply
+                .setStatus(false)
+                .setMessage('No validate');
+
+            _this.getResponce().end(reply.toString())
+
+            return this;
+        };
 
         message
-            .setCallBackSuccessfully(function (_reply) {
-                reply = _reply;
-            })
-            .setCallBackError(function (_reply) {
-                reply = _reply;
-            })
-            .setCallBackFinally(function (_reply) {
-                reply = _reply || reply;
-
-                _this.responce.end(reply.getToJSONstringify())
-            })
             .save(bodyRequest, currentId)
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data.dataValues);
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+
+            })
+            .finally(()=>{
+                _this.getResponce().end(reply.toString())
+            });
     },
     actionRemove: function () {
         var _this = this,

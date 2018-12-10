@@ -68,29 +68,29 @@ _public = {
                 _this.getResponce().end(reply.toString())
             });
     },
-    // actionSave: function () {
-    //     var request,
-    //         _this = this,
-    //         modelParticipant = global.db.Participant,
-    //         bodyRequest = this.request.body,
-    //         reply = global.models.reply.createInstance();
-    //
-    //     request
-    //         .then((data)=>{
-    //             reply
-    //                 .setStatus(true)
-    //                 .setData(data);
-    //
-    //             _this.responce.end(reply.getToJSONstringify())
-    //         })
-    //         .catch((error)=>{
-    //             reply
-    //                 .setStatus(false)
-    //                 .setMessage(error);
-    //
-    //             _this.responce.end(reply.getToJSONstringify())
-    //         })
-    // },
+    actionSave: function () {
+        var _this = this,
+            participant = global.db.Participant,
+            bodyRequest = this.request.body,
+            reply = global.models.reply.createInstance();
+
+        participant
+            .save(bodyRequest)
+            .then((data)=>{
+                reply
+                    .setStatus(true)
+                    .setData(data);
+
+                _this.responce.end(reply.getToJSONstringify())
+            })
+            .catch((error)=>{
+                reply
+                    .setStatus(false)
+                    .setMessage(error);
+
+                _this.responce.end(reply.getToJSONstringify())
+            })
+    },
     actionAddParticipant: function () {
         var _this = this,
             participant = global.db.Participant,

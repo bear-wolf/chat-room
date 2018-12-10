@@ -2,8 +2,40 @@
 
 var Common;
 
+var ValidateStatus = {
+    SAVE: 'SAVE',
+    GET: 'GET'
+};
+
 var _public = {
     dbParticipant: null,
+
+    validateStatus: ValidateStatus,
+
+    validate: function (json, key) {
+        var result = false;
+
+        switch (key) {
+            case ValidateStatus.SAVE: {
+                if (json.room_id && json.user_id && json.role_id)  {
+                    result = true;
+                }
+                break;
+            }
+            case ValidateStatus.GET: {
+                if (json.user_id) {
+                    result = true;
+                }
+                break;
+            }
+
+            default: {
+                break
+            }
+        }
+
+        return result;
+    },
 
     constructor: function () {
         this.dbParticipant = global.dbModel.Participant;
@@ -44,10 +76,10 @@ var _public = {
             _this = this;
 
         //validate
-        if (!json.room_id || !json.user_id) {
+        if (!this.validate(json, ValidateStatus.SAVE)) {
             reply
                 .setStatus(false)
-                .setMessage('not valid');
+                .setMessage('Is not valid');
 
             if (Common.isFunction(_this.callback_error)) {
                 _this.callback_error(reply);
@@ -56,15 +88,18 @@ var _public = {
 
         if (!json.id) {
             json['date_create'] = global.common.date.getNow();
-            request = this.dbParticipant.build(json);
+            request = this.dbParticipant.build(json).save();
         } else {
-
+            json['date_update'] = global.common.date.getNow();
+            request = this.dbParticipant.update(json, {
+                where: {id: Number(json.id)}
+                // returning: false
+            });
         }
 
         this.data = json;
 
         request
-            .save()
             .then((data)=>{
                 reply
                     .setStatus(true)
