@@ -11,6 +11,8 @@ import {ProfilePartComponent} from "./components/profile-part/profile-part.compo
 import {ChatDashboardComponent} from "./components/chat-panel/components/chat-dashboard/chat-dashboard.component";
 import {ChatMessageComponent} from "./components/chat-panel/components/chat-message/chat-message.component";
 import {ChatHeadComponent} from "./components/chat-panel/components/chat-head/chat-head.component";
+import {WebSocketModule} from "../../../ui/web-socket/web-socket.module";
+import {environment} from "../../../environments/environment";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,17 @@ import {ChatHeadComponent} from "./components/chat-panel/components/chat-head/ch
       CommonModule,
       MainRoutingModule,
       SharedModule,
+      WebSocketModule.config({
+          url: environment.ws,
+          headers: {
+              login: 'guest',
+              passcode: 'guest'
+          },
+          heartbeat_in: 0, // Typical value 0 - disabled
+          heartbeat_out: 10000, // Typical value 10000 - every 10 seconds
+          reconnect_delay: 5000,
+          debug: true
+      })
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

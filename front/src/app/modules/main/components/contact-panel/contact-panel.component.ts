@@ -17,7 +17,7 @@ import {Layout, ModeLayout} from "../models/layout";
 import {Participant} from "../../../shared/models/participant";
 
 import {User} from "../../../shared/models/user";
-// import {WebSocketService} from "../../../../../ui/socket/services/web-socket.service";
+// import {WebSocketService} from "../../../../../ui/web-socket/services/web-web-socket.service";
 
 @Component({
   selector: 'contact-panel',
@@ -32,7 +32,6 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
     public messages: Subject<Message>;
 
     constructor(private roomService: RoomService,
-                // private _stompService: StompService,
                 private participantService: ParticipantService,
                 private layoutService: LayoutService,
                 private authService: AuthService,
@@ -68,20 +67,6 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
         //     //         chat-message: data.chat-message
         //     //     }
         //     // });
-
-        // let stomp_subscription = this._stompService.subscribe('/');
-        //
-        // stomp_subscription
-        //     // .map((chat-message: Message) => {
-        //     //     debugger;
-        //     //     return chat-message.body;
-        //     // })
-        //     .subscribe((msg_body: any) => {
-        //         debugger;
-        //         console.log(`Received: ${msg_body}`);
-        //     },(error)=>{
-        //         console.log(`Error: ${error.chat-message}`);
-        //     });
 
         this.getRoomByOwnerOrParticipant();
     }

@@ -9,6 +9,7 @@ import {Participant} from "../../../../../shared/models/participant";
 import {Subscription} from "rxjs";
 import {Reply} from "../../../../../shared/models/reply";
 import {MessageService} from "../../../../../shared/services/message.service";
+import {WebSocketService} from "../../../../../../../ui/web-socket/websocket.service";
 
 @Component({
   selector: 'chat-dashboard',
@@ -27,8 +28,8 @@ export class ChatDashboardComponent implements OnInit {
     constructor(
         private roomService: RoomService,
         private authService: AuthService,
+        private wsService: WebSocketService,
         private messageService: MessageService){
-
     }
 
 
@@ -64,12 +65,16 @@ export class ChatDashboardComponent implements OnInit {
     }
 
     sendMessage(message: Message){
-        this.messageSubscription =  this.messageService.save(message).subscribe(
-            (data:Reply)=>{
-                if (data.status) {
-                    this.setNewMessage();
-                }
-            });
+        this.wsService.connect();
+        this.wsService.send(JSON.stringify(message));
+        this.setNewMessage();
+
+        // this.messageSubscription =  this.messageService.save(message).subscribe(
+        //     (data:Reply)=>{
+        //         if (data.status) {
+        //             this.setNewMessage();
+        //         }
+        //     });
     }
 
     ngOnDestroy() {

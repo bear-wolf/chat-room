@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
 import {Layout, ModeLayout} from "../models/layout";
 import {LayoutService} from "../../services/layout.service";
+import {WebSocketService} from "../../../../../ui/web-socket/websocket.service";
 
 @Component({
   selector: 'layout',
@@ -16,13 +17,12 @@ export class LayoutComponent implements OnInit {
 
     constructor(
         public router: Router,
+        public webSocketService: WebSocketService,
         public layoutService: LayoutService,
         public authService: AuthService) {
     }
 
-
     ngOnInit() {
-        //this.webSocketService.connect('')
         this.layoutService.subjectMode.subscribe(
             (data)=>{
                 if (data.mode) {

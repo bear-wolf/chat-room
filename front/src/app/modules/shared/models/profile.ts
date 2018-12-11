@@ -7,7 +7,7 @@ export class Profile {
     public date_create: string;
     public date_update: string;
 
-    constructor (data:Profile) {
+    constructor (data?:Profile) {
         if (data) {
             this.id = data.id;
             this.first_name = data.first_name;

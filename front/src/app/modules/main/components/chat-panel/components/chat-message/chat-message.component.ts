@@ -13,6 +13,7 @@ import {RoomService} from "../../../../../shared/services/room.service";
 import {Reply} from "../../../../../shared/models/reply";
 import {MessageService} from "../../../../../shared/services/message.service";
 import {AuthModel} from "../../../../../shared/models/auth";
+import {WebSocketService} from "../../../../../../../ui/web-socket/websocket.service";
 
 @Component({
   selector: 'chat-message',
@@ -33,6 +34,7 @@ export class ChatMessageComponent implements OnInit {
         public authService: AuthService,
         private participantService: ParticipantService,
         public roomService: RoomService,
+        public wsService: WebSocketService,
         private messageService: MessageService){
         this.listOfMessage = new RoomMessage();
     }
@@ -40,7 +42,9 @@ export class ChatMessageComponent implements OnInit {
 
     ngOnInit() {
         this.subscription = this.roomService.subjectRoom.subscribe(
-            (data: Room)=>{ debugger;
+            (data: Room)=>{
+                this.listOfMessage.clear();
+
                 if (!this.checkIamInvite(data)) {
                     this.room = new Room(data);
                     this.getMessage(data);
@@ -48,8 +52,19 @@ export class ChatMessageComponent implements OnInit {
             },
             (data)=>{}
         );
+
+        this.wsService.submitData.subscribe(
+            (data)=>{
+                debugger
+            },
+            (data)=>{
+                debugger
+            });
     }
 
+    clearState() {
+
+    }
 
     getMessage(room){
         console.log('room:', room);

@@ -7,6 +7,8 @@ import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
 import {User} from "../../../shared/models/user";
 import {StorageService} from "../../../../../ui/storage/services/storage.service";
+import {Profile} from "../../../shared/models/profile";
+import {debug} from "util";
 
 @Component({
   selector: 'profile-part',
@@ -14,16 +16,16 @@ import {StorageService} from "../../../../../ui/storage/services/storage.service
   styleUrls: ['./profile-part.component.scss']
 })
 export class ProfilePartComponent implements OnInit {
-    faUser = faUser;
-
-  expanded = false;
-  message = null;
+    message = null;
     profileFormContainer = false;
     profileBtn = 'add Profile';
 
     profileForm: FormGroup;
     submitted = false;
-    userModel: User = new User(null);
+    user: User = new User(null);
+    profilePicture:any;
+
+    // profile: Profile = new Profile();
 
   constructor(
       private fb: FormBuilder,
@@ -35,24 +37,50 @@ export class ProfilePartComponent implements OnInit {
           'first_name': [''],
           'last_name': [''],
           'middle_name': [''],
-          'picture': [''],
           'date_create': [''],
           'date_update': [''],
       });
   }
 
-  ngOnInit() {
-        this.setDisplayName();
-  }
+      ngOnInit() {
+            this.setDisplayName();
+      }
+
+    onCancel() {
+        this.profileFormContainer = !this.profileFormContainer;
+    }
 
     setDisplayName() {
       let user: User  = this.authService.getUser();
 
         if (user) {
-            this.userModel.import(user)
-          if (this.userModel.profile_id) {
+            this.user.import(user)
+          if (this.user.profile_id) {
               this.profileBtn = 'change Profile';
           }
+        }
+    }
+
+    public fileChangeEvent(fileInput: any){
+      debugger;
+        if (fileInput.target.files && fileInput.target.files[0]) {
+            var reader = new FileReader();
+
+
+        }
+    }
+
+    loadFile($event, data) {
+      debugger;
+        let files = $event.target.files;
+        if (files) {
+            for (let file of files) {
+                let reader = new FileReader();
+                reader.onload = (e: any) => {
+                    data = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         }
     }
 

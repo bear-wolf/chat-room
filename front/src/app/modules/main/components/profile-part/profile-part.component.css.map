@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAEE,0BAAY;EACV,aAAa,EAAE,IAAI;AAErB,8BAAgB;EACd,SAAS,EAAE,KAAK;EAChB,MAAM,EAAE,MAAM;AAEhB,mBAAK;EACH,KAAK,EAAE,eAAc;;AAIzB,YAAY;EACV,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,+BAAkB;IAChB,OAAO,EAAE,eAAc",
+"sources": ["profile-part.component.scss"],
 "names": [],
-"file": "layout.component.css"
+"file": "profile-part.component.css"
 }

@@ -21,6 +21,13 @@ export class RoomMessage {
 
         return this;
     }
+
+    clear() {
+        this.message = [];
+
+        return this;
+    }
+
     removeMessage(item: Message){
         this.message = this.message || [];
 

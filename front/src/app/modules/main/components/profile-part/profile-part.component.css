@@ -1,3 +1,15 @@
+.profile-form .upload-file {
+  margin-bottom: 10px; }
+.profile-form .profile-buttons {
+  max-width: 150px;
+  margin: 0 auto; }
+.profile-form input {
+  width: 100% !important; }
 
+.upload-file {
+  display: flex;
+  justify-content: center; }
+  .upload-file input[type="file"] {
+    display: none !important; }
 
-/*# sourceMappingURL=chat-dashboard.component.css.mapmap */
+/*# sourceMappingURL=profile-part.component.css.map */

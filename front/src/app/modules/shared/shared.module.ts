@@ -15,38 +15,13 @@ import {StorageModule} from "../../../ui/storage/storage.module";
 import {RemindPasswordDialogComponent} from "./components/modal-dialogs/components/remind-password/remind-password-dialog.component";
 import { MomentModule } from 'ngx-moment';
 import {RoomDialogComponent} from "./components/modal-dialogs/components/room/room-dialog.component";
-// import {WebSocketModule} from "../../../ui/web-socket/web-socket.module";
+// import {WebSocketModule} from "../../../ui/web-web-socket/web-web-socket.module";
 import {environment} from "../../../environments/environment";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
-// import {WebSocketModule} from "../../../ui/socket/web-socket.module";
+// import {WebSocketModule} from "../../../ui/web-socket/web-web-socket.module";
 import { NgSelectModule } from '@ng-select/ng-select';
 import {ShowHideInput} from "./directives/show-hide-input";
-
-const stompConfig: StompConfig = {
-    // Which server?
-    url: environment.ws,
-    // url: 'ws://127.0.0.1:15674/ws',
-
-    // Headers
-    // Typical keys: login, passcode, host
-    headers: {
-        // login: 'guest',
-        // passcode: 'guest'
-    },
-
-    // How often to heartbeat?
-    // Interval in milliseconds, set to 0 to disable
-    heartbeat_in: 0, // Typical value 0 - disabled
-    heartbeat_out: 20000, // Typical value 20000 - every 20 seconds
-
-    // Wait in milliseconds before attempting auto reconnect
-    // Set to 0 to disable
-    // Typical value 5000 (5 seconds)
-    reconnect_delay: 5000,
-
-    // Will log diagnostics on console
-    debug: true
-};
+import {WebSocketModule} from "../../../ui/web-socket/web-socket.module";
 
 @NgModule({
     imports: [
@@ -59,14 +34,7 @@ const stompConfig: StompConfig = {
         ModalModule,
         FontAwesomeModule,
         StorageModule,
-        MomentModule,
-        // WebSocketModule
-        // WebSocketModule.config({
-        //     url: environment.ws
-        // })
-        // WebSocketModule.config({
-        //     url: environment.ws
-        // })
+        MomentModule
     ],
     declarations: [
         AuthComponent,
@@ -85,12 +53,7 @@ const stompConfig: StompConfig = {
             provide: HTTP_INTERCEPTORS,
             useClass: RequestInterceptor,
             multi: true
-        },
-        // StompService,
-        // {
-        //     provide: StompConfig,
-        //     useValue: stompConfig
-        // }
+        }
     ],
     exports: [
       AuthComponent,
