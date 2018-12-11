@@ -33,8 +33,8 @@ server = http.createServer(app).listen(app.get('port'), function () {
 })
 
 //webSocket.init(server);
-//webSocket.initWs(server);
-// webSocket.run(server);
+webSocket.run(server);
+//require('./web-socket-client.js');
 
 process.on('exit', function (code) {
     console.log('About to exit with code:'+code);
@@ -53,5 +53,3 @@ process.on('uncaughtException', function (e) {
 // process.on('SIGKILL', function () {
 //
 // })
-
-require('./web-socket-client.js');

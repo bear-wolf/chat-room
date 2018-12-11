@@ -1,96 +1,38 @@
-#!/usr/bin/env node
-// var WebSocketServer = require('websocket').server;
-const WebSocketServer = require('ws').Server;
+
+const ws = require('ws');
 
 var WebSocket = {
     wsServer: null,
 
     run: function(server) {
-        console.log('Init WebSocket Server');
-        const wss = new WebSocketServer({port: 6759 || process.env.PORT});
-
-        const messages = [
-            {
-                id: 1,
-                text: 'Hello everyone!!!'
-            },
-            {
-                id: 2,
-                text: 'Im here!!!'
-            },
-            {
-                id: 3,
-                text: 'Who there???'
-            },
-            {
-                id: 4,
-                text: 'Damn!'
-            },
-            {
-                id: 5,
-                text: 'Im off'
-            }
-        ];
-        const texts = ['Text Data'];
-        let counter = 0;
-
+        const wss = new ws.Server({
+            server: server,
+            autoAcceptConnections: false
+        });
 
         wss.on('connection', (ws) => {
-            ws.binaryType = 'arraybuffer';
+            //ws.binaryType = 'arraybuffer';
 
-            console.log('WebSocket connection!');
+            console.log('WebSocket is connection!');
 
+            //ws.send('example');
+
+            //Получены данные
             ws.on('message', (event) => {
-                console.log('onMessage:', event);
-                const message = event; //JSON.parse(event);
-                //
-                // switch (message.event) {
-                //     case 'set-text':
-                //         texts.unshift(message.data);
-                //
-                //         break;
-                //     case 'remove-text':
-                //         texts.splice(message.data, 1);
-                //         break;
-                // }
-
-                ws.send(JSON.stringify({
-                    event: 'update-texts',
-                    buffer: Buffer.from(JSON.stringify(['text']))
-                }));
-
-                console.log('message', message);
+                console.log('Server: onMessage:', event);
+                //const message = event; //JSON.parse(event);
             });
 
-            ws.send(JSON.stringify({
-                event: 'messages',
-                buffer: Buffer.from(JSON.stringify({}))
-            }));
-
-            ws.send(JSON.stringify({
-                event: 'update-texts',
-                buffer: Buffer.from(JSON.stringify(texts))
-            }));
-
-            const timer = () => {
-                ws.send(JSON.stringify({
-                    event: 'counter',
-                    buffer: Buffer.from((++counter).toString())
-                }));
-            };
-
-            //const interval = setInterval(timer, 1000);
-
             ws.on('close', () => {
-                console.log('disconnected');
-                //clearInterval(interval);
+                console.log('Web socket is disconnected');
             });
 
         });
-
     },
 
     init: function (server) {
+        var WebSocketServer = require('websocket').server;
+
         this.wsServer = new WebSocketServer({
             httpServer: server,
             // You should not use autoAcceptConnections for production
