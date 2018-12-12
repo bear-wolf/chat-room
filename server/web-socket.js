@@ -5,28 +5,36 @@ var WebSocket = {
     wsServer: null,
 
     run: function(server) {
+        if (!global.config.websocket) {
+            return this;
+        }
+
         const wss = new ws.Server({
             server: server,
             autoAcceptConnections: false
         });
 
         wss.on('connection', (ws) => {
-            //ws.binaryType = 'arraybuffer';
-
             console.log('WebSocket is connection!');
-
-            //ws.send('example');
 
             //Получены данные
             ws.on('message', (event) => {
                 console.log('Server: onMessage:', event);
-                //const message = event; //JSON.parse(event);
             });
 
             ws.on('close', () => {
                 console.log('Web socket is disconnected');
             });
 
+            setInterval(
+                () => {
+                    var data = `${new Date()}`;
+
+                    console.log('send data: ', data);
+                    ws.send(data)
+                },
+                1000
+            )
         });
     },
 

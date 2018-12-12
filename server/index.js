@@ -20,7 +20,10 @@ require('./dependencies');
 app.use(require('serve-static')(__dirname + '/../../public'));
 // app.use(require('cookie-parser')());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.json({
+    limit: '10mb',
+    extended: true
+})); // support json encoded bodies
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 
 server = http.createServer(app).listen(app.get('port'), function () {
@@ -32,7 +35,6 @@ server = http.createServer(app).listen(app.get('port'), function () {
     routes.assignRoutes(app);
 })
 
-//webSocket.init(server);
 webSocket.run(server);
 //require('./web-socket-client.js');
 

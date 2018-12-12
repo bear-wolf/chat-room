@@ -1,4 +1,5 @@
 module.exports = {
+    websocket: false,
     development: {
         username: 'root',
         password: 'root',

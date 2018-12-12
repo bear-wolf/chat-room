@@ -28,12 +28,30 @@ var Profile = global.sequelize.define('Profile', {
         //     key: 'profile_id'
         // }
     },
-    first_name: Sequelize.DataTypes.STRING,
-    last_name: Sequelize.DataTypes.STRING,
-    picture: Sequelize.DataTypes.STRING,
-    middle_name: Sequelize.DataTypes.STRING,
-    date_create: Sequelize.DataTypes.DATE,
-    date_update: Sequelize.DataTypes.DATE
+    first_name: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false,
+    },
+    last_name: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false,
+    },
+    middle_name: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false,
+    },
+    picture: {
+        type: Sequelize.DataTypes.BLOB('long'),
+        allowNull: true,
+    },
+    date_create: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: false,
+    },
+    date_update: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: true,
+    }
 });
 
 //Profile.belongsTo(User, {foreignKey: 'profile_id'}); // Adds profile_id to User
@@ -51,7 +69,10 @@ var Role =  global.sequelize.define('Role', {
     status: Sequelize.DataTypes.INTEGER,
     description: Sequelize.DataTypes.STRING,
     date_create: Sequelize.DataTypes.DATE,
-    date_update: Sequelize.DataTypes.DATE
+    date_update: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: true,
+    }
 });
 
 // Role.belongsTo(User, {foreignKey: 'role_id'}); // Adds role_id to User
@@ -70,7 +91,10 @@ var Room =  global.sequelize.define('Room', {
     user_id: Sequelize.DataTypes.INTEGER,
     role_id: Sequelize.DataTypes.INTEGER,
     date_create: Sequelize.DataTypes.DATE,
-    date_update: Sequelize.DataTypes.DATE
+    date_update: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: true,
+    }
 });
 
 // Room.belongsTo(User, {foreignKey: 'user_id'}); // Adds profile_id to User

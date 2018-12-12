@@ -60,17 +60,17 @@ var _public = {
             bodyRequest['date_create'] = global.common.date.getNow();
             request = this.dbProfile.build(bodyRequest).save();
         }
-//TODO: reply by update not return result
+
         request
-            .then((data)=>{
+            .then((data, arg)=>{
                 if (!id) {
                     //new profile
-                    _private.addProfileInUser(data.dataValues.id, bodyRequest.user_id, function (data) {
+                    _private.addProfileInUser(data.dataValues.id, bodyRequest.user_id, function (_data) {
                         //callback
                         reply
                             .setStatus(true)
                             .setMessage('You change profile is successfully')
-                            .setData(data);
+                            .setData(data.dataValues);
 
                         _this.callback_successfully(reply);
                     });
@@ -86,7 +86,7 @@ var _public = {
             .catch((error)=>{
                 reply
                     .setStatus(false)
-                    .setMessage(error);
+                    .setMessage(error.message);
 
                 _this.callback_error(reply);
             });
