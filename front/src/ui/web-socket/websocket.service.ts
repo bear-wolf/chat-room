@@ -14,7 +14,7 @@ export class WebSocketService implements OnDestroy{
 
     constructor(@Inject(config) private wsConfig: WebSocketConfig,
                 private _stompService: StompService) {
-
+debugger;
         this.connect();
         this.getMessage();
     }
@@ -27,8 +27,8 @@ export class WebSocketService implements OnDestroy{
     /*
     * connect to WebSocked
     * */
-    connect(): boolean {
-        return this._stompService.connected();
+    connect() {
+        this._stompService.initAndConnect();
     }
 
     send(queueName: string) {

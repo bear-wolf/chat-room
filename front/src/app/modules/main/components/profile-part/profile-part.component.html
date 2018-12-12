@@ -10,38 +10,32 @@
         <p [innerText]="authService.getUser().getDisplayName()"></p>
 
         <a routerLink=""
-           (click)="expanded = !expanded">
+           (click)="onSetProfile()">
             <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
         </a>
 
         <div id="expanded">
             <div id="profile-form"
-                 *ngIf="profileFormContainer"
                  class="profile-form">
 
                 <div class="message-container"
                      *ngIf="message" [innerText]="message"></div>
 
-                    <form [formGroup]="profileForm"
-                      #form="ngForm"
-                      novalidate
-                      (ngSubmit)="saveProfileForm()">
+                <form [formGroup]="profileForm"
+                  #form="ngForm"
+                  novalidate
+                  (ngSubmit)="saveProfileForm()">
 
-                        <div [class]="'form-group'+ (firstName.errors && firstName.errors.message ? 'has-danger' : '')">
-                            <input type="text"
-                                   class="form-control"
-                                   id="first_name"
-                                   #firstName
-                                   placeholder="First Name"
-                                   formControlName="first_name">
+                    <div [ngClass]="'form-group '+ (isError('first_name') ? 'has-danger' : '')">
+                        <input type="text"
+                               class="form-control"
+                               id="first_name"
+                               #firstName
+                               placeholder="First Name"
+                               formControlName="first_name">
+                    </div>
 
-                            <div *ngIf="firstName.errors && firstName.errors.message"
-                                 class="invalid-feedback form-control-feedback">
-                                <div [innerText]="firstName.errors.message"></div>
-                            </div>
-                        </div>
-
-                    <div [class]="'form-group'+ (lastName.errors && lastName.errors.message ? 'has-danger' : '')">
+                    <div [ngClass]="'form-group '+ (isError('last_name') ? 'has-danger' : '')">
                         <input type="text"
                                class="form-control"
                                id="last_name"
@@ -49,50 +43,46 @@
                                placeholder="Last Name"
                                formControlName="last_name">
 
-                        <div *ngIf="lastName.errors && lastName.errors.message"
-                             class="invalid-feedback form-control-feedback">
-                            <div [innerText]="lastName.errors.message"></div>
-                        </div>
+                        <!--<div *ngIf="lastName.errors && lastName.errors.message"-->
+                             <!--class="invalid-feedback form-control-feedback">-->
+                            <!--<div [innerText]="lastName.errors.message"></div>-->
+                        <!--</div>-->
                     </div>
-                        <div [class]="'form-group'+ (middleName.errors && middleName.errors.message ? 'has-danger' : '')">
+                    <div [ngClass]="'form-group '+ (isError('middle_name') ? 'has-danger' : '')">
                         <input type="text"
                                class="form-control"
                                id="middle_name"
                                #middleName
                                placeholder="Middle Name"
                                formControlName="middle_name">
-
-                        <div *ngIf="middleName.errors && middleName.errors.message"
-                             class="invalid-feedback form-control-feedback">
-                            <div [innerText]="middleName.errors.message"></div>
-                        </div>
                     </div>
 
-                        <div class="upload-file">
-                            <div class="avatar"
-                                 (click)="uploadPicture.click()"
-                                [innerHtml]="user.getPicture()"></div>
 
-                            <input type="file"
-                                   (change)="loadFile($event, profilePicture)"
-                                   #uploadPicture>
-                        </div>
+                <div class="upload-file">
+                    <div class="avatar"
+                         (click)="uploadPicture.click()"
+                         [innerHtml]="user.getPicture()"></div>
 
-                    <div class="btn-group d-flex justify-content-between profile-buttons">
-                        <button class="btn btn-style btn-sm d-flex"
-                                type="submit">Save</button>
-                        <button class="btn btn-style btn-sm d-flex"
-                                (click)="onCancel()">Cancel</button>
-                    </div>
-                </form>
+                    <input type="file"
+                           (change)="loadFile($event)"
+                           #uploadPicture>
+                </div>
+
+
+                <div class="btn-group d-flex justify-content-center profile-buttons">
+                    <button class="btn btn-style btn-sm d-flex"
+                            [innerText]="profileBtn"
+                            type="submit">Save</button>
+                </div>
+            </form>
             </div>
 
-            <div class="btn-group-sm pull-right">
-                <button class="btn btn-style"
-                        *ngIf="!profileFormContainer"
-                        [innerText]="profileBtn"
-                        (click)="onChangeProfile()"> <fa-icon [icon]="faUser"></fa-icon>Add Profile</button>
-            </div>
+            <!--<div class="btn-group-sm pull-right">-->
+                <!--<button class="btn btn-style"-->
+                        <!--*ngIf="!profileFormContainer"-->
+                        <!--[innerText]="profileBtn"-->
+                        <!--(click)="onChangeProfile()"> <fa-icon [icon]="faUser"></fa-icon>Add Profile</button>-->
+            <!--</div>-->
 
             <!--<label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>-->
             <!--<input name="twitter" type="text" value="mikeross">-->

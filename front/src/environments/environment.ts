@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   host: 'http://localhost:3211',
-  ws: 'ws://localhost:3211'
+  ws: 'ws://localhost:3211/ws'
 };
 
 /*

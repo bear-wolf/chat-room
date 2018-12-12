@@ -26,7 +26,14 @@ import {StorageModule} from "../ui/storage/storage.module";
     StorageModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
-  providers: [HttpClientModule],
+  providers: [
+      HttpClientModule,
+      // StompService,
+      // {
+      //     provide: StompConfig,
+      //     useValue: stompConfig
+      // },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

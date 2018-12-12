@@ -13,7 +13,7 @@ export class User extends Common {
 
     public token: string;
 
-    constructor (data: User) {
+    constructor (data?: User) {
         super();
 
         if (data) {
@@ -30,7 +30,13 @@ export class User extends Common {
     }
 
     getPicture(){
-        return this.getFontIconUser(); //'http://emilcarlsson.se/assets/mikeross.png';
+        let r = this.getFontIconUser();
+
+        if (this.profile) {
+            r = '<img src="'+this.profile.picture+'" alt="">' || r;
+        }
+
+        return r;
     }
 
 
@@ -62,6 +68,13 @@ export class User extends Common {
 
     getId() {
         return this.id;
+    }
+
+    setProfile(data: Profile) {
+        this.profile_id = data.id;
+        this.profile = new Profile(data);
+
+        return this;
     }
 
     getInitials() {

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, ɵRenderDebugInfo} from '@angular/core';
+import {Component, OnInit, Optional, ViewEncapsulation, ɵRenderDebugInfo} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {Message, MessageInvite} from "../../../../../shared/models/message";
@@ -14,6 +14,7 @@ import {Reply} from "../../../../../shared/models/reply";
 import {MessageService} from "../../../../../shared/services/message.service";
 import {AuthModel} from "../../../../../shared/models/auth";
 import {WebSocketService} from "../../../../../../../ui/web-socket/websocket.service";
+import {StompService} from "@stomp/ng2-stompjs";
 
 @Component({
   selector: 'chat-message',
@@ -34,7 +35,7 @@ export class ChatMessageComponent implements OnInit {
         public authService: AuthService,
         private participantService: ParticipantService,
         public roomService: RoomService,
-        public wsService: WebSocketService,
+        public wsService: StompService,
         private messageService: MessageService){
         this.listOfMessage = new RoomMessage();
     }
@@ -53,13 +54,13 @@ export class ChatMessageComponent implements OnInit {
             (data)=>{}
         );
 
-        this.wsService.submitData.subscribe(
-            (data)=>{
-                debugger
-            },
-            (data)=>{
-                debugger
-            });
+        // this.wsService.submitData.subscribe(
+        //     (data)=>{
+        //         debugger
+        //     },
+        //     (data)=>{
+        //         debugger
+        //     });
     }
 
     clearState() {
@@ -67,14 +68,22 @@ export class ChatMessageComponent implements OnInit {
     }
 
     getMessage(room){
-        console.log('room:', room);
+        let stomp_subscription = this.wsService.subscribe(`/`);
 
-       this.messageSubscription =  this.messageService.getByRoomId(room.id).subscribe(
-           (data:Reply)=>{
-               for (let item of data.body) {
-                   this.listOfMessage.addMessage(new Message(item));
-               }
-        });
+        stomp_subscription.subscribe((data)=>{
+            debugger;
+            console.log(data);
+        }, (error)=>{
+            debugger;
+            console.log(error);
+        })
+
+       // this.messageSubscription =  this.messageService.getByRoomId(room.id).subscribe(
+       //     (data:Reply)=>{
+       //         for (let item of data.body) {
+       //             this.listOfMessage.addMessage(new Message(item));
+       //         }
+       //  });
     }
 
 

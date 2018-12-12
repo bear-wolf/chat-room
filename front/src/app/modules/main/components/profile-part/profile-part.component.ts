@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Reply} from "../../../shared/models/reply";
 import {ProfileService} from "../../../shared/services/profile.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 
 import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
@@ -16,29 +16,28 @@ import {debug} from "util";
   styleUrls: ['./profile-part.component.scss']
 })
 export class ProfilePartComponent implements OnInit {
+    expanded = false;
     message = null;
     profileFormContainer = false;
     profileBtn = 'add Profile';
 
     profileForm: FormGroup;
     submitted = false;
-    user: User = new User(null);
-    profilePicture:any;
 
-    // profile: Profile = new Profile();
+    user:User;
 
   constructor(
       private fb: FormBuilder,
       private profileService: ProfileService,
       public authService: AuthService) {
 
+      this.user = new User(this.authService.getUser());
+
       this.profileForm = this.fb.group({
           'id': [0],
-          'first_name': [''],
-          'last_name': [''],
-          'middle_name': [''],
-          'date_create': [''],
-          'date_update': [''],
+          'first_name': ['', Validators.required],
+          'last_name': ['', Validators.required],
+          'middle_name': ['', Validators.required],
       });
   }
 
@@ -46,38 +45,25 @@ export class ProfilePartComponent implements OnInit {
             this.setDisplayName();
       }
 
-    onCancel() {
-        this.profileFormContainer = !this.profileFormContainer;
-    }
-
     setDisplayName() {
-      let user: User  = this.authService.getUser();
-
-        if (user) {
-            this.user.import(user)
+        if (this.user) {
           if (this.user.profile_id) {
-              this.profileBtn = 'change Profile';
+              this.profileBtn = 'Update';
           }
         }
     }
 
-    public fileChangeEvent(fileInput: any){
-      debugger;
-        if (fileInput.target.files && fileInput.target.files[0]) {
-            var reader = new FileReader();
-
-
+    loadFile($event) {
+        if (!this.user.profile_id) {
+            this.user.profile = new Profile();
         }
-    }
 
-    loadFile($event, data) {
-      debugger;
         let files = $event.target.files;
         if (files) {
             for (let file of files) {
                 let reader = new FileReader();
                 reader.onload = (e: any) => {
-                    data = e.target.result;
+                    this.user.profile.picture = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -85,8 +71,8 @@ export class ProfilePartComponent implements OnInit {
     }
 
 
-    onChangeProfile(){
-        this.profileFormContainer = !this.profileFormContainer;
+    onSetProfile(){
+        this.expanded = !this.expanded; debugger;
 
         let user: User = this.authService.getUser();
 
@@ -95,24 +81,40 @@ export class ProfilePartComponent implements OnInit {
             this.profileForm.controls['first_name'].setValue(user.profile.first_name);
             this.profileForm.controls['last_name'].setValue(user.profile.last_name);
             this.profileForm.controls['middle_name'].setValue(user.profile.middle_name);
-            this.profileForm.controls['picture'].setValue(user.profile.picture);
-            this.profileForm.controls['date_create'].setValue(user.profile.date_create);
-            this.profileForm.controls['date_update'].setValue(user.profile.date_update);
+            //let bufferOriginal = new Buffer.from(user.profile.picture);
+            //this.profileForm.controls['picture'].setValue();
         }
+
+        return false;
+    }
+
+    isError(param) {
+      let r: boolean,
+          control = this.profileForm.controls[param];
+
+      r = this.submitted && control.errors && control.errors.required ? true : false;
+
+      return r;
     }
 
     saveProfileForm() {
         this.submitted = true;
         let credentials = this.profileForm.value;
+        console.log('profile save');
 
         if (this.profileForm.valid) {
             credentials.user_id = this.authService.getUser().id;
+            credentials.picture = this.user.profile.picture;
 
             this.profileService.save(credentials)
                 .subscribe(
                     (data: Reply)=>{
                         if (data.status) {
-                            this.message = data.message;
+                            this.expanded = !this.expanded;
+                            debugger;
+                            this.authService.getUser().setProfile(<Profile>data.body[0]);
+
+                            //this.message = data.message;
                             this.setDisplayName();
                         }
                     },

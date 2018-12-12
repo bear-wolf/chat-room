@@ -129,19 +129,19 @@ body {
 #frame #sidepanel #profile .wrap #status-options ul li#status-offline.active span.status-circle:before {
     border: 1px solid #95a5a6;
 }
-#frame #sidepanel #profile .wrap #expanded {
+.profile-container #expanded {
     padding: 100px 0 0 0;
     display: block;
     line-height: initial !important;
 }
-#frame #sidepanel #profile .wrap #expanded label {
+.profile-container #expanded label {
     float: left;
     clear: both;
     margin: 0 8px 5px 0;
     padding: 5px 0;
 }
-#frame #sidepanel #profile .wrap #expanded input {
-    border: none;
+.profile-container #expanded input {
+    border-width: 1px;
     margin-bottom: 6px;
     background: #32465a;
     border-radius: 3px;
@@ -149,7 +149,7 @@ body {
     padding: 7px;
     width: calc(100% - 43px);
 }
-#frame #sidepanel #profile .wrap #expanded input:focus {
+.profile-container #expanded input:focus {
     outline: none;
     background: #435f7a;
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Optional, ViewEncapsulation} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../../ui/authorization/services/auth.service";
@@ -17,7 +17,7 @@ export class LayoutComponent implements OnInit {
 
     constructor(
         public router: Router,
-        public webSocketService: WebSocketService,
+        // @Optional() public webSocketService: WebSocketService,
         public layoutService: LayoutService,
         public authService: AuthService) {
     }

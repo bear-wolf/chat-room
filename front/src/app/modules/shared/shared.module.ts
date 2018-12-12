@@ -15,13 +15,9 @@ import {StorageModule} from "../../../ui/storage/storage.module";
 import {RemindPasswordDialogComponent} from "./components/modal-dialogs/components/remind-password/remind-password-dialog.component";
 import { MomentModule } from 'ngx-moment';
 import {RoomDialogComponent} from "./components/modal-dialogs/components/room/room-dialog.component";
-// import {WebSocketModule} from "../../../ui/web-web-socket/web-web-socket.module";
-import {environment} from "../../../environments/environment";
-import {StompConfig, StompService} from "@stomp/ng2-stompjs";
-// import {WebSocketModule} from "../../../ui/web-socket/web-web-socket.module";
+
 import { NgSelectModule } from '@ng-select/ng-select';
 import {ShowHideInput} from "./directives/show-hide-input";
-import {WebSocketModule} from "../../../ui/web-socket/web-socket.module";
 
 @NgModule({
     imports: [

@@ -21,16 +21,16 @@ export class WebSocketModule {
         return {
             ngModule: WebSocketModule,
             providers: [
-                WebSocketService,
-                {
-                    provide: config,
-                    useValue: wsConfig
-                },
-                StompService,
-                {
-                    provide: StompConfig,
-                    useValue: wsConfig
-                }
+                // WebSocketService,
+                // {
+                //     provide: config,
+                //     useValue: wsConfig
+                // },
+                // StompService,
+                // {
+                //     provide: StompConfig,
+                //     useValue: wsConfig
+                // }
             ]
         };
     }
