@@ -53,8 +53,7 @@ var _public = {
             bodyRequest['date_update'] = global.common.date.getNow();
 
             request = this.dbProfile.update(bodyRequest, {
-                where: {id: Number(id)},
-                returning: false
+                where: {id: Number(id)}
             });
         } else {
             bodyRequest['date_create'] = global.common.date.getNow();
@@ -62,7 +61,7 @@ var _public = {
         }
 
         request
-            .then((data, arg)=>{
+            .then((data)=>{
                 if (!id) {
                     //new profile
                     _private.addProfileInUser(data.dataValues.id, bodyRequest.user_id, function (_data) {
@@ -75,10 +74,12 @@ var _public = {
                         _this.callback_successfully(reply);
                     });
                 } else {
+                    bodyRequest['id'] = Number(id);
+
                     reply
                         .setStatus(true)
                         .setMessage('You save profile is successfully')
-                        .setData(data.dataValues);
+                        .setData([bodyRequest]);
 
                     _this.callback_successfully(reply);
                 }

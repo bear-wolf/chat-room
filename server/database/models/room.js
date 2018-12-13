@@ -1,8 +1,40 @@
 'use strict';
 
 var Common;
+var ValidateStatus = {
+    SAVE: 'SAVE',
+    GET: 'GET'
+};
+
 var _public = {
     dbRoom: null,
+
+    validateStatus: ValidateStatus,
+
+    validate: function (json, key) {
+        var result = false;
+
+        switch (key) {
+            case ValidateStatus.SAVE: {
+                if (json.room_id && json.user_id && json.role_id)  {
+                    result = true;
+                }
+                break;
+            }
+            case ValidateStatus.GET: {
+                if (json.user_id) {
+                    result = true;
+                }
+                break;
+            }
+
+            default: {
+                break
+            }
+        }
+
+        return result;
+    },
 
     constructor: function () {
         this.dbRoom = global.dbModel.Room;
@@ -20,6 +52,8 @@ var _public = {
         var request,
             reply = global.models.reply.createInstance(),
             _this = this;
+
+
 
         if (id) {
             bodyRequest['date_update'] = global.common.date.getNow();
