@@ -12,6 +12,14 @@ var RouteRoom = {
                 .setResponce(res)
                 .actionGet();
         });
+        app.get('/room/invite-users', function (req, res) {
+            roomController
+                .createInstance()
+                .setRequest(req)
+                .setResponce(res)
+                .actionGetInviteUsers();
+        });
+
         // verify
         app.get('/room/:id', function (req, res) {
             roomController
@@ -53,14 +61,6 @@ var RouteRoom = {
                 .setRequest(req)
                 .setResponce(res)
                 .actionRemove();
-        });
-
-        app.get('/room/invite-users', function (req, res) {
-            roomController
-                .createInstance()
-                .setRequest(req)
-                .setResponce(res)
-                .actionGetInviteUsers();
         });
     }
 }
