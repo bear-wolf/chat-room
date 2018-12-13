@@ -7,6 +7,7 @@ import {RoomDialog} from "../../../../models/room-dialog";
 import {Reply} from "../../../../models/reply";
 import {ModalService} from "../../../../../../../ui/modal/services/modal.service";
 import {ModelDialog} from "../../../../models/model-dialog";
+import {User} from "../../../../models/user";
 
 @Component({
   selector: 'room-dialog',
@@ -44,7 +45,9 @@ export class RoomDialogComponent implements OnInit {
         this.roomService.getInviteUsers().subscribe(
             (data)=>{
                 if (data.body) {
-                    this.inviteUsers = data.body;
+                    let user:User = this.authService.getUser();
+
+                    this.inviteUsers = data.body.filter((x)=>{ return x.id != user.id ? x : null });
                 }
             },
             (data)=>{
