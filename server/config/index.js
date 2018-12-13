@@ -1,7 +1,7 @@
 var Config = {
     port: "3200",
     switchRedis: false, // false - disable || true - enable
-
+    websocket: true,
     database: {
         host: "localhost",
         // user: "andrew",
