@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ModelDialog} from "../../../shared/models/model-dialog";
+import {ModalService} from "../../../../../ui/modal/services/modal.service";
 
 @Component({
   selector: 'side-part',
@@ -7,11 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidePartComponent implements OnInit {
 
-  constructor() {
+  constructor(private modalService: ModalService) {
 
   }
 
   ngOnInit() {
   }
+
+    onAddChat() {
+        this.modalService.open(ModelDialog.TYPE_CREATE_ROOM_ST);
+    }
 
 }

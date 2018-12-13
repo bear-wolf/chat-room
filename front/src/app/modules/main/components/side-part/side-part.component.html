@@ -1,14 +1,11 @@
 <div id="sidepanel" class="side-panel">
     <profile-part></profile-part>
+    <!--<search-panel></search-panel>-->
     <contact-panel></contact-panel>
-    <!--<div id="search">-->
-        <!--<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>-->
-        <!--<input type="text" placeholder="Search contacts...">-->
-    <!--</div>-->
-
 
     <div id="bottom-bar" class="group-btn ">
-        <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
-        <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+        <button (click)="onAddChat()"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Add chat</span></button>
+        <!--<button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>-->
+        <!--<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>-->
     </div>
 </div>

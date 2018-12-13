@@ -31,7 +31,6 @@ export class AuthComponent implements OnInit{
     }
 
     ngOnInit() {
-        // this.authService.afterCheckToken().subscribe();
         this.isAuthSubscription = this.authService.isAuthenticate()
             .subscribe((data)=>{
                 if (data.status) {

@@ -39,11 +39,6 @@ export class ContactPanelComponent implements OnInit, OnDestroy{
                 private modalService: ModalService) {
     }
 
-
-    onAddChat() {
-        this.modalService.open(ModelDialog.TYPE_CREATE_ROOM_ST);
-    }
-
     onOpenContact(room: Room) {
         this.roomService.setRoom(room);
 

@@ -29,6 +29,7 @@ export class ProfilePartComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private profileService: ProfileService,
+      private storageService: StorageService,
       public authService: AuthService) {
 
       this.user = new User(this.authService.getUser());
@@ -110,11 +111,12 @@ export class ProfilePartComponent implements OnInit {
                 .subscribe(
                     (data: Reply)=>{
                         if (data.status) {
-                            this.expanded = !this.expanded;
-                            debugger;
-                            this.authService.getUser().setProfile(<Profile>data.body[0]);
+                            let user: User = this.authService.getUser();
 
-                            //this.message = data.message;
+                            this.expanded = !this.expanded;
+                            user.setProfile(<Profile>data.body[0]);
+
+                            this.authService.saveDataUser(user);
                             this.setDisplayName();
                         }
                     },

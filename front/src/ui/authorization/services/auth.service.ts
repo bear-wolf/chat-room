@@ -13,12 +13,10 @@ import {User} from "../../../app/modules/shared/models/user";
 export class AuthService {
     headers: HttpHeaders = new HttpHeaders();
 
-    private auth = new BehaviorSubject<AuthModel>(new AuthModel());
-    private userModel:User;
+    private userModel: User;
 
-    public dataAuthentication = this.auth.asObservable();
     public afterCheckToken = new Subject<any>();
-
+    public userData = new Subject<any>();
 
     constructor(
         private httpClient: HttpClient,
@@ -61,6 +59,11 @@ export class AuthService {
 
     remindPassword(body: {}): Observable<any> {
         return this.httpClient.post('/remind-password/', body);
+    }
+
+    saveDataUser(user:User) {
+        this.storageService.setAuth(JSON.stringify(user));
+        this.userData.next(user);
     }
 
     getUser(): User {

@@ -13,6 +13,7 @@ import {ChatMessageComponent} from "./components/chat-panel/components/chat-mess
 import {ChatHeadComponent} from "./components/chat-panel/components/chat-head/chat-head.component";
 import {environment} from "../../../environments/environment";
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
+import {SearchComponent} from "./components/search/search.component";
 
 const wsconfig: StompConfig = {
     url: environment.ws,
@@ -37,7 +38,8 @@ const wsconfig: StompConfig = {
 
       ChatDashboardComponent,
       ChatHeadComponent,
-      ChatMessageComponent
+      ChatMessageComponent,
+      SearchComponent
   ],
   imports: [
       CommonModule,

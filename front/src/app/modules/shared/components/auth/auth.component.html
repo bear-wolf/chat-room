@@ -28,9 +28,9 @@
          data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">
           <span class="avatar pull-left"
                 style="background:url('http://emilcarlsson.se/assets/mikeross.png') "
-                [innerText]="userModel.getInitials()"></span>
+                [innerText]="authService.getUser().getInitials()"></span>
         <span class="text"
-              [innerText]="userModel.getDisplayName()"></span>
+              [innerText]="authService.getUser().getDisplayName()"></span>
       </a>
       <div class="dropdown-menu">
         <!--<a class="dropdown-item" href="#">Action</a>-->

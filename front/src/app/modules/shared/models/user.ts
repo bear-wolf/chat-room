@@ -86,6 +86,9 @@ export class User extends Common {
 
         if (!this.profile_id) {
             name = this.email.substring(0, 1)+'@';
+        } else {
+            name = this.profile.first_name.substring(0, 1) + this.profile.last_name.substring(0, 1);
+            name = name.toUpperCase();
         }
 
         return name;
